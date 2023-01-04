@@ -1,0 +1,287 @@
+\documentclass[twoside,11pt]{article}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{sectsty}
+\usepackage{mathrsfs} % mathscr
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{multicol}
+\usepackage{listings}
+% \usepackage{amsart}
+\usepackage{fontspec}
+\usepackage{soul}
+
+
+% allow H option of figure
+\usepackage{float}
+
+% math font (libertine)
+\usepackage{libertinus-otf}
+
+% braket
+\usepackage{braket}
+
+% Chinese support
+\usepackage{xeCJK}
+
+% physics
+% \usepackage{physics}
+
+% define latin modern font environment
+\newcommand{\lms}{\fontfamily{lmss}\selectfont} % Latin Modern Roman
+% \newcommand{\lmss}{\fontfamily{lmss}\selectfont} % Latin Modern Sans
+% \newcommand{\lmss}{\fontfamily{lmtt}\selectfont} % Latin Modern Mono
+
+% % change mathcal shape
+% \usepackage[mathcal]{eucal}
+
+
+% define math operators
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\XX}{\mathbb{Y}}
+\newcommand{\CL}{\mathcal{L}}
+% \renewcommand{\d}{\mathrm{d}}
+\renewcommand*\d{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\erf}{erf}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+
+% section font style
+\sectionfont{\lms\Large}
+\subsectionfont{\lms\normalsize}
+\subsubsectionfont{\bf}
+
+% line spreading and break
+\hyphenpenalty=5000
+\tolerance=20
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+\allowdisplaybreaks
+\linespread{0.9}
+
+% enumerate settings
+% no break before enumerate
+\setlist[enumerate]{itemsep=2pt,topsep=2pt}
+\setlist[itemize]{itemsep=2pt,topsep=2pt}
+
+% theorem
+% latex theorem
+% definition style
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{axiom}{Axiom}[section]
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{question}{Question}[section]
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem*{exercise*}{Exercise}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{problem}{Problem}
+% remark style
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\newtheorem*{claim}{Claim}
+
+
+% paragraph indent
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+
+\newcommand\Code{PHY3110 SP23}
+\newcommand\Ass{Notes}
+\newcommand\name{Haoran Sun}
+\newcommand\mail{haoransun@link.cuhk.edu.cn}
+
+\title{{\lms \Code \ \Ass}}
+\author{\lms \name \ (\href{mailto:\mail}{\mail})}
+\date{\lms \today}
+
+\makeatletter
+% \let\Title\@title
+\let\theauthor\@author
+\let\thedate\@date
+
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    \lhead{\lms\Ass}
+    \rhead{\lms\name}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancypagestyle{title}{%
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    % \lhead{\Title}
+    % \rhead{\theauthor}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancyfootoffset[L]{0.3cm}
+
+% re-define title format
+\makeatletter
+\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
+\begin{flushleft}
+  \textbf{\Large\@title}
+
+  \@author
+\end{flushleft}\egroup
+}
+\makeatother
+
+\pagestyle{plain}
+
+% lstlisting settings
+\lstset{
+    basicstyle=\linespread{0.7}\footnotesize,
+    breaklines=true,
+    basewidth=0.5em
+}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{title}
+% \begin{multicols*}{2}
+
+% \begin{remark}
+%     $V_\epsilon(x)$ is used to denote a $\epsilon$-neighborhood
+%     \begin{align*}
+%         V_\epsilon(x) = B_\epsilon(x)\setminus\{x\}
+%     \end{align*}
+% \end{remark}
+
+% \tableofcontents
+
+\setcounter{section}{-1}
+\section{Introduction}
+\textbf{Grading:} 30\% homework, 30\% midterm, 40\% final.
+
+\textbf{Textbooks:}
+\begin{itemize}
+    \item H. Goldstein, C. Poole, J. Safko, Classical Mechanics,
+    3rd Edition, Pearson.
+    \item J.R. Taylor, Classical Mechanics, University Science Books.
+    \item T.W.B. Kibble, F.H. Berkshire, Classical Mechanics, 5th Edition,
+    Imperial College Press.
+    \item 梁昆淼，力学（下册）理论力学，4th Edition，高等教育出版社.
+\end{itemize}
+
+Classical mechanics describe the motion of macroscopic objects, which are
+not extremely massive and not extremely fast.
+
+\section{Newtonian Mechanics}
+Vectorial quantities of motion: position $\mathbf{r}$, 
+velocity $\mathbf{v}$, force $\mathbf{F}$,
+momentum $\mathbf{p}=m\mathbf{v}$,
+angular momentum $\mathbf{L}=\mathbf{r}\times\mathbf{p}$.
+Equations of motion are derived from those vector quantities.
+
+Analytical mechanics uses scalar quantities of motion
+\begin{itemize}
+    \item Kinetic energy $T = \frac{1}{2}m\mathbf{v}^2$
+    \item Potential energy $V = V(\mathbf{r})$
+\end{itemize}
+Equations of motion are derived from those scalar quantities.
+
+Newton's 2\textsuperscript{nd} law
+\begin{align}
+    \mathbf{F} = \frac{\d \mathbf{p}}{\d t} = m\mathbf{a}
+\end{align}
+valid in an inertial frame.
+Angular momentum $\mathbf{L}$ and torque $\mathbf{N}$ are also related
+\begin{align}
+    \frac{\d\mathbf{L}}{\d t} &= 
+    \frac{\d}{\d t}(\mathbf{r}\times\mathbf{p})
+    = \mathbf{r}\times\mathbf{F}
+    = \mathbf{N}
+\end{align}
+
+Work done by external forces
+\begin{align}
+    W_{12} &= \int_1^2\mathbf{F}\d\mathbf{s}
+    = \int_1^2 m\frac{\d\mathbf{v}}{\d t}\d\mathbf{s}
+    = \int_1^2 m\mathbf{v}\d\mathbf{v}
+    = \left.\frac{1}{2}m\mathbf{v}^2\right|_1^2
+\end{align}
+
+Define a scalar function $V(\mathbf{r})$,
+then $F=-\nabla V(\mathbf{r})$ is a conservative force.
+\begin{align}
+    \oint \mathbf{F}\d\mathbf{s} = 0
+\end{align}
+
+Center of mass of the system
+\begin{align}
+    \mathbf{R} &= 
+    \frac{\sum_i m_i\mathbf{r}_i}{\sum_i m_i}
+    =
+    \frac{\sum_i m_i\mathbf{r}_i}{M}
+\end{align}
+Total momentum
+\begin{align}
+    \mathbf{P} 
+    &= 
+    \sum_i m_i\mathbf{p}_i
+    = M\dot{\mathbf{R}}
+\end{align}
+Hence $\mathbf{P}$ is conserved if external force $\mathbf{F}^{(e)}$ is
+zero.
+
+Total angular momentum
+\begin{align*}
+    \frac{\d \mathbf{L}}{\d t} &= 
+    \frac{\d }{\d t} \sum_i\mathbf{r}_i\times\mathbf{p}_i
+    = \sum_i \mathbf{r}_i\times \left(
+        \mathbf{F}_i^{(e)} + \sum_j \mathbf{F}_{ij}
+    \right)
+    = \sum_i\mathbf{r}_i\times\mathbf{F}_i^{(e)}
+    + \sum_{ij}\mathbf{r}_i\times\mathbf{F}_{ij}
+\end{align*}
+Since $\mathbb{r}_{ij}$ parallel to $\mathbf{F}_ij$, then
+\begin{align}
+    \sum_{ij}\mathbf{r}_i\mathbf{F}_{ij} = 
+    \frac{1}{2}\sum_{ij}\mathbf{r}_{ij}\times\mathbf{F}_{ji} = 0
+\end{align}
+Therefore
+\begin{align}
+    \frac{\d\mathbf{L}}{\d t} &= \mathbf{N}^{(e)}
+\end{align}
+
+
+
+% \end{multicols*}
+\end{document}
+
