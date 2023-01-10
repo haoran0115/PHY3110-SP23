@@ -1,0 +1,67 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      1730,         59]
+NotebookOptionsPosition[      1253,         42]
+NotebookOutlinePosition[      1653,         58]
+CellTagsIndexPosition[      1610,         55]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"Integrate", "[", 
+  RowBox[{
+   RowBox[{"1", "/", 
+    RowBox[{"Sqrt", "[", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"x", "-", "0"}], ")"}], 
+      RowBox[{"(", 
+       RowBox[{"2", "-", "x"}], ")"}]}], "]"}]}], ",", 
+   RowBox[{"{", 
+    RowBox[{"x", ",", "0", ",", "2"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.8820936086673217`*^9, 3.882093704794774*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"756d1144-5e76-4ff7-88f8-6e5b68c6f1a7"],
+
+Cell[BoxData["\[Pi]"], "Output",
+ CellChangeTimes->{{3.882093653715871*^9, 3.882093706783558*^9}},
+ CellLabel->"Out[4]=",ExpressionUUID->"5e206c4a-bf07-4f66-a4b7-061db3e04e72"]
+}, Open  ]]
+},
+WindowSize->{760, 833},
+WindowMargins->{{572, Automatic}, {64, Automatic}},
+FrontEndVersion->"12.1 for Microsoft Windows (64-bit) (March 14, 2020)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"b7572735-1248-4c52-96d6-3105c6d412a5"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 478, 13, 35, "Input",ExpressionUUID->"756d1144-5e76-4ff7-88f8-6e5b68c6f1a7"],
+Cell[1061, 37, 176, 2, 84, "Output",ExpressionUUID->"5e206c4a-bf07-4f66-a4b7-061db3e04e72"]
+}, Open  ]]
+}
+]
+*)
+

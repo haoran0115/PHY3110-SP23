@@ -215,7 +215,7 @@ Analytical mechanics uses scalar quantities of motion
     \item Potential energy $V = V(\mathbf{r})$
 \end{itemize}
 Equations of motion are derived from those scalar quantities.
-
+\subsection{Newton's Laws}
 Newton's 2\textsuperscript{nd} law
 \begin{align}
     \mathbf{F} = \frac{\d \mathbf{p}}{\d t} = m\mathbf{a}
@@ -238,7 +238,7 @@ Work done by external forces
 \end{align}
 
 Define a scalar function $V(\mathbf{r})$,
-then $F=-\nabla V(\mathbf{r})$ is a conservative force.
+then $\mathbf{F}=-\nabla V(\mathbf{r})$ is a conservative force.
 \begin{align}
     \oint \mathbf{F}\d\mathbf{s} = 0
 \end{align}
@@ -270,7 +270,7 @@ Total angular momentum
     = \sum_i\mathbf{r}_i\times\mathbf{F}_i^{(e)}
     + \sum_{ij}\mathbf{r}_i\times\mathbf{F}_{ij}
 \end{align*}
-Since $\mathbb{r}_{ij}$ parallel to $\mathbf{F}_ij$, then
+Since $\mathbf{r}_{ij}$ parallel to $\mathbf{F}_ij$, then
 \begin{align}
     \sum_{ij}\mathbf{r}_i\mathbf{F}_{ij} = 
     \frac{1}{2}\sum_{ij}\mathbf{r}_{ij}\times\mathbf{F}_{ji} = 0
@@ -278,6 +278,51 @@ Since $\mathbb{r}_{ij}$ parallel to $\mathbf{F}_ij$, then
 Therefore
 \begin{align}
     \frac{\d\mathbf{L}}{\d t} &= \mathbf{N}^{(e)}
+\end{align}
+
+Decomposition of the angular momentum
+\begin{align}
+    \mathbf{L} 
+    &= \sum_i\mathbf{r}_i\times\mathbf{p}_i
+    = \sum_i(\mathbf{R} + \mathbf{r}_i)\times m_i(\mathbf{V} + \mathbf{v}_i')
+    = \sum_i \mathbf{R}\times m_i\mathbf{V}
+    + \sum_i\mathbf{r}_i'\times m_i\mathbf{v}_i'
+\end{align}
+
+\subsection{Constraints}
+Holonomic constraint
+\begin{align}
+    f(\mathbf{r}_1, \mathbf{r}_2, \dots, \mathbf{r}_N, t) &= 0
+\end{align}
+Example: rigid body
+\begin{align}
+    (\mathbf{r}_i-\mathbf{r}_j)^2 - c_{ij}^2 &= 0
+\end{align}
+Example: non-sliding cylinder
+\begin{align*}
+    \dot{x} - R\dot{\theta} = 0
+    \Rightarrow x - R\theta = \text{const}
+\end{align*}
+A constraint of the form
+\begin{align}
+    \sum_i g_i(\mathbf{x}_1,\mathbf{x}_2,\dots,\mathbf{x}_n)\d\mathbf{x}_i = 0
+    \Rightarrow
+    \d G(\mathbf{x}_1,\dots) = 0
+    \Rightarrow
+    G(\mathbf{x}_1,\dots) = \text{const}
+\end{align}
+
+Non-holonomic constraint: cannot be written in the form of holonomic
+constraint.
+
+\subsection{Generalized coordinates}
+Suppose we have a $N$-particle system, 
+we will have $3N$ DOFs.
+With $k$ constraints, we will have $3N-k$ DOFs.
+Define $q_1,\dots,q_{3N-k}$ generalized coordinates,
+we have
+\begin{align}
+    \mathbf{r}_i &= \mathbf{r}_i(q_1,\dots, q_{3N-1}, t)
 \end{align}
 
 
