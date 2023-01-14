@@ -1,0 +1,344 @@
+\documentclass[twoside,11pt]{article}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{sectsty}
+\usepackage{mathrsfs} % mathscr
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{multicol}
+\usepackage{listings}
+% \usepackage{amsart}
+\usepackage{fontspec}
+\usepackage{soul}
+
+
+% allow H option of figure
+\usepackage{float}
+
+% math font (libertine)
+\usepackage{libertinus-otf}
+
+% braket
+\usepackage{braket}
+
+% physics
+% \usepackage{physics}
+
+% define latin modern font environment
+\newcommand{\lms}{\fontfamily{lmss}\selectfont} % Latin Modern Roman
+% \newcommand{\lmss}{\fontfamily{lmss}\selectfont} % Latin Modern Sans
+% \newcommand{\lmss}{\fontfamily{lmtt}\selectfont} % Latin Modern Mono
+
+% % change mathcal shape
+% \usepackage[mathcal]{eucal}
+
+
+% define math operators
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\XX}{\mathbb{Y}}
+\newcommand{\CL}{\mathcal{L}}
+% \renewcommand{\d}{\mathrm{d}}
+\renewcommand*\d{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\erf}{erf}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+
+% section font style
+\sectionfont{\sffamily\Large}
+\subsectionfont{\sffamily\normalsize}
+\subsubsectionfont{\bf}
+
+% line spreading and break
+\hyphenpenalty=5000
+\tolerance=20
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+\allowdisplaybreaks
+\linespread{0.9}
+
+% enumerate settings
+% no break before enumerate
+\setlist[enumerate]{itemsep=2pt,topsep=2pt}
+
+% theorem
+% latex theorem
+% definition style
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{axiom}{Axiom}[section]
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{question}{Question}[section]
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem*{exercise*}{Exercise}
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{problem}{Problem}
+% remark style
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\newtheorem*{claim}{Claim}
+
+
+% paragraph indent
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+
+\newcommand\Code{PHY3110 FA22}
+\newcommand\Ass{HW01}
+\newcommand\name{Haoran Sun}
+\newcommand\mail{haoransun@link.cuhk.edu.cn}
+
+\title{{\lms \Code \ \Ass}}
+\author{\lms \name \ (\href{mailto:\mail}{\mail})}
+\date{\sffamily \today}
+
+\makeatletter
+% \let\Title\@title
+\let\theauthor\@author
+\let\thedate\@date
+
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    \lhead{\lms \Ass}
+    \rhead{\lms \name}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancypagestyle{title}{%
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    % \lhead{\Title}
+    % \rhead{\theauthor}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancyfootoffset[L]{0.3cm}
+
+% re-define title format
+\makeatletter
+\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
+\begin{flushleft}
+  \textbf{\Large\@title}
+
+  \@author
+\end{flushleft}\egroup
+}
+\makeatother
+
+\pagestyle{plain}
+
+% lstlisting settings
+\lstset{
+    basicstyle=\linespread{0.7}\footnotesize,
+    breaklines=true,
+    basewidth=0.5em
+}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{title}
+% \begin{multicols*}{2}
+
+% \begin{remark}
+%     $V_\epsilon(x)$ is used to denote a $\epsilon$-neighborhood
+%     \begin{align*}
+%         V_\epsilon(x) = B_\epsilon(x)\setminus\{x\}
+%     \end{align*}
+% \end{remark}
+
+\begin{problem}
+Since 
+\begin{align*}
+    [a\times(b\times c)]_i &= 
+    \epsilon_{ijk}a_j (b\times c)_k
+    = \epsilon_{ijk}\epsilon_{klm} a_jb_lc_m
+    = (\delta_{il}\delta_{jm} - \delta_{im}\delta_{jl})
+    a_jb_lc_m
+    = \delta_{il}\delta_{jm}a_jb_lc_m
+    - \delta_{im}\delta_{jl}a_jb_lc_m\\
+    &= b_i(a\cdot c) - c_i(a\cdot b)
+\end{align*}
+Hence we have $a\times (b\times c) = (a\cdot c)b - (a\cdot b)c$.
+
+Suppose $b=\nabla$, then we should consider the commutation relationship
+of $b$ and $c$, i.e., $[b,c]=bc-cb$ might be nonzero.
+At that time, the formula might not hold.
+
+\end{problem}
+
+\begin{problem}
+Let 
+\begin{align*}
+    \begin{bmatrix}
+        x\\y\\z 
+    \end{bmatrix}
+    &= 
+    \begin{bmatrix}
+        r \sin\theta\cos\phi \\
+        r \sin\theta\sin\phi \\
+        r \cos\theta 
+    \end{bmatrix}
+\end{align*}
+and define the following three unit vectors
+\begin{align*}
+    \hat{r} &= \begin{bmatrix}
+        \sin\theta\cos\phi\\
+        \sin\theta\sin\phi\\
+        \cos\theta
+    \end{bmatrix},\quad
+    \hat{\phi} = 
+    \begin{bmatrix}
+        \cos\phi\\
+        \sin\phi\\
+        0
+    \end{bmatrix},\quad
+    \hat{\theta} = 
+    \begin{bmatrix}
+        \cos\theta\cos\phi\\
+        \cos\theta\sin\phi\\
+        -\sin\theta
+    \end{bmatrix}
+\end{align*}
+easy to show that $\hat{r}$, $\hat{\phi}$ and $\hat{\theta}$ forms
+an orthonormal basis in $\RR^3$.
+Then under spherical coordinates we have
+\begin{align*}
+    \d\mathbf{r} &= 
+    \d r\cdot\hat{r} + r\d\theta\cdot\hat{\theta}
+    + r\sin\theta\d\phi\cdot\hat{\phi}
+\end{align*}
+square the equation, we get
+\begin{align*}
+    \d\mathbf{r}^2 &= 
+    \d r^2 + r^2\d\theta^2 + r^2\sin^2\theta\d\phi^2
+\end{align*}
+
+\end{problem}
+
+\begin{problem}
+Since
+\begin{align*}
+    \frac{\d}{\d t}\frac{\partial T}{\partial\dot{q}_i} &= 
+    \sum_j
+    \frac{\partial^2 T}{\partial\dot{q}_i q_j}\dot{q}_j +
+    \frac{\partial^2 T}{\partial\dot{q}_i \dot{q}_j}\ddot{q}_j
+    + \frac{\partial^2 T}{\partial\dot{q}_i\partial t}\\
+    \dot{T} &= \sum_i\frac{\partial T}{\partial q_i}\dot{q}_i
+    + \frac{\partial T}{\partial\dot{q}_i}\ddot{q}_i
+    + \frac{\partial T}{\partial t}\\
+    \frac{\partial\dot{T}}{\partial\dot{q}_i} &=
+    \sum_j\frac{\partial^2 T}{\partial\dot{q}_i\partial\dot{q}_j}\ddot{q}_j
+    + \frac{\partial^2 T}{\partial\dot{q}_i q_j}\dot{q}_j
+    + \frac{\partial^2 T}{\partial\dot{q}_i\partial t}
+\end{align*}
+Then
+\begin{align*}
+    \frac{\d}{\d t}\frac{\partial T}{\partial \dot{q}_i}
+    + \frac{\partial T}{\partial q_i}
+    - \frac{\partial\dot{T}}{\partial\dot{q}_i} 
+    = 0
+\end{align*}
+Add this equation to the lagrange equation, then we have
+\begin{align*}
+    \frac{\partial\dot{T}}{\partial\dot{q}_i}
+    - 2\frac{\partial T}{\partial q_i} &= Q_i
+\end{align*}
+
+\end{problem}
+
+
+\begin{problem}\
+\begin{enumerate}[label=(\alph*)]
+\item The condition should be
+\begin{align*}
+    \frac{\partial f}{\partial x_i} &= 
+    Mg_i
+\end{align*}
+
+\item Define function $f(x, y, z) = x^2+y^2+z^2+xy+yz+xz$, then we have
+\begin{align*}
+    \d f &= 
+    (2x+y+z)\d x + (x+2y+z)\d y + (x+y+2z)\d z
+\end{align*}
+Hence the following constraint is holonomic.
+\begin{align*}
+    (2x+y+z)\d x + (x+2y+z)\d y + (x+y+2z)\d z = 0
+\end{align*}
+
+The second constraint is not holonomic, since it cannot be written 
+into full differential form.
+
+\end{enumerate}
+\end{problem}
+
+
+\begin{problem}
+Use the generalized coordinate $\theta$ to describe the system,
+hence
+\begin{align*}
+    T &= 
+    \frac{1}{2}mv^2 = \frac{1}{2}ml^2\cos^2\theta\dot{\theta}^2,\quad
+    V = \frac{1}{2}kx^2 
+    = \frac{1}{2}kl^2\left(\frac{1}{\cos\theta}-1\right)^2,\quad
+    L = T-V
+\end{align*}
+Therefore
+\begin{align*}
+    \frac{\partial L}{\partial\theta} &= 
+    -ml^2\sin\theta\cos\theta\dot{\theta}^2 - kl^2\left(\frac{1}{\cos\theta}-1\right)
+    \frac{\sin\theta}{\cos^2\theta}\\
+    \frac{\partial L}{\partial\dot{\theta}} &= 
+    ml^2\cos^2\theta\dot{\theta}\\
+    \frac{\d}{\d t}\frac{\partial L}{\partial\dot{\theta}} &= 
+    ml^2\cos^2\theta\ddot{\theta} - 2ml^2\sin\theta\cos\theta\dot{\theta}^2
+\end{align*}
+Hence the equation of motion becomes
+\begin{align*}
+    \frac{\d}{\d t}\frac{\partial L}{\partial\dot{\theta}}
+    - \frac{\partial L}{\partial\theta}
+    &= 0\\
+    \Rightarrow
+    \cos^2\theta\ddot{\theta} - \sin\theta\cos\theta\dot{\theta}^2
+    + \omega^2\left(\frac{1}{\cos\theta}-1\right)\frac{\sin\theta}{\cos^2\theta}
+    &= 0
+\end{align*}
+
+\end{problem}
+
+
+% \end{multicols*}
+\end{document}
+
