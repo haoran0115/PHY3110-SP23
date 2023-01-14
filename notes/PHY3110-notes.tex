@@ -325,6 +325,94 @@ we have
     \mathbf{r}_i &= \mathbf{r}_i(q_1,\dots, q_{3N-1}, t)
 \end{align}
 
+\section{Lagrange Formalism}
+\subsection{D'Alembert's Principle}
+Hint from the rigid body: internal forces of constraints do not work.
+
+Virtual displacement: $\delta\mathbf{r}_i$
+is consistent with the constraints imposed on the system at
+a given time
+\begin{align}
+    \mathbf{r}_i \rightarrow 
+    \mathbf{r}_i + \delta\mathbf{r}_i
+\end{align}
+Consider a system in equilibrium
+\begin{align}
+    \mathbf{F}_i = 0
+    \Rightarrow
+    \sum_i\mathbf{F}_i\cdot\delta\mathbf{r}_i = 0
+\end{align}
+Separate $\mathbf{F}_i = \mathbf{F}_i^(a) + \mathbf{f}_i$
+where $\mathbf{f}_i$ is the constraint force.
+Hence
+\begin{align}
+    \sum_i(\mathbf{F}_i^{(a)} + \mathbf{f}_i)
+    \cdot\delta\mathbf{r}_i = 0
+    \Rightarrow
+    \sum_i\mathbf{F}_i^{(a)}\cdot\delta\mathbf{r}_i = 0
+\end{align}
+For a system moving under external forces
+\begin{align}
+    \mathbf{F}_i - \dot{\mathbf{p}}_i = 0
+    \Rightarrow
+    \sum_i(\mathbf{F}_i - \dot{\mathbf{p}}_i)\delta\mathbf{r}_i = 0
+    \Rightarrow
+    \sum_i(\mathbf{F}_i^{(a)} - \dot{\mathbf{p}}_i)\delta\mathbf{r}_i = 0
+\end{align}
+For holonomic constraints
+\begin{align}
+    \mathbf{r}_i = \mathbf{r}_i(q_1,\dots,q_n,t),\quad
+    \mathbf{v}_i = \frac{\d\mathbf{r}_i}{\d t}
+    = \frac{\partial \mathbf{r}_i}{\partial t}
+    + \sum_j\frac{\partial\mathbf{r}_i}{\partial q_j}\dot{q}_j,\quad
+    \delta\mathbf{r}_i = \sum_j\frac{\partial\mathbf{r}_i}{\partial q_j}
+    \delta q_j
+\end{align}
+Generalized force $Q_j$
+\begin{align}
+    \sum_i\mathbf{F}_i\delta\mathbf{r}_i
+    &= \sum_{ij}\mathbf{F}_i\frac{\partial\mathbf{r}_i}{\partial q_j}\delta q_j
+    = \sum_j Q_j\delta q_j
+\end{align}
+Then
+\begin{align}
+    \sum_i\dot{\mathbf{p}}_i\cdot\delta\mathbf{r}_i
+    &= \sum_{ij}m_i\ddot{\mathbf{r}}_i
+    \cdot\frac{\partial \mathbf{r}_i}{\partial q_j}\delta q_j
+    = 
+    \sum_{ij}\left[
+        \frac{\d}{\d t}
+        \left(m_i\dot{\mathbf{r}}_i\cdot\frac{\partial\mathbf{r}_i}{\partial q_j}\right)
+        - m_i\dot{\mathbf{r}}_i\frac{\d}{\d t}\frac{\partial\mathbf{r}_i}{\partial q_j}
+    \right]\delta q_j\\
+    &= 
+    \sum_i\left[
+        \frac{\d }{\d t}\left(\frac{\partial T}{\partial\dot{q}_j}\right)
+        - \frac{\partial T}{\partial q_j}
+    \right]\delta q_j
+    = \sum_j Q_j\delta q_j\\
+\end{align}
+Hence $\forall j$ we have
+\begin{align}
+    \frac{\d }{\d t}\left(\frac{\partial T}{\partial\dot{q}_j}\right)
+    - \frac{\partial T}{\partial q_j}
+    - Q_j = 0
+    \label{lag0}
+\end{align}
+Let the potential energy $V=V(\mathbf{r}_i,\dots)=V(q_j,\dots)$,
+then we have
+\begin{align}
+    Q_j &= \sum_i\mathbf{F}_i\frac{\partial\mathbf{r}_i}{\partial q_j}
+    = \sum_i -\nabla_i V\frac{\partial\mathbf{r}_i}{\partial q_j}
+    = -\frac{\partial V}{\partial q_j}
+\end{align}
+Therefore
+\begin{align}
+    \frac{\d }{\d t}\left(\frac{\partial (T-V)}{\partial\dot{q}_j}\right)
+    - \frac{\partial (T-V)}{\partial q_j}
+    - Q_j = 0
+\end{align}
+
 
 
 % \end{multicols*}
