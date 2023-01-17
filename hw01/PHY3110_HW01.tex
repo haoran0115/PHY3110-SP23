@@ -271,7 +271,7 @@ Then
     - \frac{\partial\dot{T}}{\partial\dot{q}_i} 
     = 0
 \end{align*}
-Add this equation to the lagrange equation, then we have
+Add this equation to the Lagrange's equation, then we have
 \begin{align*}
     \frac{\partial\dot{T}}{\partial\dot{q}_i}
     - 2\frac{\partial T}{\partial q_i} &= Q_i
@@ -306,34 +306,31 @@ into full differential form.
 
 
 \begin{problem}
-Use the generalized coordinate $\theta$ to describe the system,
-hence
+Use the generalized coordinates $\theta$ and $x$ to represent the system,
+hence we have
+(let $k=m\omega^2$)
 \begin{align*}
-    T &= 
-    \frac{1}{2}mv^2 = \frac{1}{2}ml^2\cos^2\theta\dot{\theta}^2,\quad
-    V = \frac{1}{2}kx^2 
-    = \frac{1}{2}kl^2\left(\frac{1}{\cos\theta}-1\right)^2,\quad
-    L = T-V
+    T &= \frac{1}{2}m[(l+x)^2\dot{\theta}^2 + \dot{x}^2]\\
+    V &= -mg(l+x)\cos\theta + \frac{1}{2}m\omega^2 x\\
+    L &= T - V
 \end{align*}
 Therefore
 \begin{align*}
-    \frac{\partial L}{\partial\theta} &= 
-    -ml^2\sin\theta\cos\theta\dot{\theta}^2 - kl^2\left(\frac{1}{\cos\theta}-1\right)
-    \frac{\sin\theta}{\cos^2\theta}\\
-    \frac{\partial L}{\partial\dot{\theta}} &= 
-    ml^2\cos^2\theta\dot{\theta}\\
+    \frac{\partial L}{\partial x} &=
+    m(l+x)\dot{\theta}^2 + mg\cos\theta - m\omega^2x\\
+    \frac{\d}{\d t}\frac{\partial L}{\partial \dot{x}} &= 
+    m\ddot{x}\\
+    \frac{\partial L}{\partial\theta} &=
+    -mg(l+x)\sin\theta\\
     \frac{\d}{\d t}\frac{\partial L}{\partial\dot{\theta}} &= 
-    ml^2\cos^2\theta\ddot{\theta} - 2ml^2\sin\theta\cos\theta\dot{\theta}^2
+    m(l+x)^2\ddot{\theta} + 2m(l+x)\dot{\theta}\dot{x}
 \end{align*}
-Hence the equation of motion becomes
+Applying the Lagrange's equation we get 
 \begin{align*}
-    \frac{\d}{\d t}\frac{\partial L}{\partial\dot{\theta}}
-    - \frac{\partial L}{\partial\theta}
-    &= 0\\
-    \Rightarrow
-    \cos^2\theta\ddot{\theta} - \sin\theta\cos\theta\dot{\theta}^2
-    + \omega^2\left(\frac{1}{\cos\theta}-1\right)\frac{\sin\theta}{\cos^2\theta}
-    &= 0
+    \ddot{x} &=
+    (l+x)\dot{\theta}^2 + g\cos\theta - \omega^2 x\\
+    \ddot{\theta} &= 
+    -\frac{1}{l+x}(g\sin\theta + 2\dot{\theta}\dot{x})
 \end{align*}
 
 \end{problem}
