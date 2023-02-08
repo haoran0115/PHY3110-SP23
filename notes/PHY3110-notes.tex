@@ -84,7 +84,7 @@
 % latex theorem
 % definition style
 \theoremstyle{definition}
-\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{theorem}{Theorem}[section]
 \newtheorem{axiom}{Axiom}[section]
 \newtheorem{definition}{Definition}[section]
 \newtheorem{example}{Example}[section]
@@ -342,7 +342,7 @@ Consider a system in equilibrium
     \Rightarrow
     \sum_i\mathbf{F}_i\cdot\delta\mathbf{r}_i = 0
 \end{align}
-Separate $\mathbf{F}_i = \mathbf{F}_i^(a) + \mathbf{f}_i$
+Separate $\mathbf{F}_i = \mathbf{F}_i^{(a)} + \mathbf{f}_i$
 where $\mathbf{f}_i$ is the constraint force.
 Hence
 \begin{align}
@@ -412,6 +412,199 @@ Therefore
     - \frac{\partial (T-V)}{\partial q_j}
     - Q_j = 0
 \end{align}
+Define $L=T-V$, then
+\begin{align}
+    \frac{\d }{\d t}\left(\frac{\partial L}{\partial\dot{q}_j}\right)
+    - \frac{\partial L}{\partial q_j}
+    - Q_j = 0
+\end{align}
+The choice of Lagrangian is not unique, $L'$ where
+\begin{align}
+    L' = L + \frac{\d F(q, t)}{\d t}
+\end{align}
+will give the same equations of motion as $L$.
+
+\begin{example}[Lagrange's formalism]\
+\begin{enumerate}[label=\arabic*)]
+\item For a single particle moving under force $\mathbf{F}$
+\begin{align*}
+    L(\mathbf{x}, \dot{\mathbf{x}}, t) &= \frac{1}{2}m\dot{\mathbf{x}}^2 + \mathbf{F}\cdot\mathbf{x}
+\end{align*}
+
+\item Motion in a 2D plane using polar coordinates
+\begin{align*}
+    L(r, \theta, \dot{r}, \dot{\theta}, t) &= 
+    \frac{1}{2}m(\dot{r}^2 + r^2\dot{\theta}^2)
+    + F\cdot\mathbf{r}
+\end{align*}
+Generalized forces
+\begin{align*}
+    Q_r &= \mathbf{F}\cdot\frac{\partial\mathbf{r}}{\partial r}
+    = \mathbf{F}\cdot\mathbf{e}_r\\
+    Q_\theta &= \mathbf{F}\cdot\frac{\partial\mathbf{r}}{\partial\theta}
+    = \mathbf{F}\cdot r\mathbf{e}_\theta
+\end{align*}
+where
+\begin{align*}
+    \mathbf{e}_r &= \begin{bmatrix}
+        \cos\theta\\ \sin\theta
+    \end{bmatrix}\quad
+    \mathbf{e}_\theta = \begin{bmatrix}
+        -\sin\theta\\ \cos\theta
+    \end{bmatrix}
+\end{align*}
+Equations of motion
+\begin{align*}
+    m\ddot{r} - mr\dot{\theta}^2 &= \mathbf{F}\cdot\mathbf{e}_r\\
+    mr^2\ddot{\theta} + 2mr\dot{r}\dot{\theta} &= r\mathbf{F}_\theta
+\end{align*}
+
+\item Atwood's machine
+\begin{align*}
+    L &= \frac{1}{2}(M_1+M_2)\dot{x}^2 + 
+    M_1g x + M_2 g(l-x)
+\end{align*}
+The equation of motion is
+\begin{align*}
+    \frac{\d}{\d t}\frac{\partial L}{\partial \dot{x}}
+    - \frac{\partial L}{\partial x} &= 0\\
+    \Rightarrow (M_1 + M_2)\ddot{x} &= (M_1 - M_2)g
+\end{align*}
+
+\end{enumerate}
+\end{example}
+
+Suppose we have a potential dependent on velocity (generalized potential)
+and the generalized force is defined as
+\begin{align}
+    U &= U(q_j,\dot{q}_j), \quad
+    Q_j = -\frac{\partial U}{\partial q_j} 
+    + \frac{\d }{\d t}\frac{\partial U}{\partial\dot{q}_j}
+\end{align}
+Define $L = T-U$, then we still have
+\begin{align}
+    \frac{\d }{\d t}\frac{\partial L}{\partial \dot{q}_j} - \frac{\partial L}{\partial q_j} &= 0
+\end{align}
+\begin{example}[Lorentz force on a moving charge]
+The Lorentz force
+\begin{align*}
+    \mathbf{F} &= 
+    q(\mathbf{E} + \mathbf{v}\times\mathbf{B})
+\end{align*}
+Define the scalar and vector potentials
+\begin{align*}
+    E &= -\nabla\phi - \frac{\partial \mathbf{A}}{\partial t},\quad
+    \mathbf{B} = \nabla\times\mathbf{A}
+\end{align*}
+Hence
+\begin{align*}
+    \mathbf{F} &= 
+    q\left[
+        -\nabla\phi - \frac{\partial \mathbf{A}}{\partial t}
+        + \mathbf{v}\times(\nabla\times\mathbf{A})
+    \right]
+\end{align*}
+
+\end{example}
+
+\subsection{Integral point of view of D'Alembert's principle}
+Configuration space: a space formed by the set of generalized coordinates.
+\begin{align*}
+    (q_1, q_2, \dots, q_n)\text{ as function of $t$}
+\end{align*}
+\begin{theorem}[Hamilton's principle]
+Define the action integral $I$, where $L=T-V$ or $L=T-U$ ($U$ is the generalized
+potential)
+\begin{align*}
+    I =  \int_{t_1}^{t_2}L\d t
+\end{align*}
+Then the variation of the action integral equals to zero
+\begin{align*}
+    \delta I &= 
+    \delta \int_{t_1}^{t_2}L(q_1,\dots, q_n,\dot{q}_1,\dots,\dot{q}_n)\d t
+    = 0
+\end{align*}
+Add small variation on the path
+\begin{align*}
+    q_i(t, \alpha) &= q_i(t) + \alpha\eta(t)
+\end{align*}
+where $\eta(t_1)=\eta(t_2)=0$.
+Then the action will be the function of $\alpha$, $I=I(\alpha)$.
+Hence
+\begin{align*}
+    \delta I &= 
+    \int_{t_1}^{t_2}\left(\sum_i \frac{\partial L}{\partial q_i}\delta q_i
+    + \frac{\partial L}{\partial \dot{q}_i}\delta\dot{q}_i\right)\d t
+\end{align*}
+Change the order of differentiation $\delta\dot{q}_i = \d \delta q_i/\d t$, then
+\begin{align*}
+    \delta I(\alpha) &= 
+    \int_{t_1}^{t_2}\sum_i\left[
+        \frac{\partial L}{\partial q_i}\delta q_i
+        - \frac{\d}{\d t}\left(\frac{\partial L}{\partial\dot{q}_i}\right)\delta q_i
+        \right]\d t
+        + \sum_i\frac{\partial L}{\partial\dot{q}_i}\delta q\large|_{t_1}^{t_2}\\
+    &= 
+    \int_{t_1}^{t_2}\sum_i\left[
+        \frac{\partial L}{\partial q_i}
+        - \frac{\d}{\d t}\left(\frac{\partial L}{\partial\dot{q}_i}\right)
+    \right]\delta q_i\d t = 0 \\
+    \Rightarrow
+    & \frac{\d}{\d t}\left(\frac{\partial L}{\partial\dot{q}}\right)
+    - \frac{\partial L}{\partial q_i} = 0
+\end{align*}
+\end{theorem}
+
+\begin{example}[Shortest path problem]
+$y=y(x)$, $\d s = \sqrt{\d x^2 + \d y^2}$, then the action integral (path) is
+\begin{align*}
+    I &= \int_1^2\d s = 
+    \int_1^2\sqrt{1+\dot{y}^2}\d x
+\end{align*}
+Apply the Lagrange's equation we get
+\begin{align*}
+    \frac{\d }{\d x}\frac{\d \sqrt{1+\dot{y}^2}}{\d \dot{y}} = 0
+    \Rightarrow \frac{\d\dot{y}}{\d x} = 0
+    \Rightarrow y = ax + b
+\end{align*}
+\end{example}
+
+\begin{example}[Solid of revolution]
+Differential of area $2\pi x\d s = 2\pi x\sqrt{1+\dot{y}^2}\d x$,
+then the total area is
+\begin{align*}
+    \int_1^2 2\pi x\sqrt{1+\dot{y}^2}\d x
+\end{align*}
+Define the Lagrangian $L(x, y, \dot{y}) = 2\pi x\sqrt{1+\dot{y}^2}$,
+by Lagrange's equation we can get
+\begin{align*}
+    \frac{x\dot{y}}{\sqrt{1+\dot{y}^2}} = \text{const}
+    \Rightarrow y = a\cosh\frac{x}{a} + b
+\end{align*}
+\end{example}
+
+\begin{example}[The curve of fastest descent]
+Question: along which trajectory from point 1 to point 2,
+the time is shortest?
+The total time is
+\begin{align*}
+    T &= \int_1^2
+    \frac{\d s}{v}
+    = \int_1^2\frac{\d s}{\sqrt{2gy}}
+\end{align*}
+According to Newton's laws we have $y=gv^2$, then
+\begin{align*}
+    T &= \int_1^2\frac{\sqrt{1+\dot{y}^2}}{\sqrt{2gy}}\d x
+\end{align*}
+Then we have $L(x, y, \dot{y})$ and we get \hl{check drivation}
+\begin{align*}
+    \frac{\dot{y}}{2y} + \frac{y\ddot{y}}{1 + \dot{y}^2} &= 0\\
+    \Rightarrow \frac{\d}{\d x}\ln[y(1+\dot{y}^2)] &= 0
+\end{align*}
+which means that $y(1+\dot{y}^2)=\text{const}$.
+The solution is $x=a(\theta-\sin\theta)$, $y=a(1-\cos\theta)$.
+\end{example}
+
 
 
 
