@@ -1,0 +1,340 @@
+\documentclass[twoside,11pt]{article}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{sectsty}
+\usepackage{mathrsfs} % mathscr
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{multicol}
+\usepackage{listings}
+% \usepackage{amsart}
+\usepackage{fontspec}
+\usepackage{soul}
+
+
+% allow H option of figure
+\usepackage{float}
+
+% math font (libertine)
+\usepackage{libertinus-otf}
+
+% braket
+\usepackage{braket}
+
+% physics
+% \usepackage{physics}
+
+% define latin modern font environment
+\newcommand{\lms}{\fontfamily{lmss}\selectfont} % Latin Modern Roman
+% \newcommand{\lmss}{\fontfamily{lmss}\selectfont} % Latin Modern Sans
+% \newcommand{\lmss}{\fontfamily{lmtt}\selectfont} % Latin Modern Mono
+
+% % change mathcal shape
+% \usepackage[mathcal]{eucal}
+
+
+% define math operators
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\XX}{\mathbb{Y}}
+\newcommand{\CL}{\mathcal{L}}
+% \renewcommand{\d}{\mathrm{d}}
+\renewcommand*\d{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\erf}{erf}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+
+% section font style
+\sectionfont{\sffamily\Large}
+\subsectionfont{\sffamily\normalsize}
+\subsubsectionfont{\bf}
+
+% line spreading and break
+\hyphenpenalty=5000
+\tolerance=20
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+\allowdisplaybreaks
+\linespread{0.9}
+
+% enumerate settings
+% no break before enumerate
+\setlist[enumerate]{itemsep=2pt,topsep=2pt}
+
+% theorem
+% latex theorem
+% definition style
+\theoremstyle{definition}
+\newtheorem{theorem}{\lms Theorem}[subsection]
+\newtheorem{axiom}{\lms Axiom}[section]
+\newtheorem{definition}{\lms Definition}[section]
+\newtheorem{example}{\lms Example}[section]
+\newtheorem{question}{\lms Question}[section]
+\newtheorem{exercise}{\lms Exercise}[section]
+\newtheorem*{exercise*}{\lms Exercise}
+\newtheorem{lemma}{\lms Lemma}[section]
+\newtheorem{proposition}{\lms Proposition}[section]
+\newtheorem{corollary}{\lms Corollary}[section]
+\newtheorem*{theorem*}{\lms Theorem}
+\newtheorem{problem}{\lms Problem}
+% remark style
+\theoremstyle{remark}
+\newtheorem*{remark}{\lms Remark}
+\newtheorem*{solution}{\lms Solution}
+\newtheorem*{claim}{\lms Claim}
+
+
+% paragraph indent
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+
+\newcommand\Code{PHY3110 FA22}
+\newcommand\Ass{HW02}
+\newcommand\name{Haoran Sun}
+\newcommand\mail{haoransun@link.cuhk.edu.cn}
+
+\title{{\lms \Code \ \Ass}}
+\author{\lms \name \ (\href{mailto:\mail}{\mail})}
+\date{\sffamily \today}
+
+\makeatletter
+% \let\Title\@title
+\let\theauthor\@author
+\let\thedate\@date
+
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    \lhead{\lms \Ass}
+    \rhead{\lms \name}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancypagestyle{title}{%
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    % \lhead{\Title}
+    % \rhead{\theauthor}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancyfootoffset[L]{0.3cm}
+
+% re-define title format
+\makeatletter
+\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
+\begin{flushleft}
+  \textbf{\Large\@title}
+
+  \@author
+\end{flushleft}\egroup
+}
+\makeatother
+
+\pagestyle{plain}
+
+% lstlisting settings
+\lstset{
+    basicstyle=\linespread{0.7}\footnotesize,
+    breaklines=true,
+    basewidth=0.5em
+}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{title}
+% \begin{multicols*}{2}
+
+% \begin{remark}
+%     $V_\epsilon(x)$ is used to denote a $\epsilon$-neighborhood
+%     \begin{align*}
+%         V_\epsilon(x) = B_\epsilon(x)\setminus\{x\}
+%     \end{align*}
+% \end{remark}
+
+\begin{problem}
+Let 
+\begin{align*}
+    \begin{bmatrix}
+        x\\y\\z 
+    \end{bmatrix}
+    &= 
+    \begin{bmatrix}
+        r \sin\theta\cos\phi \\
+        r \sin\theta\sin\phi \\
+        r \cos\theta 
+    \end{bmatrix}
+\end{align*}
+and define the following three unit vectors
+\begin{align*}
+    \hat{r} &= \begin{bmatrix}
+        \sin\theta\cos\phi\\
+        \sin\theta\sin\phi\\
+        \cos\theta
+    \end{bmatrix},\quad
+    \hat{\phi} = 
+    \begin{bmatrix}
+        -\sin\phi\\
+        \cos\phi\\
+        0
+    \end{bmatrix},\quad
+    \hat{\theta} = 
+    \begin{bmatrix}
+        \cos\theta\cos\phi\\
+        \cos\theta\sin\phi\\
+        -\sin\theta
+    \end{bmatrix}
+\end{align*}
+easy to show that $\hat{r}$, $\hat{\phi}$ and $\hat{\theta}$ forms
+an orthonormal basis in $\RR^3$.
+
+Note that
+\begin{align*}
+    \mathbf{F} 
+    &= m\ddot{r}
+    = m\frac{\d^2}{\d t^2}(r\hat{r})
+    = m\frac{\d}{\d t}(\dot{r}\hat{r} + r\dot{\theta}\sin\theta\hat{\phi} + \dot{\theta}r\hat{\theta})
+\end{align*}
+Note that
+\begin{align*}
+    \frac{\d}{\d t}\dot{r}\hat{r} 
+    &= \ddot{r}\hat{r} + \dot{r}\dot{\phi}\sin\theta\hat{\phi}
+    + \dot{r}\dot{\theta}\hat{\theta}\\
+    \frac{\d}{\d t}r\dot{\phi}\sin\theta\hat{\phi} &= 
+    -r\dot{\phi}^2\sin^2\theta\hat{\theta}
+    +(r\ddot{\phi}\sin\theta + \dot{r}\dot{\phi}\sin\theta 
+    + r\dot{\phi}\dot{\theta}\cos\theta)\hat{\phi}\\
+    - r\dot{\phi}^2\sin\theta\cos\theta\hat{\theta}
+    \frac{\d}{\d t}r\dot{\theta}\hat{\theta} &= 
+    -r\dot{\theta}^2\hat{r} + r\dot{\phi}\dot{\theta}\cos\theta\hat{\phi}
+    + (r\ddot{\theta} + \dot{r}\dot{\theta})\hat{\theta}
+\end{align*}
+Hence the Newton's 2\textsuperscript{nd} law becomes
+\begin{align*}
+    \mathbf{F} &= m[
+    (\ddot{r} - r\dot{\theta}^2 - r\dot{\phi}^2\sin^2\theta)\hat{r}
+    + (r\ddot{\phi} + 2\dot{r}\dot{\phi}\sin\theta + 2r\dot{\theta}\dot{\phi}\cos\theta)\hat{\phi}
+    + (r\ddot{\theta} + 2\dot{r}\dot{\theta} - r\dot{\phi}^2\sin\theta\cos\theta)\hat{\theta}]
+\end{align*}
+
+\end{problem}
+
+
+\begin{problem}
+Let $L$ be the distance from the hanging point to the center of the ball.
+We should have $L>R$.
+Define the generalized coordinate $\theta$, we can express the potential as 
+\begin{align*}
+    V(\theta) &= -\cos\theta\ m_1 gL - (C+\cos(\theta-\theta_0)\sqrt{L^2-R^2})m_2g
+\end{align*}
+where $\theta_0=\arcsin(R/L)$.
+Applying D'Alembert's principle, we would know that
+\begin{align*}
+    \sum_i Q_i\delta q_i &= 0 \Rightarrow
+    -\frac{\partial V}{\partial \theta}\delta\theta = 0
+\end{align*}
+Then $\theta$ is the solution of
+\begin{align*}
+    \frac{\partial V}{\partial\theta} &= 
+    \sin\theta~m_1 gL + \sin(\theta-\theta_0)\sqrt{L^2-R^2} m_2g = 0\\
+    \Rightarrow
+    &\sin\theta~m_1 + \sin(\theta-\theta_0)\cos\theta_0~m_2 = 0
+\end{align*}
+where $\theta\in[0, \theta_0]$.
+\end{problem}
+
+
+\begin{problem}
+Define the Lorentz factor $\gamma = \sqrt{1-\dot{x}^2/c^2}$, then
+\begin{align*}
+    L &= -\frac{m_0c^2}{\gamma} - V
+\end{align*}
+Since
+\begin{align*}
+    \frac{\partial L}{\partial x} &= -\frac{\partial V}{\partial x}\\
+    \frac{\d}{\d t}\frac{\partial L}{\partial \dot{x}} &= 
+    \frac{\d}{\d t}m_0\dot{x}\gamma = m_0\ddot{x}\gamma + m_0\ddot{x}\gamma^3\frac{\dot{x}^2}{c^2}
+    = m_0\ddot{x}\gamma^3
+\end{align*}
+Thus the equation of motion writes
+\begin{align*}
+    m_0\ddot{x}\gamma^3 + \frac{\partial V}{\partial x} &= 0
+\end{align*}
+
+\end{problem}
+
+
+\begin{problem}
+Since for rigid body, the kinetic energy is
+\begin{align*}
+    K &= \frac{1}{2}mv^2 + \frac{1}{2}I\omega^2
+\end{align*}
+where $v$ is the velocity of center of mass and $I$ is the rotational inertia at COM.
+
+Define two generalized coordinate: $x$ the horizontal position of center of mass, 
+$\theta$ the acute angle formed between the rod and the ground.
+For the rod, we have $\mathbf{v}=\dot{x}\hat{x} + l\dot{\theta}\cos\theta~\hat{y}$,
+$I = ml^2/3$,
+then we can calculate the kinetic and potential energy
+\begin{align*}
+    K &= \frac{1}{2}m[\dot{x}^2 + (l\dot{\theta}\cos\theta)^2] + \frac{1}{6}ml^2\dot{\theta}^2\\
+    V &= \int_0^{2l}\rho\d s = \int_0^{2l\cos\theta}\frac{m}{2l}\frac{1}{\cos\theta} u\d u = mgl\cos\theta
+\end{align*}
+Hence we can define the Lagrangian and get the equation of motion.
+\begin{align*}
+    L &= \frac{1}{2}m[\dot{x}^2 + (l\dot{\theta}\cos\theta)^2]
+    + \frac{1}{6}ml^2\dot{\theta}^2 - mgl\cos\theta\\
+    \frac{\partial L}{\partial x} &= 0\\
+    \frac{\d}{\d t}\frac{\partial L}{\partial\dot{x}} &= m\dot{x}\\
+    \frac{\partial L}{\partial \theta} &= 
+    -ml^2\dot{\theta}^2\sin\theta\cos\theta
+    + mgl\sin\theta\\
+    \frac{\d}{\d t}\frac{\partial L}{\partial\dot{\theta}} &= 
+    \ddot{\theta}\left(
+        ml^2\cos^2\theta + \frac{1}{3}ml^2
+    \right)
+    - 2ml^2\dot{\theta}^2\sin\theta\cos\theta\\
+    \Rightarrow
+    &~\ddot{\theta}\left(
+        ml^2\cos^2\theta + \frac{1}{3}ml^2
+    \right)
+    - 2ml^2\dot{\theta}^2\sin\theta\cos\theta
+    +ml^2\dot{\theta}^2\sin\theta\cos\theta
+    - mgl\sin\theta = 0
+\end{align*}
+Hence the invariant quantities are $\dot{x}$ and total energy.
+
+\end{problem}
+
+
+
+% \end{multicols*}
+\end{document}
+
