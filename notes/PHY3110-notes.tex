@@ -5,6 +5,7 @@
 \usepackage{amsfonts}
 \usepackage{mathtools}
 \usepackage{amsthm}
+\usepackage{thmtools}
 \usepackage{fancyhdr}
 \usepackage{enumitem}
 \usepackage{siunitx}
@@ -32,6 +33,9 @@
 
 % Chinese support
 \usepackage{xeCJK}
+
+% theorem colored box
+\usepackage[many]{tcolorbox}
 
 % physics
 % \usepackage{physics}
@@ -80,27 +84,65 @@
 \setlist[enumerate]{itemsep=2pt,topsep=2pt}
 \setlist[itemize]{itemsep=2pt,topsep=2pt}
 
-% theorem
-% latex theorem
+%%% theorem
+%% amsthm theorem
 % definition style
 \theoremstyle{definition}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{axiom}{Axiom}[section]
-\newtheorem{definition}{Definition}[section]
-\newtheorem{example}{Example}[section]
-\newtheorem{question}{Question}[section]
-\newtheorem{exercise}{Exercise}[section]
-\newtheorem*{exercise*}{Exercise}
-\newtheorem{lemma}{Lemma}[section]
-\newtheorem{proposition}{Proposition}[section]
-\newtheorem{corollary}{Corollary}[section]
-\newtheorem*{theorem*}{Theorem}
-\newtheorem{problem}{Problem}
+\newtheorem{theorem}{\lms Theorem}[section]
+\newtheorem{axiom}{\lms Axiom}[section]
+\newtheorem{definition}{\lms Definition}[section]
+\newtheorem{example}{\lms Example}[section]
+\newtheorem{question}{\lms Question}[section]
+\newtheorem{exercise}{\lms Exercise}[section]
+\newtheorem*{exercise*}{\lms Exercise}
+\newtheorem{lemma}{\lms Lemma}[section]
+\newtheorem{proposition}{\lms Proposition}[section]
+\newtheorem{corollary}{\lms Corollary}[section]
+\newtheorem*{theorem*}{\lms Theorem}
+\newtheorem{problem}{\lms Problem}
 % remark style
 \theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\newtheorem*{solution}{Solution}
-\newtheorem*{claim}{Claim}
+\newtheorem*{remark}{\lms Remark}
+\newtheorem*{solution}{\lms Solution}
+\newtheorem*{claim}{\lms Claim}
+
+%% coloring theorem
+% theorem
+\tcolorboxenvironment{theorem}{
+  colback=blue!4!white,
+  boxrule=0pt,
+  boxsep=1pt,
+  left=0pt,right=0pt,top=2pt,bottom=2pt,
+  oversize=2pt,
+  sharp corners,
+  before skip=\topsep,
+  after skip=\topsep,
+  breakable,
+}
+% example
+\tcolorboxenvironment{example}{
+  colback=red!2!white,
+  boxrule=0pt,
+  boxsep=1pt,
+  left=0pt,right=0pt,top=2pt,bottom=2pt,
+  oversize=2pt,
+  sharp corners,
+  before skip=\topsep,
+  after skip=\topsep,
+  breakable,
+}
+% definition
+\tcolorboxenvironment{definition}{
+  colback=green!3!white,
+  boxrule=0pt,
+  boxsep=1pt,
+  left=0pt,right=0pt,top=2pt,bottom=2pt,
+  oversize=2pt,
+  sharp corners,
+  before skip=\topsep,
+  after skip=\topsep,
+  breakable,
+}
 
 
 % paragraph indent
@@ -216,11 +258,12 @@ Analytical mechanics uses scalar quantities of motion
 \end{itemize}
 Equations of motion are derived from those scalar quantities.
 \subsection{Newton's Laws}
-Newton's 2\textsuperscript{nd} law
+\begin{theorem}[Newton's 2\textsuperscript{nd} law]
 \begin{align}
     \mathbf{F} = \frac{\d \mathbf{p}}{\d t} = m\mathbf{a}
 \end{align}
-valid in an inertial frame.
+The formula is valid in an inertial frame.
+\end{theorem}
 Angular momentum $\mathbf{L}$ and torque $\mathbf{N}$ are also related
 \begin{align}
     \frac{\d\mathbf{L}}{\d t} &= 
@@ -336,6 +379,7 @@ a given time
     \mathbf{r}_i \rightarrow 
     \mathbf{r}_i + \delta\mathbf{r}_i
 \end{align}
+\begin{theorem}[D'Alembert's principle]
 Consider a system in equilibrium
 \begin{align}
     \mathbf{F}_i = 0
@@ -368,7 +412,8 @@ For holonomic constraints
     \delta\mathbf{r}_i = \sum_j\frac{\partial\mathbf{r}_i}{\partial q_j}
     \delta q_j
 \end{align}
-Generalized force $Q_j$
+\end{theorem}
+Define generalized force $Q_j$
 \begin{align}
     \sum_i\mathbf{F}_i\delta\mathbf{r}_i
     &= \sum_{ij}\mathbf{F}_i\frac{\partial\mathbf{r}_i}{\partial q_j}\delta q_j
@@ -412,17 +457,19 @@ Therefore
     - \frac{\partial (T-V)}{\partial q_j}
     - Q_j = 0
 \end{align}
+\begin{theorem}[Langrange's equation]
 Define $L=T-V$, then
 \begin{align}
     \frac{\d }{\d t}\left(\frac{\partial L}{\partial\dot{q}_j}\right)
     - \frac{\partial L}{\partial q_j}
-    - Q_j = 0
+    = 0
 \end{align}
 The choice of Lagrangian is not unique, $L'$ where
 \begin{align}
     L' = L + \frac{\d F(q, t)}{\d t}
 \end{align}
 will give the same equations of motion as $L$.
+\end{theorem}
 
 \begin{example}[Lagrange's formalism]\
 \begin{enumerate}[label=\arabic*)]
@@ -604,6 +651,7 @@ Then we have $L(x, y, \dot{y})$ and we get \hl{check drivation}
 which means that $y(1+\dot{y}^2)=\text{const}$.
 The solution is $x=a(\theta-\sin\theta)$, $y=a(1-\cos\theta)$.
 \end{example}
+abcedfg
 
 
 
