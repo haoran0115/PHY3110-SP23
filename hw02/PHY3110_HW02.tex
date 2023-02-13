@@ -252,7 +252,11 @@ Let $L$ be the distance from the hanging point to the center of the ball.
 We should have $L>R$.
 Define the generalized coordinate $\theta$, we can express the potential as 
 \begin{align*}
-    V(\theta) &= -\cos\theta\ m_1 gL - (C+\cos(\theta-\theta_0)\sqrt{L^2-R^2})m_2g
+    V(\theta) &= -\cos\theta\ m_1 gL - 
+    [(C-\sqrt{L^2-R^2} - (\theta_0-\theta)R)
+    +\cos(\theta_0-\theta)\sqrt{L^2-R^2}
+    + R\sin(\theta_0-\theta)
+    ]m_2g
 \end{align*}
 where $\theta_0=\arcsin(R/L)$.
 Applying D'Alembert's principle, we would know that
@@ -260,12 +264,16 @@ Applying D'Alembert's principle, we would know that
     \sum_i Q_i\delta q_i &= 0 \Rightarrow
     -\frac{\partial V}{\partial \theta}\delta\theta = 0
 \end{align*}
-Then $\theta$ is the solution of
+Note that
 \begin{align*}
     \frac{\partial V}{\partial\theta} &= 
-    \sin\theta~m_1 gL + \sin(\theta-\theta_0)\sqrt{L^2-R^2} m_2g = 0\\
-    \Rightarrow
-    &\sin\theta~m_1 + \sin(\theta-\theta_0)\cos\theta_0~m_2 = 0
+    m_1 gL\sin\theta - m_2gR + m_2g\sqrt{L^2-R^2}\sin(\theta-\theta_0) - m_2 gR\cos(\theta-\theta_0)\\
+    &= gL[(m_1+m_2)\sin\theta - m_2\sin\theta_0]
+\end{align*}
+Then 
+\begin{align*}
+    gL[(m_1+m_2)\sin\theta - m_2\sin\theta_0] &= 0
+    \Rightarrow \theta = \arcsin\left(\frac{m_2\sin\theta_0}{m_1+m_2}\right)
 \end{align*}
 where $\theta\in[0, \theta_0]$.
 \end{problem}
