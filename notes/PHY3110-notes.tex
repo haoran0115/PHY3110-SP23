@@ -121,7 +121,7 @@
 }
 % example
 \tcolorboxenvironment{example}{
-  colback=red!2!white,
+  colback=red!3!white,
   boxrule=0pt,
   boxsep=1pt,
   left=0pt,right=0pt,top=2pt,bottom=2pt,
@@ -554,37 +554,37 @@ Hence
 
 \end{example}
 
-\subsection{Integral point of view of D'Alembert's principle}
+\subsection{Hamilton's principle, variational principle}
 Configuration space: a space formed by the set of generalized coordinates.
-\begin{align*}
+\begin{align}
     (q_1, q_2, \dots, q_n)\text{ as function of $t$}
-\end{align*}
+\end{align}
 \begin{theorem}[Hamilton's principle]
 Define the action integral $I$, where $L=T-V$ or $L=T-U$ ($U$ is the generalized
 potential)
-\begin{align*}
+\begin{align}
     I =  \int_{t_1}^{t_2}L\d t
-\end{align*}
+\end{align}
 Then the variation of the action integral equals to zero
-\begin{align*}
+\begin{align}
     \delta I &= 
     \delta \int_{t_1}^{t_2}L(q_1,\dots, q_n,\dot{q}_1,\dots,\dot{q}_n)\d t
     = 0
-\end{align*}
+\end{align}
 Add small variation on the path
-\begin{align*}
+\begin{align}
     q_i(t, \alpha) &= q_i(t) + \alpha\eta(t)
-\end{align*}
+\end{align}
 where $\eta(t_1)=\eta(t_2)=0$.
 Then the action will be the function of $\alpha$, $I=I(\alpha)$.
 Hence
-\begin{align*}
+\begin{align}
     \delta I &= 
     \int_{t_1}^{t_2}\left(\sum_i \frac{\partial L}{\partial q_i}\delta q_i
     + \frac{\partial L}{\partial \dot{q}_i}\delta\dot{q}_i\right)\d t
-\end{align*}
+\end{align}
 Change the order of differentiation $\delta\dot{q}_i = \d \delta q_i/\d t$, then
-\begin{align*}
+\begin{align}
     \delta I(\alpha) &= 
     \int_{t_1}^{t_2}\sum_i\left[
         \frac{\partial L}{\partial q_i}\delta q_i
@@ -599,59 +599,181 @@ Change the order of differentiation $\delta\dot{q}_i = \d \delta q_i/\d t$, then
     \Rightarrow
     & \frac{\d}{\d t}\left(\frac{\partial L}{\partial\dot{q}}\right)
     - \frac{\partial L}{\partial q_i} = 0
-\end{align*}
+\end{align}
 \end{theorem}
 
 \begin{example}[Shortest path problem]
 $y=y(x)$, $\d s = \sqrt{\d x^2 + \d y^2}$, then the action integral (path) is
-\begin{align*}
+\begin{align}
     I &= \int_1^2\d s = 
     \int_1^2\sqrt{1+\dot{y}^2}\d x
-\end{align*}
+\end{align}
 Apply the Lagrange's equation we get
-\begin{align*}
+\begin{align}
     \frac{\d }{\d x}\frac{\d \sqrt{1+\dot{y}^2}}{\d \dot{y}} = 0
     \Rightarrow \frac{\d\dot{y}}{\d x} = 0
     \Rightarrow y = ax + b
-\end{align*}
+\end{align}
 \end{example}
 
 \begin{example}[Solid of revolution]
 Differential of area $2\pi x\d s = 2\pi x\sqrt{1+\dot{y}^2}\d x$,
 then the total area is
-\begin{align*}
+\begin{align}
     \int_1^2 2\pi x\sqrt{1+\dot{y}^2}\d x
-\end{align*}
+\end{align}
 Define the Lagrangian $L(x, y, \dot{y}) = 2\pi x\sqrt{1+\dot{y}^2}$,
 by Lagrange's equation we can get
-\begin{align*}
+\begin{align}
     \frac{x\dot{y}}{\sqrt{1+\dot{y}^2}} = \text{const}
     \Rightarrow y = a\cosh\frac{x}{a} + b
-\end{align*}
+\end{align}
 \end{example}
 
 \begin{example}[The curve of fastest descent]
 Question: along which trajectory from point 1 to point 2,
 the time is shortest?
 The total time is
-\begin{align*}
+\begin{align}
     T &= \int_1^2
     \frac{\d s}{v}
     = \int_1^2\frac{\d s}{\sqrt{2gy}}
-\end{align*}
+\end{align}
 According to Newton's laws we have $y=gv^2$, then
-\begin{align*}
+\begin{align}
     T &= \int_1^2\frac{\sqrt{1+\dot{y}^2}}{\sqrt{2gy}}\d x
-\end{align*}
+\end{align}
 Then we have $L(x, y, \dot{y})$ and we get \hl{check drivation}
-\begin{align*}
+\begin{align}
     \frac{\dot{y}}{2y} + \frac{y\ddot{y}}{1 + \dot{y}^2} &= 0\\
     \Rightarrow \frac{\d}{\d x}\ln[y(1+\dot{y}^2)] &= 0
-\end{align*}
+\end{align}
 which means that $y(1+\dot{y}^2)=\text{const}$.
 The solution is $x=a(\theta-\sin\theta)$, $y=a(1-\cos\theta)$.
 \end{example}
-abcedfg
+
+\subsection{Constraint}
+Holonomic constraints
+\begin{align}
+    f(q_1,\dots,q_n,t) &= 0
+\end{align}
+Non-holonomic constraints
+\begin{align}
+    f(q_1,\dots,q_n;\dot{q}_1,\dots,\dot{q}_n;t) &= 0
+\end{align}
+Sometimes we can convert $f(\dot{q}_i)=0$ to $f'(q_i)=0$.
+\begin{example}[Rolling cylinder]
+Rolling cylinder without sliding has the constraint
+\begin{align}
+    \dot{x} - R\dot{\theta} = 0
+    \Rightarrow x-R\theta = \text{const}
+\end{align}
+\end{example}
+
+A commonly encountered type of non-holonomic constraint is linear constraint equations
+\begin{align}
+    \sum_{k=1}^n a_{ik}\frac{\d q_k}{\d t} + a_i t &= 0
+\end{align}
+For the virtual displacement $\delta q_i$
+\begin{align}
+    \sum_{k=1}^n a_{ik}\delta q_k &= 0
+\end{align}
+
+Suppose $q_i$ are not independent, then the Euler-Lagrange's equation
+could not hold.
+\begin{align*}
+    \int_{t_1}^{t_2}\sum_i\left[
+        \frac{\partial L}{\partial q_i}
+        - \frac{\d}{\d t}\left(\frac{\partial L}{\partial\dot{q}_i}\right)
+    \right]\delta q_i\d t = 0 
+    \nRightarrow
+    \frac{\d}{\d t}\left(\frac{\partial L}{\partial\dot{q}}\right)
+    - \frac{\partial L}{\partial q_i} = 0
+\end{align*}
+Include the constraint equation of $q_i$ into the equation
+\begin{align}
+    \sum_{k=1}^n a_{ik}\delta q_k &= 0
+    \Rightarrow
+    \sum_{i=1}^m \lambda_i\sum_{k=1}^n a_{ik}\delta q_k = 0
+\end{align}
+Hence
+\begin{align*}
+    \int_{t_1}^{t_2}\sum_{k=1}^n\left[
+        \frac{\partial L}{\partial q_k}
+        - \frac{\d}{\d t}\left(\frac{\partial L}{\partial\dot{q}_k}\right)
+        + \sum_{i=1}^m\lambda_i a_{ik}
+    \right]\delta q_k\d t = 0 
+\end{align*}
+Let $q_1,\dots,q_{n-m}$ be independent generalized coordinate,
+$q_{n-m+1},\dots,q_n$ dependent generalized coordinates (i.e., they can
+be expressed by $q_1,\dots,q_{n-m}$).
+Choose $\lambda_i$ s.t.
+\begin{align}
+    \frac{\partial L}{\partial q_k}
+    - \frac{\d}{\d t}\left(\frac{\partial L}{\partial\dot{q}_k}\right)
+    + \sum_{i=1}^m\lambda_i a_{ik}
+    = 0
+\end{align}
+$\forall k = n-m+1,\dots,n$.
+In conclusion, we have $q_1,\dots,q_n,\lambda_1,\dots,\lambda_m$ overall
+$n+m$ unknowns, and $n$ Lagrange's equations and $m$ constraint equations
+overall $n+m$ equations.
+\begin{remark}\ 
+\begin{enumerate}[label=\arabic*)]
+\item It is inconvenient to reduce all $q_k$s to independent 
+coordinates
+\item If we are interested in the constraint forces
+\begin{align*}
+    \sum_{k=1}^n a_{ik}\d q_k + a_{it}\d t = 0
+\end{align*}
+where 
+\begin{align*}
+    a_{ik} &= \frac{\partial f_i}{\partial q_k},\quad
+    a_{it} = \frac{\partial f_i}{\partial t}
+\end{align*}
+Then
+\begin{align*}
+    \d f_i &= \frac{\partial f_i}{\partial q_k}\d q_k + 
+    \frac{\partial f_i}{\partial t}\d t
+    \Rightarrow \d f_i = 0,~f_i=\text{const}
+\end{align*}
+\end{enumerate}
+\end{remark}
+
+\begin{example}[Hoop rooling down an inclined plane]
+Constraint equation
+\begin{align*}
+    \dot{x} - r\dot{\theta} = 0
+    \Rightarrow x - r\theta = \text{const}
+\end{align*}
+$a_x=1$, $a_\theta = -r$, $a_t=0$.
+
+Energy terms are
+\begin{align*}
+    T &= 
+    T_\text{COM} + T_\text{relative}
+    = \frac{1}{2}M\dot{x}^2 + \frac{1}{2}M(r\dot{\theta})^2\\
+    V &= Mg(l-x)\sin\phi\\
+    \Rightarrow
+    L &=  \frac{1}{2}M\dot{x}^2 + \frac{1}{2}M(r\dot{\theta})^2
+    - Mg(l-x)\sin\phi
+\end{align*}
+Then we can write the Lagrange's equation with Lagrange's multipliers
+\begin{align*}
+    \frac{\partial L}{\partial x} - \frac{\d }{\d t}\frac{\partial L}{\partial \dot{x}}
+    + a_x\lambda &= 0\\
+    \Rightarrow
+    Mg\sin\phi - M\ddot{x} + \lambda &= 0\\
+    -Mr^2\ddot{\theta} - \lambda r &= 0\\
+    \dot{x} &= r\dot{\theta}\Rightarrow
+    \ddot{x} = r\ddot{\theta}
+\end{align*}
+we can get $M\ddot{x} = Mr\ddot{\theta} = -\lambda$ and 
+$\ddot{x} = (g\sin\phi)/2$.
+Note that $\lambda$ is the constraint force (in this case $\lambda$
+is the frictional force).
+\hl{check derivation}
+\end{example}
 
 
 
