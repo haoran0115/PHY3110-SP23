@@ -30,6 +30,9 @@
 % braket
 \usepackage{braket}
 
+% tikz library
+\usetikzlibrary{decorations,calligraphy,calc}
+
 % physics
 % \usepackage{physics}
 
@@ -223,7 +226,7 @@ hence
 
 
 \begin{problem}
-Let two generalized coordinate be $x$ and $y$, then the system 
+Let two generalized coordinates be $x$ and $y$, then the system 
 could be written as
 \begin{align*}
     L &= \frac{1}{2}m(\dot{x}^2 + \dot{y}^2)
@@ -266,38 +269,66 @@ Hence we have constraint force for two coordinates
 \end{problem}
 
 
+\newpage
 \begin{problem}
-Setup polar coordinates $a$ and $\theta$,
-we have constraint $a\geq R+r$.
-The Lagrangian could be written as
+Setup the generalized coordinate $\rho$, $\theta$ and $\varphi$ as the following figure.
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw[-] (-5, 0) -- (5, 0);               % ground line
+        \draw[-] (3, 0) arc (0:180:3);            % cylinder
+        \draw[-] (0, 0) -- ++(45:5);              % straight line
+        \draw[-] (45:3.5) circle (0.5) 
+            node[circle,fill,inner sep=1.5pt] {}; % hoop
+        \node at (0, 0)[circle,fill,inner sep=1.5pt] {}; % dot at bottom line
+        \draw[densely dashed] (45:3.5) --++(0, -0.5);    % vertical line
+        \node[above] at (0.6, 0) {$\theta$}; % theta label
+        \draw[-] (0,0)+(0:0.3) arc (0:45:0.3); % theta helper line
+        \node[right] at (45:3.5) {$\varphi$}; % phi label
+        \draw[-] (45:3.5)+(-90:0.3) arc (-90:-135:0.3); % phi helper line 
+        \draw [very thick,decorate,decoration={calligraphic brace,amplitude=10pt}] 
+            (0,0)+(135:0.5) -- node[sloped,above=10pt] {$\rho$} ($ (45:3.5)+(135:0.5) $);
+        \draw[dashed] (0,0)--++(135:0.5);
+        \draw[dashed] (45:3.5)--++(135:0.5);
+    \end{tikzpicture}
+\end{figure}
+Hence, we have the system 
 \begin{align*}
-    L &= \frac{1}{2}m(\dot{a}^2 + a^2\dot{\theta}^2) + \frac{1}{2}mr^2(R\dot{\theta}/r)^2 - mga\sin\theta
+    L &= \frac{1}{2}m(\dot{\rho}^2 + \rho^2\dot{\theta}^2)
+    + \frac{1}{2}mr^2\dot{\varphi}^2 - mg\rho\sin\theta\\
+    & \text{subject to}\quad \rho\geq R+r,~\rho\d\theta + r\d\varphi = 0
 \end{align*}
-Use the constraint $a = r+R\Rightarrow \d a = 0$, we can get Lagrange's equation for the system
+Since we only consider the case when hoop is still on the cylinder, 
+we can generalize the constraint to $\d\rho = 0$.
+Using two different Lagrange's multipliers $\lambda$ and $\mu$,
+we can get following set of equations
 \begin{align*}
-    m\ddot{a} - ma\dot{\theta}^2 + mg\sin\theta - \lambda &= 0
+    m\ddot{\rho} - m\rho\dot{\theta}^2 + mg\sin\theta - \lambda &= 0\\
+    m\rho^2\ddot{\theta} + 2m\rho\dot{\rho}\dot{\theta} + mg\rho\cos\theta
+    -\rho\mu &= 0\\
+    mr^2\ddot{\varphi} - r\mu &= 0
 \end{align*}
-Since $\d a = 0\Rightarrow\dot{a} = 0$ and $\ddot{a}=0$, we have
+Note that $\rho\d\theta + r\d\varphi = 0
+\Rightarrow \dot{\rho}\dot{\theta}/r + \rho\ddot{\theta}/r + \ddot{\varphi}=0$,
+substitute $\ddot{\varphi}$ into the third equation, and use the solved $\mu$, we have
 \begin{align*}
-    \lambda &= 
-    mg\sin\theta - ma\dot{\theta}^2
+    \mu &= -m\dot{\rho}\dot{\theta} - m\rho\ddot{\theta},\quad
+    2m\rho^2\ddot{\theta} + 3m\rho\dot{\rho}\dot{\theta} + mg\rho\cos\theta = 0
 \end{align*}
-Using the conservation law of energy, we have
+Applying $\dot{\rho}=0$ and boundary condition, we have
 \begin{align*}
-    mg(r+R)(1-\sin\theta) &= 
-    \frac{1}{2}m[(r+R)^2 + R^2]\dot{\theta}^2
+    \ddot{\theta} &= -\frac{g}{2\rho}\cos\theta, \quad
+    \dot{\theta}\frac{\d\dot{\theta}}{\d\theta} = -\frac{g}{2\rho}\cos\theta\\
+    \Rightarrow\dot{\theta}^2 &= \frac{g}{\rho}(1-\sin\theta)
 \end{align*}
-Substitute $\dot{\theta}^2$ into the expression of $\sin\theta$, then we have
+When the hoop is about to leave the cylinder, we should have $\lambda=0$ (and $\ddot{\rho}=0$),
+then
 \begin{align*}
-    \lambda &= 
-    mg\left[
-        \frac{3(r+R)^2+R^2}{(r+R)^2+R^2}\sin\theta - \frac{2(r+R)^2}{(r+R)^2+R^2}
-    \right]
+    -m\rho\dot{\theta}^2 + mg\sin\theta &= 0\\
+    2mg\sin\theta &= mg\\
+    \Rightarrow\theta &= \frac{\pi}{6}
 \end{align*}
-When the hoop falls off the cylinder, we should have $\lambda=0$, hence $\theta$ will be
-\begin{align*}
-    \theta &= \arcsin\frac{2(r+R)^2}{3(r+R)^2+R^2}
-\end{align*}
+
 \end{problem}
 
 
