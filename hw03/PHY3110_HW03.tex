@@ -1,0 +1,308 @@
+\documentclass[twoside,11pt]{article}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{sectsty}
+\usepackage{mathrsfs} % mathscr
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{multicol}
+\usepackage{listings}
+% \usepackage{amsart}
+\usepackage{fontspec}
+\usepackage{soul}
+
+
+% allow H option of figure
+\usepackage{float}
+
+% math font (libertine)
+\usepackage{libertinus-otf}
+
+% braket
+\usepackage{braket}
+
+% physics
+% \usepackage{physics}
+
+% define latin modern font environment
+\newcommand{\lms}{\fontfamily{lmss}\selectfont} % Latin Modern Roman
+% \newcommand{\lmss}{\fontfamily{lmss}\selectfont} % Latin Modern Sans
+% \newcommand{\lmss}{\fontfamily{lmtt}\selectfont} % Latin Modern Mono
+
+% % change mathcal shape
+% \usepackage[mathcal]{eucal}
+
+
+% define math operators
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\XX}{\mathbb{Y}}
+\newcommand{\CL}{\mathcal{L}}
+% \renewcommand{\d}{\mathrm{d}}
+\renewcommand*\d{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\erf}{erf}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+
+% section font style
+\sectionfont{\sffamily\Large}
+\subsectionfont{\sffamily\normalsize}
+\subsubsectionfont{\bf}
+
+% line spreading and break
+\hyphenpenalty=5000
+\tolerance=20
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+\allowdisplaybreaks
+\linespread{0.9}
+
+% enumerate settings
+% no break before enumerate
+\setlist[enumerate]{itemsep=2pt,topsep=2pt}
+
+% theorem
+% latex theorem
+% definition style
+\theoremstyle{definition}
+\newtheorem{theorem}{\lms Theorem}[subsection]
+\newtheorem{axiom}{\lms Axiom}[section]
+\newtheorem{definition}{\lms Definition}[section]
+\newtheorem{example}{\lms Example}[section]
+\newtheorem{question}{\lms Question}[section]
+\newtheorem{exercise}{\lms Exercise}[section]
+\newtheorem*{exercise*}{\lms Exercise}
+\newtheorem{lemma}{\lms Lemma}[section]
+\newtheorem{proposition}{\lms Proposition}[section]
+\newtheorem{corollary}{\lms Corollary}[section]
+\newtheorem*{theorem*}{\lms Theorem}
+\newtheorem{problem}{\lms Problem}
+% remark style
+\theoremstyle{remark}
+\newtheorem*{remark}{\lms Remark}
+\newtheorem*{solution}{\lms Solution}
+\newtheorem*{claim}{\lms Claim}
+
+
+% paragraph indent
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+
+\newcommand\Code{PHY3110 FA22}
+\newcommand\Ass{HW03}
+\newcommand\name{Haoran Sun}
+\newcommand\mail{haoransun@link.cuhk.edu.cn}
+
+\title{{\lms \Code \ \Ass}}
+\author{\lms \name \ (\href{mailto:\mail}{\mail})}
+\date{\sffamily \today}
+
+\makeatletter
+% \let\Title\@title
+\let\theauthor\@author
+\let\thedate\@date
+
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    \lhead{\lms \Ass}
+    \rhead{\lms \name}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancypagestyle{title}{%
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    % \lhead{\Title}
+    % \rhead{\theauthor}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancyfootoffset[L]{0.3cm}
+
+% re-define title format
+\makeatletter
+\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
+\begin{flushleft}
+  \textbf{\Large\@title}
+
+  \@author
+\end{flushleft}\egroup
+}
+\makeatother
+
+\pagestyle{plain}
+
+% lstlisting settings
+\lstset{
+    basicstyle=\linespread{0.7}\footnotesize,
+    breaklines=true,
+    basewidth=0.5em
+}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{title}
+% \begin{multicols*}{2}
+
+% \begin{remark}
+%     $V_\epsilon(x)$ is used to denote a $\epsilon$-neighborhood
+%     \begin{align*}
+%         V_\epsilon(x) = B_\epsilon(x)\setminus\{x\}
+%     \end{align*}
+% \end{remark}
+
+\begin{problem}
+It is non-holonomic since we cannot find a function
+$f=f(x,y,z)$ and write the constraint into
+\begin{align*}
+    \d f &= f_x\d x + f_y\d y + f_z\d z = 0
+\end{align*}
+In this case, we have
+\begin{align*}
+    (x^2+y^2+z^2+2x)\d x + 
+    2y\d y + 
+    2z\d z &= 0
+\end{align*}
+Note that
+\begin{align*}
+    \frac{\partial}{\partial z}(x^2+y^2+z^2)\neq
+    \frac{\partial}{\partial x}(2z)
+\end{align*}
+which means that we cannot find such $f$.
+\end{problem}
+
+
+\begin{problem}
+Minimize the action is equivalent to solve the Lagrange's equation, 
+hence
+\begin{align*}
+    \begin{aligned}
+    L(x, \dot{x}, t) &= \frac{1}{2}m\dot{x}^2 + Fx\\
+    \frac{\d}{\d t}\frac{\partial L}{\partial \dot{x}} &= 
+    m\ddot{x} = 2C\\
+    \frac{\partial L}{\partial x} &= F
+    \end{aligned}
+    \Rightarrow
+    \left\{
+    \begin{aligned}
+        A &= 0\\
+        B &= \frac{a}{t_0} - \frac{Ft_0}{2m}\\
+        C &= \frac{F}{2m}
+    \end{aligned}
+    \right.
+\end{align*}
+\end{problem}
+
+
+\begin{problem}
+Let two generalized coordinate be $x$ and $y$, then the system 
+could be written as
+\begin{align*}
+    L &= \frac{1}{2}m(\dot{x}^2 + \dot{y}^2)
+    - mgy,\quad
+    y = Ax^2\Rightarrow
+    2Ax\d x - \d y = 0
+\end{align*}
+Hence we can write Lagrange's equation with constraint
+\begin{align*}
+    \begin{aligned}
+        \frac{\d}{\d t}\frac{\partial L}{\partial\dot{x}} - 
+        \frac{\partial L}{\partial x} - 2Ax\lambda&= 0\\
+        \frac{\d}{\d t}\frac{\partial L}{\partial\dot{y}} - 
+        \frac{\partial L}{\partial y} + \lambda &= 0
+    \end{aligned}
+    \Rightarrow
+    \left\{
+    \begin{aligned}
+        \ddot{x} &= \frac{2Ax\lambda}{m}\\
+        \ddot{y} &= -\frac{\lambda}{m} + g
+    \end{aligned}
+    \right.
+\end{align*}
+Note that
+\begin{align*}
+    y &= Ax^2\Rightarrow
+    2Ax\dot{x} = \dot{y}\Rightarrow
+    \ddot{y} = 2A\dot{x}^2 + 2Ax\ddot{x}
+\end{align*}
+we can solve $\lambda=\lambda(x,\dot{x},t)$ as
+\begin{align*}
+    \lambda&= -\frac{2Am\dot{x}^2 + mg}{1 + 4A^2x^2}
+\end{align*}
+Hence we have constraint force for two coordinates
+\begin{align*}
+    Q_x &= 2Ax\lambda = -\frac{4A^2mx\dot{x}^2 + Axmg}{1 + 4A^2x^2},~
+    Q_y = -\lambda = 
+    \frac{2Am\dot{x}^2 + mg}{1 + 4A^2x^2}
+\end{align*}
+\end{problem}
+
+
+\begin{problem}
+Setup polar coordinates $a$ and $\theta$,
+we have constraint $a\geq R+r$.
+The Lagrangian could be written as
+\begin{align*}
+    L &= \frac{1}{2}m(\dot{a}^2 + a^2\dot{\theta}^2) + \frac{1}{2}mr^2(R\dot{\theta}/r)^2 - mga\sin\theta
+\end{align*}
+Use the constraint $a = r+R\Rightarrow \d a = 0$, we can get Lagrange's equation for the system
+\begin{align*}
+    m\ddot{a} - ma\dot{\theta}^2 + mg\sin\theta - \lambda &= 0
+\end{align*}
+Since $\d a = 0\Rightarrow\dot{a} = 0$ and $\ddot{a}=0$, we have
+\begin{align*}
+    \lambda &= 
+    mg\sin\theta - ma\dot{\theta}^2
+\end{align*}
+Using the conservation law of energy, we have
+\begin{align*}
+    mg(r+R)(1-\sin\theta) &= 
+    \frac{1}{2}m[(r+R)^2 + R^2]\dot{\theta}^2
+\end{align*}
+Substitute $\dot{\theta}^2$ into the expression of $\sin\theta$, then we have
+\begin{align*}
+    \lambda &= 
+    mg\left[
+        \frac{3(r+R)^2+R^2}{(r+R)^2+R^2}\sin\theta - \frac{2(r+R)^2}{(r+R)^2+R^2}
+    \right]
+\end{align*}
+When the hoop falls off the cylinder, we should have $\lambda=0$, hence $\theta$ will be
+\begin{align*}
+    \theta &= \arcsin\frac{2(r+R)^2}{3(r+R)^2+R^2}
+\end{align*}
+\end{problem}
+
+
+
+
+% \end{multicols*}
+\end{document}
+
