@@ -37,6 +37,20 @@
 % theorem colored box
 \usepackage[many]{tcolorbox}
 
+%% equation numbering
+\numberwithin{equation}{section} % numbering equations by section
+\renewcommand{\theequation}{\arabic{equation}} % remove section number
+
+% tikz library
+\usetikzlibrary{
+    external,
+    decorations,
+    calc,
+    3d,
+}
+\tikzexternalize[prefix=tikzpictures/]
+\tikzexternaldisable
+
 % physics
 % \usepackage{physics}
 
@@ -107,9 +121,13 @@
 \newtheorem*{claim}{\lms Claim}
 
 %% coloring theorem
+% define colors
+\colorlet{theoremcolor}{blue!4!white}
+\colorlet{examplecolor}{red!3!white}
+\colorlet{definitioncolor}{green!3!white}
 % theorem
 \tcolorboxenvironment{theorem}{
-  colback=blue!4!white,
+  colback=theoremcolor,
   boxrule=0pt,
   boxsep=1pt,
   left=0pt,right=0pt,top=2pt,bottom=2pt,
@@ -121,7 +139,7 @@
 }
 % example
 \tcolorboxenvironment{example}{
-  colback=red!3!white,
+  colback=examplecolor,
   boxrule=0pt,
   boxsep=1pt,
   left=0pt,right=0pt,top=2pt,bottom=2pt,
@@ -133,7 +151,7 @@
 }
 % definition
 \tcolorboxenvironment{definition}{
-  colback=green!3!white,
+  colback=definitioncolor,
   boxrule=0pt,
   boxsep=1pt,
   left=0pt,right=0pt,top=2pt,bottom=2pt,
@@ -668,6 +686,17 @@ Rolling cylinder without sliding has the constraint
     \dot{x} - R\dot{\theta} = 0
     \Rightarrow x-R\theta = \text{const}
 \end{align}
+\tikzexternalenable
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw (-2,0)--(2,0);
+        \draw (0,1) circle (1);
+        \draw[->] (0,1)+(100:1.2) arc (100:80:1.2);
+        \draw[->] (0,1) -- (0.5, 1) node[above] {$\dot x$};
+    \end{tikzpicture}
+\end{figure}
+\tikzexternaldisable
 \end{example}
 
 A commonly encountered type of non-holonomic constraint is linear constraint equations
@@ -740,8 +769,23 @@ Then
 \end{enumerate}
 \end{remark}
 
-\begin{example}[Hoop rooling down an inclined plane]
-Constraint equation
+\begin{example}[Hoop rooling down an inclined plane]\
+\tikzexternalenable
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw (0,0)--(4,0);
+        \draw[thick] (1,0) -- (3,0) -- (3,1) -- (1,0);
+        \draw[thick] (2.75,0.875) arc ({-atan(2)}:{360-atan(2)}:0.3);
+        \draw[densely dotted] (2.75,0.875) --++ ({180-atan(2)}:0.3);
+        \draw[densely dotted] (1,0) --++ ({180-atan(2)}:0.3);
+        \draw ($ (2.75,0.875) + ({180-atan(2)}:0.3) $) -- 
+              node[midway,sloped,fill=examplecolor] {$x$}
+              ($ (1,0) + ({180-atan(2)}:0.3) $);
+    \end{tikzpicture}
+\end{figure}
+\tikzexternaldisable
+The constraint equation writes
 \begin{align*}
     \dot{x} - r\dot{\theta} = 0
     \Rightarrow x - r\theta = \text{const}
@@ -775,6 +819,195 @@ is the frictional force).
 \hl{check derivation}
 \end{example}
 
+\subsection{Lagrangian for Lorentz force}
+\begin{definition}[Cylic coordinate]
+The generalized coordinate $q_i$ is cyclic (ignorable) if 
+\begin{align}
+    \frac{\partial L}{\partial q_i} &= 0
+\end{align}
+It implies the generalized momentum $p_i$ is conserved.
+\end{definition}
+The Lorentz force is given by
+\begin{align}
+    \mathbf{F} &= 
+    q[\mathbf{E} + \mathbf{v}\times\mathbf{B}]
+    \label{eq-EMEOM}
+\end{align}
+Where
+\begin{align}
+    \mathbf{E} &= -\nabla\phi - \frac{\partial A}{\partial t},\enskip
+    \mathbf{B} = \mathbf{v}\times\mathbf{A}
+\end{align}
+Hence, by defining the Lagrangian
+\begin{align}
+    L &= 
+    \frac{1}{2}m\mathbf{v}^2 - q\phi + q\mathbf{A}\cdot\mathbf{v}
+\end{align}
+Applying the Lagrange's equation we can get the EOM (eq. \ref{eq-EMEOM}).
+
+\subsection{Conservation \& symmetry of the system}
+\textbf{Rotational symmetry.}
+Let $q_j$ be one of the rotational angle of spacial coordinate $\mathbf{r}_i$.
+Hence
+\begin{align}
+    \d\mathbf{r}_i &= 
+    \mathbf{n}_j\times\mathbf{r}_i\d q_j
+    \Rightarrow
+    \frac{\partial\mathbf{r}_i}{\partial q_j} = 
+    \mathbf{n}_j\times\mathbf{r}_i\d q_j
+\end{align}
+where $\mathbf{n}_j$ is the normal vector of the rotation axis of $q_j$.
+Hence the generalized force of $q_j$ writes
+\begin{align}
+    Q_{q_j} &= -\frac{\partial V}{\partial q_j} = 
+    -\sum_k\frac{\partial V}{\partial\mathbf{r}_k}\frac{\partial\mathbf{r}_k}{\partial q_j}
+    = -\frac{\partial V}{\partial\mathbf{r}_i}\frac{\partial\mathbf{r}_i}{\partial q_j}
+    = \mathbf{F}_i\cdot(\mathbf{n}_j\times\mathbf{r}_i)
+    = \mathbf{n}_j\cdot(\mathbf{r}_i\times\mathbf{F}_i)
+    = \mathbf{n}_j\cdot\mathbf{N}_i
+\end{align}
+where $\mathbf{N}_i$ stands for the torque on the $i$\textsuperscript{th} particle.
+The generalized momentum of $q_j$ writes
+\begin{align}
+    p_{q_j} &=
+    \frac{\partial T}{\partial\dot{q}_j}
+    = \sum_k\frac{\partial T}{\partial\dot\mathbf{r}_k}\frac{\partial\mathbf{r}_i}{\partial q_j}
+    = \sum_k m_k\dot\mathbf{r}_k\cdot\frac{\partial\dot\mathbf{r}_k}{\partial\dot q_j}
+    = m_i\dot\mathbf{r}_i\cdot(\mathbf{n}_j\times\mathbf{r}_i)
+    = \mathbf{n}_j\times (\mathbf{r}_i\times m_i\dot\mathbf{r}_i)
+    = \mathbf{r}_j\times\mathbf{L}_i
+\end{align}
+where $\mathbf{L}_i$ stands for the angular momentum of the $i$\textsuperscript{th} particle.
+Hence, the rotational invariance implies the conservation of angular momentum.
+
+\textbf{Time translation}
+\begin{align}
+    \frac{\d}{\d t}L &= 
+    \sum_i\frac{\partial L}{\partial q_i}\dot{q}_i
+    + \frac{\partial L}{\partial \dot{q}_i}\ddot{q}_i
+    + \frac{\partial L}{\partial t}\\
+    &= \sum_i\frac{\d}{\d t}\frac{\partial L}{\partial\dot{q}_i}\dot{q}_i
+    + \frac{\partial L}{\partial \dot{q}_i}\ddot{q}_i
+    + \frac{\partial L}{\partial t}\\
+    &= \frac{\d}{\d t}\sum_i\left(\frac{\partial L}{\partial\dot{q}_i}\dot{q}_i\right)
+    + \frac{\partial L}{\partial t}\\
+    \Rightarrow &
+    \frac{\partial L}{\partial t} + 
+    \frac{\d}{\d t}\underbrace{\left(
+    \sum\frac{\partial L}{\partial\dot{q}_i}q_i - L
+    \right)}_{H}
+    = 0
+\end{align}
+Note that
+\begin{align}
+    \sum_i\frac{\partial L}{\partial\dot{q}_i}\dot{q}_i &= 2T
+\end{align}
+\begin{proof}
+Suppose $r_i$ does not have explicit time dependence
+\begin{align*}
+    T &= \sum_i \frac{1}{2}m_i\dot{r}_i^2
+    = \sum_i \frac{1}{2}m_i\left(
+        \sum_j\frac{\partial r_i}{\partial q_j}\dot{q}_j
+        + \frac{\partial r_i}{\partial t}
+    \right)^2\\
+    &= \sum_{ijk}
+    \frac{1}{2}m_i\frac{\partial r_i}{\partial q_j}
+    \frac{\partial r_i}{\partial q_k}\dot{q}_j\dot{q}_k\\
+    \Rightarrow
+    \sum_i\frac{\partial L}{\partial\dot{q}_i}\dot{q}_i
+    &= \sum_i \dot{q}_i \sum_{jk}
+    m_k\frac{\partial r_k}{\partial q_i}\frac{\partial r_k}{\partial q_k}
+    \dot{q}_k = 2T\qedhere
+\end{align*}
+\end{proof}
+Hence we can define Hamiltonian $H = T+V$ which stands for the total energy,
+and $H$ conserved if $L$ doesn't depend on time explicitly.
+
+\begin{example}[Two blocks]\
+Let $M$ be the mass of the big block,
+$m$ be the mass of the small block.
+Define two generalized coordinates:
+$X$ stand for the position of COM of the big block,
+$q$ stand for the position of COM of the small block
+(sloped). 
+\tikzexternalenable
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw (0,0)--(4,0);
+        \draw (0,0)--(0,1);
+        \draw[red,thick] (1,0)--(3,0)--(3,1)--(1,0);    % large block
+        \draw[blue,thick] (3,1)--(2,1)--(2,0.5)--(3,1); % small block
+        \node[circle,fill,inner sep=0.7pt] at (2.5,0.3) {}; % COM large block
+        \node[circle,fill,inner sep=0.7pt] at (2.25,0.8) {}; % COM small block
+        \draw[densely dotted] (2.5,0.3)--(2.5,0) node[below,text opacity=1] {$X$}; % X label
+        \draw (1,0)+(0:0.3) node[below] {$\theta$} arc (0:atan(1/2):0.3); % theta helper line
+        \draw[densely dotted] (1,0)--++ ({180 - atan(2)}:0.15652); % q helper line (left)
+        \draw[thick,decorate,decoration={brace,amplitude=5pt}]
+            ($ (1,0)+({180-atan(2)}:0.15652) $) -- node[midway,sloped,above=6pt] {$q$} (2.25,0.8); % q brace
+    \end{tikzpicture}
+\end{figure}
+\tikzexternaldisable
+Hence we can easily define the Lagrangian
+\begin{align*}
+    L &= 
+    \frac{1}{2}M\dot{X}^2
+    + \frac{1}{2}m[
+        (\dot{X} + \dot{q}\cos\theta)^2
+        + \dot{q}^2\sin^2\theta
+    ] - mgq\sin\theta
+\end{align*}
+There is no $X$ dependence on the system, hence
+$X$ is a cyclic coordinate.
+\begin{align*}
+    \frac{\d}{\d t}\frac{\partial L}{\partial\dot{X}}
+    &= \frac{\d}{\d t}M\dot{X} + m(\dot{X} + \dot{q}\cos\theta) = 0\\
+    \Rightarrow &M\dot{X} m(\dot{X} +\dot{q}\cos\theta) = p_X = \text{const}
+\end{align*}
+\end{example}
+
+
+
+\section{The Central Force Problem}
+\subsection{Reduction to the equivalent one-body problem}
+For the two-body problem, we have two choices of
+generalized coordinate
+\begin{enumerate}[label=(\alph*)]
+    \item $\mathbf{r}_1$, $\mathbf{r}_2$ stand for spacial coordinates of two
+    masses
+    \item $\mathbf{R}$ spacial coordinate of the COM, $\mathbf{r}=\mathbf{r}_1-\mathbf{r}_2$
+\end{enumerate}
+Hence, we can rewrite the kinetic energy in terms of $\mathbf{R}$ and $\mathbf{r}$
+\begin{align}
+    T &= \frac{1}{2}m_1\dot\mathbf{r}_1^2 + \frac{1}{2}m_2\dot\mathbf{r}_2^2\\
+    &= \frac{1}{2}m_1\left(\dot\mathbf{R}+\frac{m_2}{m_1+m_2}\dot\mathbf{r}\right)^2
+    + \frac{1}{2}m_2\left(\dot\mathbf{R}-\frac{m_1}{m_1+m_2}\dot\mathbf{r}\right)^2\\
+    &= \frac{1}{2}(m_1+m_2)\dot\mathbf{R}^2 + \frac{m_1m_2}{m_1+m_2}\dot\mathbf{r}^2
+    = \frac{1}{2}M\dot\mathbf{R}^2 + \frac{1}{2}\mu\dot\mathbf{r}^2
+\end{align}
+Hence we can write the Lagrangian
+\begin{align}
+    L &= 
+    \frac{1}{2}M\dot\mathbf{R}^2 + \frac{1}{2}\mu\dot\mathbf{r}^2 - V
+\end{align}
+Suppose $V=V(\mathbf{r})$, then $\mathbf{R}$ is a cyclic coordinate,
+We have $\dot\mathbf{R}=\text{const}$, and we can drop $\dot{\mathbf{R}}$
+terms in $L$.
+Moreover, if $V=V(\|\mathbf{r}\|)$, the total angular momentum is conserved.
+
+Use $r$, $\theta$ as generalized coordinates, we have
+\begin{align}
+    L &= \frac{1}{2}\mu(\dot{r}^2 + r^2\dot{\theta}^2) - V(r)
+\end{align}
+Easy to find that $\theta$ is cyclic, hence
+\begin{align}
+    \frac{\d}{\d t}\frac{\partial L}{\partial\dot\theta}
+    &= \frac{\d}{\d t}\mu r^2\dot\theta = 0
+    \Rightarrow p_\theta = \mu r^2\dot{\theta} = L= \text{const}
+\end{align}
+\begin{theorem}[Kepler's 2\textsuperscript{nd} law]
+Radius vector sweeps out equal areas in equal time.
+\end{theorem}
 
 
 
