@@ -1,4 +1,4 @@
-\documentclass[twoside,11pt]{article}
+\documentclass[twoside,9pt]{article}
 \usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -123,7 +123,7 @@
 %% coloring theorem
 % define colors
 \colorlet{theoremcolor}{blue!4!white}
-\colorlet{examplecolor}{red!3!white}
+\colorlet{examplecolor}{gray!4!white}
 \colorlet{definitioncolor}{green!3!white}
 % theorem
 \tcolorboxenvironment{theorem}{
@@ -243,7 +243,8 @@
 %     \end{align*}
 % \end{remark}
 
-% \tableofcontents
+\tableofcontents
+\newpage
 
 \setcounter{section}{-1}
 \section{Introduction}
@@ -256,7 +257,7 @@
     \item J.R. Taylor, Classical Mechanics, University Science Books.
     \item T.W.B. Kibble, F.H. Berkshire, Classical Mechanics, 5th Edition,
     Imperial College Press.
-    \item 梁昆淼，力学（下册）理论力学，4th Edition，高等教育出版社.
+    \item 梁昆淼，力学（下册）理论力学，4\textsuperscript{th} Edition，高等教育出版社.
 \end{itemize}
 
 Classical mechanics describe the motion of macroscopic objects, which are
@@ -386,6 +387,7 @@ we have
     \mathbf{r}_i &= \mathbf{r}_i(q_1,\dots, q_{3N-1}, t)
 \end{align}
 
+\newpage
 \section{Lagrange Formalism}
 \subsection{D'Alembert's Principle}
 Hint from the rigid body: internal forces of constraints do not work.
@@ -694,6 +696,9 @@ Rolling cylinder without sliding has the constraint
         \draw (0,1) circle (1);
         \draw[->] (0,1)+(100:1.2) arc (100:80:1.2);
         \draw[->] (0,1) -- (0.5, 1) node[above] {$\dot x$};
+        \draw[dotted] (0, 1) -- (0,0);
+        \draw (0, 1) --++ ({cos(-120)},{sin(-120)});
+        \draw[->] (0, 0.6) arc (-90:-120:0.4) node[midway,below] {$\theta$};
     \end{tikzpicture}
 \end{figure}
 \tikzexternaldisable
@@ -903,7 +908,7 @@ Note that
     \sum_i\frac{\partial L}{\partial\dot{q}_i}\dot{q}_i &= 2T
 \end{align}
 \begin{proof}
-Suppose $r_i$ does not have explicit time dependence
+Suppose $r_i$ does not have explicit time dependence ($\partial r_i/\partial t=0$)
 \begin{align*}
     T &= \sum_i \frac{1}{2}m_i\dot{r}_i^2
     = \sum_i \frac{1}{2}m_i\left(
@@ -915,9 +920,14 @@ Suppose $r_i$ does not have explicit time dependence
     \frac{\partial r_i}{\partial q_k}\dot{q}_j\dot{q}_k\\
     \Rightarrow
     \sum_i\frac{\partial L}{\partial\dot{q}_i}\dot{q}_i
-    &= \sum_i \dot{q}_i \sum_{jk}
-    m_k\frac{\partial r_k}{\partial q_i}\frac{\partial r_k}{\partial q_k}
-    \dot{q}_k = 2T\qedhere
+    &= 
+    \sum_i \dot{q}_i \sum_{jk}
+    m_k\frac{\partial r_k}{\partial q_i}\frac{\partial r_k}{\partial q_j}
+    \dot{q}_j 
+    = \sum_{ijk}
+    m_k\frac{\partial r_k}{\partial q_i}\frac{\partial r_k}{\partial q_j}
+    \dot q_i \dot{q}_j
+    = 2T\qedhere
 \end{align*}
 \end{proof}
 Hence we can define Hamiltonian $H = T+V$ which stands for the total energy,
@@ -967,7 +977,7 @@ $X$ is a cyclic coordinate.
 \end{example}
 
 
-
+\newpage
 \section{The Central Force Problem}
 \subsection{Reduction to the equivalent one-body problem}
 For the two-body problem, we have two choices of
@@ -999,15 +1009,219 @@ Use $r$, $\theta$ as generalized coordinates, we have
 \begin{align}
     L &= \frac{1}{2}\mu(\dot{r}^2 + r^2\dot{\theta}^2) - V(r)
 \end{align}
+The Lagrange's equation wrt $r$ writes
+\begin{align}
+    \mu\ddot{r}
+    - \mu r\dot{\theta}^2
+    + \frac{\partial V}{\partial r} &= 0
+\end{align}
 Easy to find that $\theta$ is cyclic, hence
 \begin{align}
     \frac{\d}{\d t}\frac{\partial L}{\partial\dot\theta}
     &= \frac{\d}{\d t}\mu r^2\dot\theta = 0
-    \Rightarrow p_\theta = \mu r^2\dot{\theta} = L= \text{const}
+    \Rightarrow p_\theta = \mu r^2\dot{\theta} = l = \text{const}
 \end{align}
 \begin{theorem}[Kepler's 2\textsuperscript{nd} law]
 Radius vector sweeps out equal areas in equal time.
 \end{theorem}
+Substitute $\mu r\dot{\theta}^2$ term by $L$, we have
+\begin{align}
+    &\mu\ddot{r} - \frac{l^2}{\mu r^3} + \frac{\partial V}{\partial r} = 0\\
+    \Rightarrow
+    &\mu\ddot{r} = -\frac{\partial}{\partial r}(V + \frac{l^2}{2\mu r^2})\\
+    &\mu\ddot{r}\dot{r} = -\frac{\partial}{\partial r} \dot{r}(V + \frac{l^2}{2\mu r^2})\\
+    \Rightarrow
+    &\frac{\d}{\d t}(\frac{1}{2}\mu\dot{r}^2 + V + \frac{l^2}{2\mu r^2}) = 
+    \frac{\d }{\d t}E = 0
+\end{align}
+Hence we can get the expression of $\dot{r}$
+and a differential equation
+\begin{align}
+    \dot{r} &= 
+    \sqrt{
+        \frac{2}{\mu}(E - V - \frac{l^2}{2\mu r^2})
+    }
+\end{align}
+Define the new effective force $f'(r)$ with an 
+effective potential $V'= V + l^2/2\mu r^2$, we have
+\begin{align}
+    \mu\ddot{r} &= 
+    -\frac{\partial V}{\partial r} + \frac{l^2}{\mu r^3} 
+    = f'(r),\quad
+    E = \frac{1}{2}\mu\dot{r}^2 + V' = \text{const}
+\end{align}
+\begin{example}[Gravitational force]
+Suppose we have $f(r) = -kr^{-2}$ and $V=-kr^{-1}$, then
+\begin{align*}
+    V' &= -\frac{k}{r} + \frac{l^2}{2\mu r^2}
+\end{align*}
+\tikzexternalenable
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \draw[->] (0, 0) -- (4,0) node[below,xshift=4pt] {$r$};
+        \draw[->] (0, -1) -- (0, 2) node[left] {$V'$};
+        \draw[domain=0.12:4,variable=\x,smooth,samples=500]
+            plot ({\x}, {0.1*(1/\x^2 - 6/\x)});
+        \draw[dashed] (0, -0.4) node[left] {$E$} -- (2, -0.4);
+        \draw[densely dotted] (0.1910, -0.4) -- (0.1910, 0) node[above,xshift=4pt] {$r_1$};
+        \draw[densely dotted] (1.3090, -0.4) -- (1.3090, 0) node[above] {$r_2$};
+    \end{tikzpicture}
+\end{figure}
+\tikzexternaldisable
+\begin{enumerate}[label=\arabic*)]
+    \item $E=E_1\geq 0$, the motion has a lower bound, $r\geq r_1$.
+    \item $V_\text{min} < E_2 < 0$, the motion has lower and upper bound,
+    $r_1\leq r \leq r_2$.
+    \item $E_3 = V_\text{min}$, the motion will shrink to a single circle
+    $r_1 = r_2 = \text{const}$, hence it is a circular motion.
+    In this case, the gravitational force is equal to the centrifugal
+    force
+    \begin{align*}
+        \mu\ddot{r} &= f(r) + \frac{l^2}{\mu r^3}
+        = f(r) + \mu r\dot{\theta}^2 = 0
+        \Rightarrow
+        f(r) = -\mu r\dot{\theta}^2
+    \end{align*}
+\end{enumerate}
+\begin{remark}
+Let the potential be $V=-kr^{-\alpha}$,
+then the motion cannot have periodic behavior if $\alpha>2$.
+\end{remark}
+\end{example}
+
+\begin{example}[Harmonic oscillator]
+$V=kr^2/2$, we have
+\begin{align*}
+    V' &= \frac{1}{2}kr^2 + \frac{l^2}{2\mu r^2}
+\end{align*}
+\end{example}
+
+\begin{theorem}[Conditions for closed orbitals, Bertrand's theorem]
+Stable orbitals require
+\begin{align}
+    \left.\frac{\partial^2 V'}{\partial r^2}\right|_{r=r_0}
+    &= \left.-\frac{\partial f}{\partial r} + \frac{3l^2}{mr^4} \right|_{r=r_0}>0
+    \Rightarrow
+    \left.\frac{\partial f}{\partial r}\right|_{r=r_0} < -\frac{3f(r_0)}{r_0}
+\end{align}
+Let $f=-kr^n$, then we have
+\begin{align}
+    -knr^{n-1} &< 3kr^{n-1}
+    \Rightarrow
+    n > -3
+\end{align}
+For a small perturbation from the minimum, we can write the effective potential
+as Taylor expansion
+\begin{align}
+    V'(r) &= 
+    V'(r_0) + \left.\frac{\partial V'}{\partial r}\right|_{r=r_0}(r-r_0)
+    + \frac{1}{2}\left.\frac{\partial^2 V'}{\partial r^2}\right|_{r=r_0}
+    (r-r_0)^2 + \cdots \\
+    & = V'(r_0) + \frac{1}{2}\left.\frac{\partial^2 V'}{\partial r^2}\right|_{r=r_0}
+    (r-r_0)^2 + O(|r-r_0|^3)
+\end{align}
+Hence the EOM becomes 
+\begin{align}
+    m\ddot{r} &= -\frac{\partial V'}{\partial r}
+    = \left.-\frac{\partial^2 V'}{\partial r^2}\right|_{r=r_0}(r-r_0)\\
+    \dot\theta &= \frac{l}{mr^2}
+\end{align}
+The solution taks the form
+\begin{align}
+    u &= u_0 + a\cos \beta\theta, ~u=\frac{1}{r},~
+    \beta^2 = \left.\frac{r}{f}\frac{\partial f}{\partial r} + 3\right|_{r=r_0}
+\end{align}
+For finite perturbation, the orbit can be a closed only if $\beta^2=1$ or $4$.
+Then there are only two types of central-force scalar problem with the property
+that all bound orbitals are closed orbitals.
+\begin{align}
+    \left.\frac{r}{f}\frac{\partial f}{\partial r}\right|_{r=r_0} 
+    &= \pm 2\Rightarrow
+    f = -kr^{-2}\text{ or } -kr
+\end{align}
+
+\hl{check derivation of EOM}
+\end{theorem}
+
+
+\begin{theorem}[Virial theorem]
+Consider a multi-particle system $1\leq i\leq N$.
+\begin{align}
+    \dot \mathbf{p}_i &= \mathbf{F}_i
+\end{align}
+Define new function 
+\begin{align}
+    G &= \sum_i \mathbf{p}_i\cdot\mathbf{r}_i
+\end{align}
+Then the time derivative of $G$ writes
+\begin{align}
+    \frac{\d}{\d t}G &= 
+    \sum_i m_i\dot \mathbf{r}_i^2 + \sum_i \mathbf{F}_i\cdot\mathbf{r}_i
+\end{align}
+Hence the time average of $\d G/\d t$ is
+\begin{align}
+    \frac{1}{\tau}\int_0^\tau \frac{\d}{\d t}G \d t
+    &= 2\overline{T} + \overline{\sum_i\mathbf{F}_i\cdot\mathbf{r}_i}
+    = \frac{1}{\tau}[G(\tau) - G(0)]
+\end{align}
+The time average equals to $0$ if $\tau$ is the period of the periodic motion;
+even for non-periodic motion, if $\tau\rightarrow\infty$, the average will
+approach $0$.
+Hence
+\begin{align}
+    2\overline{T} + \overline{\sum_i\mathbf{F}_i\cdot\mathbf{r}_i} &= 0
+    \Rightarrow
+    \overline{T} = -\frac{1}{2}
+    \underbrace{
+        \overline{\sum_i\mathbf{F}_i\cdot\mathbf{r}_i}
+    }_{\mathclap{\text{virial of Clausius}}}
+\end{align}
+\hl{check Landau's book}
+\end{theorem}
+
+\begin{example}[Ideal gas]
+Temperature $T\propto T_i$ kinetic energy of $i$\textsuperscript{th}
+particle.
+\begin{align}
+    T_i &= \frac{3}{2}k_BT
+\end{align}
+Hence the time average of total kinetic energy is
+\begin{align}
+    \overline{\sum_i T_i} &= 
+    \frac{3}{2}Nk_BT
+\end{align}
+The virial could be written as
+\begin{align}
+    \overline{\sum_i\mathbf{F}_i\cdot\mathbf{r}_i} &= 
+    \int\d\mathbf{F}\cdot\mathbf{r}
+\end{align}
+Note that
+\begin{align*}
+    \d\mathbf{F} &= -p\d A\mathbf{n}
+\end{align*}
+Applying Gauss's law we have
+\begin{align}
+    \overline{\sum_i\mathbf{F}_i\cdot\mathbf{r}_i} &= 
+    -\int p\d A\ \mathbf{n}\cdot\mathbf{r}
+    = -\int p\d V\ (\nabla\mathbf{r})
+    = -3pV
+\end{align}
+Hence by the equation we get $pV=nk_BT$
+
+\hl{add figure of box}
+\end{example}
+
+\begin{example}[Gravational force]
+Since $\mathbf{F}_i =-\nabla_i V$, 
+given $V_i=ar_i^{n+1}$, we have
+\begin{align}
+    \overline{T} &= 
+    \frac{1}{2}\overline{\sum_i\nabla_i V\cdot\mathbf{r}_i}
+    = \frac{n+1}{2}\overline{\sum_i a r_i^{n+1}}
+    = \frac{n+1}{2}\overline{V}
+\end{align}
+\end{example}
 
 
 
