@@ -1141,7 +1141,7 @@ that all bound orbitals are closed orbitals.
     f = -kr^{-2}\text{ or } -kr
 \end{align}
 
-\hl{check derivation of EOM}
+\hl{check the theorem on other books}
 \end{theorem}
 
 
@@ -1207,9 +1207,7 @@ Applying Gauss's law we have
     = -\int p\d V\ (\nabla\mathbf{r})
     = -3pV
 \end{align}
-Hence by the equation we get $pV=nk_BT$
-
-\hl{add figure of box}
+Hence by the equation we get $pV=nk_BT$.
 \end{example}
 
 \begin{example}[Gravational force]
@@ -1222,6 +1220,255 @@ given $V_i=ar_i^{n+1}$, we have
     = \frac{n+1}{2}\overline{V}
 \end{align}
 \end{example}
+
+\subsection{Inverse-square force}
+Consider $f=-k/r^2$, $V=-k/r$,
+then we have EOM
+\begin{align}
+    \dot r &= \left[
+        \frac{2}{m}\left(E + \frac{k}{r} - \frac{l^2}{2mr^2}\right)
+    \right]^{1/2}
+    \Rightarrow
+    \theta = \theta_0 + \int_{r_0}^{r_1}\frac{\d r}{r^2\left(
+        \frac{2mE}{l^2} - \frac{2mV}{l^2} - \frac{1}{r^2}
+    \right)^{1/2}}
+\end{align}
+Define $u=1/r$, let $\theta_0=0$, then
+\begin{align}
+    \theta &= \theta_0 - \int_{u_0}^{u_1}\frac{\d u}{
+        \left(
+            \frac{2mE}{l^2} + \frac{2mku}{l^2} - u^2
+        \right)^{1/2}
+    }\\
+    \Rightarrow
+    \theta &= -\arccos\frac{\frac{l^2u}{mk} - 1}{\sqrt{1 + \frac{2El^2}{mk^2}}},~
+    r = \frac{\frac{l^2}{mk}}{1 + \sqrt{1 + \frac{2El^2}{mk^2}}\cos\theta}
+    = \frac{r_0}{1 + \epsilon\cos\theta}
+\end{align}
+$\epsilon$ is called the eccentricity.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{rll}
+        \toprule
+        $\epsilon$ & Energy & Orbit\\
+        \midrule
+        $\epsilon>1$ & $E>0$ & Hyperbola\\
+        $\epsilon=1$ & $E=0$ & Parabola\\
+        $0 < \epsilon<1$ & $E<0$ & Ellipse\\
+        $\epsilon=0$ & $E<0$ & Circle\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+The major semi-axis $a$ and minor semi-axis $b$ are given by
+\begin{align}
+    a &= \frac{r_0}{1 - \epsilon^2} = -\frac{k}{2E},~
+    b = a\sqrt{1 - \epsilon^2} = \frac{k}{\sqrt{-2mE}}
+\end{align}
+Since $mr^2\dot\theta = l$, then
+\begin{align}
+    \int_0^T\d A &= 
+    \frac{1}{2}\int_0^T r^2\dot\theta\d t 
+    = \frac{1}{2}\int_0^T \frac{l}{m}\theta\d t
+    = \frac{l}{2m}T = \pi ab\Rightarrow
+    T = 2\pi a^{3/2}\sqrt{\frac{m}{k}}
+\end{align}
+Alternatively
+\begin{align}
+    \int \d t &= 
+    \int \frac{\d r}{\sqrt{\frac{2}{m}\left(
+        E - V - \frac{l^2}{2mr^2}
+    \right)}}
+    = \sqrt{\frac{ma}{k}}\int_{r_0}^{r_1}
+    \frac{r\d r}{\sqrt{-r^2 + 2ar - b^2}}
+    = \sqrt{\frac{ma}{k}}\int_{r_0}^{r_1}
+    \frac{r\d r}{\sqrt{-(r-a)^2 + a^2\epsilon^2}}
+\end{align}
+Let $r-a = -a\epsilon\cos\zeta$, hence
+\begin{align}
+    t &= \sqrt{\frac{ma}{k}}
+    \int\frac{(a-a\epsilon\cos\zeta)a\epsilon\sin\zeta\d\zeta}{\sqrt{
+        a\epsilon^2(1-\cos^2\zeta)
+    }}
+    = \sqrt{\frac{ma}{k}}\int  (a-a\epsilon\cos\zeta)\d\zeta
+    = \sqrt{\frac{ma^3}{k}}(\zeta -\epsilon\sin\zeta ) + C
+\end{align}
+
+\subsection{Scattering}
+\begin{figure}[H]
+    \centering
+    \tikzexternalenable
+    \begin{tikzpicture}[scale=1]
+        %%% the logic
+        % 1. draw the hyperbola (x-c)^2/a^2 - y^2/b^2 = 1 (the left branch)
+        %    (x-c) means to align all focus
+        % 2. rotate the hyperbola clockwise-ly such that the hyperbola
+        %    is aligned on x axis, the rotation matrix is generated using
+        %   [a  -b 
+        %    b   a]/sqrt(a^2+b^2) 
+        %    (think about why)
+        %%%
+        % limits & parameters
+        \def\xa{-35}
+        \def\xb{ 55}
+        \def\ya{ -1}
+        \def\yb{ 55}
+        \def\tmax{4.5}
+        \def\N{30} % number of points 
+        \begin{axis}[ xmin=\xa,xmax=\xb,
+                      ymin=\ya,ymax=\yb,
+                      hide x axis, hide y axis,
+                    ]
+          \def\a{1}
+          \foreach \u in {1,3,6,10,15,21,28,38}{
+            \def\b{\u*0.25}
+            \def\c{sqrt(\a^2+\b^2)}
+            \addplot[line width=0.5,samples=\N,smooth,variable=\t,domain=-\tmax:\tmax]
+               ({  \a/\c*(-\a*cosh(\t)-\c) + \b/\c*\b*sinh(\t) },
+                { -\b/\c*(-\a*cosh(\t)-\c) + \a/\c*\b*sinh(\t) });
+          } 
+          \addplot[mark=*,mark size=2pt,mark options=solid] coordinates {(0,0)}; 
+        \end{axis} 
+      \end{tikzpicture}
+      \begin{tikzpicture}
+        \def\S{0.6}; % shift from center
+        \def\a{1};
+        \def\b{1.8};
+        \draw (-4, 0) -- (2, 0);
+        \draw[dashed] (-4, \S) -- (2, \S);
+        \draw[<->] (-3, 0) -- node[fill=white,inner sep=1pt] {$S$} (-3, \S);
+        \draw[thick,domain=-1.25:1.25,variable=\t,smooth,samples=300]
+            plot(
+                {( \a * (-\a*cosh(\t) - \S * (sqrt(\a^2+\b^2) / \b)) + \b * \b*sinh(\t)) / sqrt(\a^2 + \b^2)},
+                {(-\b * (-\a*cosh(\t) - \S * (sqrt(\a^2+\b^2) / \b)) + \a * \b*sinh(\t)) / sqrt(\a^2 + \b^2)}
+            );
+        \draw[dashed,domain=-0.12:2,variable=\t,smooth,samples=20]
+            plot(
+                {( \a * (-\a*\a*\t - \S * (sqrt(\a^2+\b^2) / \b)) + \b * \b*\t) / sqrt(\a^2 + \b^2)},
+                {(-\b * (-\a*\a*\t - \S * (sqrt(\a^2+\b^2) / \b)) + \a * \b*\t) / sqrt(\a^2 + \b^2)}
+            );
+        \node[circle,fill,inner sep=1pt] at (0, 0) {};
+        \coordinate (P) at
+            (
+                {( \a * (-\a*cosh(0) - \S * (sqrt(\a^2+\b^2) / \b)) + \b * \b*sinh(0)) / sqrt(\a^2 + \b^2)},
+                {(-\b * (-\a*cosh(0) - \S * (sqrt(\a^2+\b^2) / \b)) + \a * \b*sinh(0)) / sqrt(\a^2 + \b^2)}
+            );
+        \node[circle,fill,inner sep=1pt] at (P) {};
+        \node[left,yshift=4pt] at (P) {$(r_m,\alpha)$};
+        \draw[densely dashed] (P) -- (0, 0);
+        \draw[->] (0.2, 0) arc (0:{atan(\a/\b)+90}:0.2) node[midway,above] {$\alpha$};
+        \node[circle,fill,inner sep=1pt] at ({-\S*\a/\b}, \S) {};
+        \draw ({-\S*\a/\b+0.2}, \S) arc (0:{180-2*atan(\b/\a)}:0.2)
+            node[midway,right,yshift=4pt] {$\theta$};
+      \end{tikzpicture}
+      \tikzexternaldisable
+\end{figure}
+Question: how many particles will be scattered in the given solid
+angle region (scattering cross section).
+Let $V\sim 1/r$, $f\sim 1/r^2$.
+Define the intensity of incident beam $I$
+\begin{align*}
+    I &= \text{\# of particles crossing a unit area perpendicular
+    to the beam in unit time}
+\end{align*}
+The the number of particles scattered into $\d\Omega$
+could be expressed as
+\begin{align}
+    \d N &= \sigma I \d \Omega,~
+    \sigma = \frac{\d N}{I\d\Omega}
+\end{align}
+where $\sigma$ is called differential cross section,
+which has the unit of area.
+
+Particles in $[S,S+\d S]$ would be scattered into
+$[\Omega, \Omega+\d\Omega]$, since $\d\Omega=2\pi\sin\theta\d\theta$
+\begin{align}
+    2\pi IS|\d S| &= \sigma I\d\Omega
+    = 2\pi\sigma I\sin\theta|\d\theta|
+    \Rightarrow
+    \sigma = \frac{S|\d S|}{\sin\theta|\d\theta|}
+\end{align}
+The angular momentum of the incoming particles (wrt. to force center)
+is
+\begin{align}
+    l &= mv_0 S = S\sqrt{2mE}
+\end{align}
+From the equation derived from central force problem
+\begin{align}
+    \alpha &= \int
+    \frac{\d r}{r^2\sqrt{\frac{2mE}{l^2} - \frac{rmV}{l^2}-\frac{1}{r^2}}}
+    \\
+    &= \pi + \int_{-\infty}^{r_m}
+    \frac{\d r}{r^2\sqrt{\frac{2mE}{l^2} - \frac{rmV}{l^2}-\frac{1}{r^2}}}
+\end{align}
+Let $r_m\equiv r_{\min}$ is the closest distance.
+Define $\psi$ where
+\begin{align}
+    \alpha &= 
+    \pi + \int_{-\infty}^{r_m}
+    \frac{\d r}{r^2\sqrt{\frac{2mE}{l^2} - \frac{rmV}{l^2}-\frac{1}{r^2}}}
+    = \pi - \psi
+\end{align}
+Hence $\theta=\pi-2\psi$.
+Change the variable $u=1/r$, then
+\begin{align}
+    \psi &= 
+    \int_0^{u_m=1/r_m}\frac{S\d u}{\sqrt{
+        1 - \frac{V}{E} - S^2 u^2
+    }}
+\end{align}
+Also note that
+\begin{align}
+    \sin\frac{\theta}{2} = \sin\frac{\pi-2\psi}{2} = \cos\psi = \frac{1}{\epsilon}
+\end{align}
+\begin{example}[Coulomb interaction]
+Let 
+\begin{align}
+    f &= \frac{ZZ'e^2}{r^2},~
+    V = \frac{ZZ'e^2}{r},~
+    r = \frac{r_0}{1 + \epsilon\cos(\alpha-\alpha')}
+\end{align}
+choose $\alpha'=\pi$.
+One can derive that
+\begin{align}
+    \epsilon &=
+    \sqrt{1 + 
+    \frac{2El^2}{m(ZZ'e^2)^2}}
+    = \sqrt{ 1 + \left(
+        \frac{2ES}{ZZ'e^2}
+    \right)^2}
+\end{align}
+Using the trigonometric relationship between $\theta$ and $\epsilon$,
+we have
+\begin{align}
+    S &= \frac{ZZ'e^2}{2E}\cot\frac{\theta}{2},~
+    \left|\frac{\d S}{\d\theta}\right| = 
+    \frac{ZZ'e^2}{4E}\frac{1}{\sin^2\frac{\theta}{2}}\\
+    \Rightarrow
+    \epsilon(\theta) &= 
+    \left(\frac{ZZ'e^2}{4E}\right)^2 \frac{1}{\sin^4\frac{\theta}{2}}
+\end{align}
+
+\hl{check if $\alpha'=\pi$ or $\alpha'=\alpha_m$}
+\end{example}
+
+
+\newpage 
+\section{Rigid Body}
+\subsection{Coordinates of rigid body}
+A rigid body is a system of point masses satisfying the constraint that
+distance between any two points is a constant ($r_{ij}=\text{const}$
+for all $i,j$).
+Let $\mathbf{r}_i$, $\mathbf{r}_j$, and $\mathbf{r}_k$
+be three points in the rigid body.
+Let $\mathbf{r}_i$ has $3$ DOFs, 
+since $r_ij$ is a constant, $\mathbf{r}_j$ has two DOFs.
+Hence, $\mathbf{r}_k$ only have 1 DOFs.
+The system has $3+2+1=6$ DOFs.
+
+Or, alternatively, a rigid body has 3 coordinates for the origin of the coordinate
+system fixed on the rigid body, and 3 angular variables to specify the orientation
+of the rotated coordinate system.
+
 
 
 
