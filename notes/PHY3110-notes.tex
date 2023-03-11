@@ -1,3 +1,5 @@
+%! TeX program = xelatex
+%! TEX-TS program = xelatex
 \documentclass[twoside,9pt]{article}
 \usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
 \usepackage{amsmath}
@@ -1144,8 +1146,7 @@ that all bound orbitals are closed orbitals.
 \hl{check the theorem on other books}
 \end{theorem}
 
-
-\begin{theorem}[Virial theorem]
+\subsection{Virial theorem}
 Consider a multi-particle system $1\leq i\leq N$.
 \begin{align}
     \dot \mathbf{p}_i &= \mathbf{F}_i
@@ -1176,9 +1177,8 @@ Hence
     \underbrace{
         \overline{\sum_i\mathbf{F}_i\cdot\mathbf{r}_i}
     }_{\mathclap{\text{virial of Clausius}}}
+    \label{eq:virial1}
 \end{align}
-\hl{check Landau's book}
-\end{theorem}
 
 \begin{example}[Ideal gas]
 Temperature $T\propto T_i$ kinetic energy of $i$\textsuperscript{th}
@@ -1220,6 +1220,32 @@ given $V_i=ar_i^{n+1}$, we have
     = \frac{n+1}{2}\overline{V}
 \end{align}
 \end{example}
+
+This theorem is particularly important when the potential energy is a homogeneous
+function of the coordinates, i.e.
+\begin{align}
+    U(\alpha\mathbf{r}_1, \dots, \alpha\mathbf{r}_n) &=
+    \alpha^k
+    U(\mathbf{r}_1, \dots, \mathbf{r}_n)
+\end{align}
+Note that
+\begin{align}
+    \frac{\d U}{\d \alpha}
+    &= 
+    \sum_a \frac{\partial \alpha \mathbf{r}_a}{\partial \alpha}\cdot\frac{\partial U}{\partial \alpha\mathbf{r}_a}
+    = 
+    \sum_a \frac{\mathbf{r}_a}{\alpha} \cdot\frac{\partial U}{\partial \mathbf{r}_a}
+    = k\alpha^{k-1} U
+\end{align}
+Then the equation \ref{eq:virial1} becomes
+\begin{align}
+    2\overline{T} &= k\overline{U}
+\end{align}
+Equivalently
+\begin{align}
+    \overline{U} &= \frac{2E}{k + 2},~
+    \overline{T}  = \frac{kE}{k + 2}
+\end{align}
 
 \subsection{Inverse-square force}
 Consider $f=-k/r^2$, $V=-k/r$,
@@ -1468,9 +1494,6 @@ The system has $3+2+1=6$ DOFs.
 Or, alternatively, a rigid body has 3 coordinates for the origin of the coordinate
 system fixed on the rigid body, and 3 angular variables to specify the orientation
 of the rotated coordinate system.
-
-
-
 
 % \end{multicols*}
 \end{document}
