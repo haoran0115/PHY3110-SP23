@@ -1,0 +1,364 @@
+%! TeX program    = xelatex
+%! TEX-TS program = xelatex
+\documentclass[twoside,11pt]{article}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{sectsty}
+\usepackage{mathrsfs} % mathscr
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{multicol}
+\usepackage{listings}
+% \usepackage{amsart}
+\usepackage{fontspec}
+\usepackage{soul}
+
+
+% allow H option of figure
+\usepackage{float}
+
+% math font (libertine)
+\usepackage{libertinus-otf}
+
+% braket
+\usepackage{braket}
+
+% tikz library
+\usetikzlibrary{decorations,calligraphy,calc,external}
+\tikzexternalize
+\tikzexternaldisable
+
+% physics
+% \usepackage{physics}
+
+% define latin modern font environment
+\newcommand{\lms}{\fontfamily{lmss}\selectfont} % Latin Modern Roman
+% \newcommand{\lmss}{\fontfamily{lmss}\selectfont} % Latin Modern Sans
+% \newcommand{\lmss}{\fontfamily{lmtt}\selectfont} % Latin Modern Mono
+
+% % change mathcal shape
+% \usepackage[mathcal]{eucal}
+
+
+% define math operators
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\XX}{\mathbb{Y}}
+\newcommand{\CL}{\mathcal{L}}
+% \renewcommand{\d}{\mathrm{d}}
+\renewcommand*\d{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\erf}{erf}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+
+% section font style
+\sectionfont{\sffamily\Large}
+\subsectionfont{\sffamily\normalsize}
+\subsubsectionfont{\bf}
+
+% line spreading and break
+\hyphenpenalty=5000
+\tolerance=20
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+\allowdisplaybreaks
+\linespread{0.9}
+
+% enumerate settings
+% no break before enumerate
+\setlist[enumerate]{itemsep=2pt,topsep=2pt}
+
+% theorem
+% latex theorem
+% definition style
+\theoremstyle{definition}
+\newtheorem{theorem}{\lms Theorem}[subsection]
+\newtheorem{axiom}{\lms Axiom}[section]
+\newtheorem{definition}{\lms Definition}[section]
+\newtheorem{example}{\lms Example}[section]
+\newtheorem{question}{\lms Question}[section]
+\newtheorem{exercise}{\lms Exercise}[section]
+\newtheorem*{exercise*}{\lms Exercise}
+\newtheorem{lemma}{\lms Lemma}[section]
+\newtheorem{proposition}{\lms Proposition}[section]
+\newtheorem{corollary}{\lms Corollary}[section]
+\newtheorem*{theorem*}{\lms Theorem}
+\newtheorem{problem}{\lms Problem}
+% remark style
+\theoremstyle{remark}
+\newtheorem*{remark}{\lms Remark}
+\newtheorem*{solution}{\lms Solution}
+\newtheorem*{claim}{\lms Claim}
+
+
+% paragraph indent
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+
+\newcommand\Code{PHY3110 SP23}
+\newcommand\Ass{HW05}
+\newcommand\name{Haoran Sun}
+\newcommand\mail{haoransun@link.cuhk.edu.cn}
+
+\title{{\lms \Code \ \Ass}}
+\author{\lms \name \ (\href{mailto:\mail}{\mail})}
+\date{\sffamily \today}
+
+\makeatletter
+% \let\Title\@title
+\let\theauthor\@author
+\let\thedate\@date
+
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    \lhead{\lms \Ass}
+    \rhead{\lms \name}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancypagestyle{title}{%
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    % \lhead{\Title}
+    % \rhead{\theauthor}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancyfootoffset[L]{0.3cm}
+
+% re-define title format
+\makeatletter
+\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
+\begin{flushleft}
+  \textbf{\Large\@title}
+
+  \@author
+\end{flushleft}\egroup
+}
+\makeatother
+
+\pagestyle{plain}
+
+% lstlisting settings
+\lstset{
+    basicstyle=\linespread{0.7}\footnotesize,
+    breaklines=true,
+    basewidth=0.5em
+}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{title}
+% \begin{multicols*}{2}
+
+% \begin{remark}
+%     $V_\epsilon(x)$ is used to denote a $\epsilon$-neighborhood
+%     \begin{align*}
+%         V_\epsilon(x) = B_\epsilon(x)\setminus\{x\}
+%     \end{align*}
+% \end{remark}
+
+\begin{problem}
+Find the orbits of a point mass moving in a central force field $F=-kr$,
+where $k$ is a positive constant.
+What if $k$ is a negative constant?
+\end{problem}
+\begin{solution}
+Instead of using polar coordinate $(r, \theta)$, use the $(x, y)$ Cartesian coordinate system.
+Then we have equations
+\begin{align*}
+    m\ddot x &= -kx,~ m\ddot y = -ky
+\end{align*}
+This leads to the solution
+\begin{align*}
+    x &= A\sin[\omega(t - t_1)],~ y = B\cos[\omega(t-t_2)]
+\end{align*}
+which is a ellipse (where $\omega = \sqrt{\frac{k}{m}}$).
+
+Suppose $k$ negative, we have a differnt solution
+\begin{align*}
+    x &= A\sinh[\omega(t - t_1)],~ y = B\cosh[\omega(t-t_2)]
+\end{align*}
+which is a hyperbola (where $\omega = \sqrt{\frac{-k}{m}}$).
+
+\end{solution}
+
+
+\begin{problem}
+A point mass $m$ moves in a central force field with $F=-\frac{\alpha}{r^2}$.
+If its orbit is an ellipse with the semi-major axis $\alpha$, derive the following
+relation between its velocity and $r$, $a$
+\begin{align}
+    v^2 &= 
+    \alpha
+    \left(
+        \frac{2}{r} - \frac{1}{\alpha}
+    \right)
+\end{align}
+\end{problem}
+\begin{solution}
+For ellipse orbits, $E<0$ and we have such relation
+\begin{align*}
+    a &= -\frac{k}{2E}
+\end{align*}
+In this case we have $k=\alpha m$, hence we have
+\begin{align*}
+    E &=  -\frac{\alpha m}{2a} = \frac{1}{2}m v^2 - \frac{\alpha m}{r}\Rightarrow
+    v^2 = \alpha\left(\frac{2}{r} - \frac{1}{a}\right) 
+\end{align*}
+
+For parabola orbits, $E=0$ and hence
+\begin{align*}
+    E &= 0 = \frac{1}{2}m v^2 - \frac{\alpha m}{r}\Rightarrow
+    v^2 = \frac{2\alpha}{r}
+\end{align*}
+
+For hyperbola orbits, $E>0$  and we have such relation
+\begin{align*}
+    E &=  \frac{\alpha m}{2a} = \frac{1}{2}m v^2 - \frac{\alpha m}{r}\Rightarrow
+    v^2 = \alpha\left(\frac{2}{r} + \frac{1}{a}\right)
+\end{align*}
+
+\end{solution}
+
+\begin{problem}
+Consider the scattering produced by a repulsive force $F=\frac{k}{r^3}$,
+show that the cross section takes the form
+\begin{align}
+    \sigma(\theta) &= 
+    \frac{k\pi^2}{2E}
+    \frac{(\pi - \theta)}{\theta^2(2\pi - \theta)^2\sin\theta}
+\end{align}
+\end{problem}
+\begin{solution}
+The potential energy takes the form $V=\frac{k}{r^2}$.
+Using the relation
+\begin{align*}
+    E &= \frac{1}{2}m\dot r^2 + \frac{l^2}{2mr^2} + \frac{k}{2r^2}
+\end{align*}
+We know that $r$ takes its minimum $r_m$ when $\dot{r}=0$, therefore
+\begin{align*}
+    \left.
+    \begin{aligned}
+            l^2 &= 2mEs^2\\
+            E &= \frac{l^2}{2mr_m^2} + \frac{k}{2r_m^2}
+    \end{aligned}
+    \right\}
+    \Rightarrow
+    r_m &= \left(S^2 + \frac{k}{2E}\right)^{1/2} = \frac{1}{u_m}
+\end{align*}
+Using the formula
+\begin{align*}
+    \psi 
+    &= 
+    \int_0^{u_m}
+    \left( 1 - \frac{V}{E} - S^2 u^2 \right)^{-1/2}S\d u\\
+    &=
+    \int_0^{u_m}
+    \left( 1 - \frac{ku^2}{2E} - S^2 u^2 \right)^{-1/2}S\d u\\
+    &= 
+    \int_0^{u_m}
+    \left[ 1 - \left(\frac{k}{2E} + S^2\right)u^2 \right]^{-1/2}S\d u\\
+    &= 
+    S\left(\frac{k}{2E} + S^2\right)^{-1/2}
+    \left.
+        \arcsin\left(\frac{k}{2E} + S^2\right)^{1/2} u
+    \right|_0^{u_m}\\
+    &= \frac{\pi}{2}
+    S\left(\frac{k}{2E} + S^2\right)^{-1/2}
+\end{align*}
+Hence we have $\theta$ equals to
+\begin{align*}
+    \theta 
+    &= 
+    \pi - 2\psi 
+    = \pi\left[
+        1 - 
+    S\left(\frac{k}{2E} + S^2\right)^{-1/2}
+    \right]
+\end{align*}
+Therefore
+\begin{align*}
+    S &= \left[
+        \frac{k}{2E}\frac{(\pi - \theta)^2}{\theta(2\pi - \theta)}
+    \right]^{1/2}
+\end{align*}
+Hence
+\begin{align*}
+    \frac{\d S}{\d\theta} &= 
+    -S^{-1}\frac{k\pi^2}{2E}\frac{(\pi - \theta)}{\theta^2(2\pi - \theta)^2}
+\end{align*}
+Therefore we have the differential cross-section equals to
+\begin{align*}
+    \sigma(\theta) &= 
+    \frac{S}{\sin\theta} \left|\frac{\d S}{\d \theta}\right|
+    = \frac{k\pi^2}{2E}\frac{\pi - \theta}{\theta^2 (2\pi - \theta)^2\sin\theta}
+\end{align*}
+
+\end{solution}
+
+
+\begin{problem}
+Show that for an antisymmetric $3\times 3$ matrix $\mathbf{A}$,
+the matrix $\mathbf{B}=(\mathbf 1 + \mathbf A)(\mathbf 1 - \mathbf A)^{-1}$
+is orthogonal, where $\mathbf 1$ is the identity matrix.
+\end{problem}
+\begin{solution}
+Note that
+\begin{align*}
+    \mathbf B^T 
+    &= 
+    [(\mathbf 1 - \mathbf A)^{-1}]^T(\mathbf 1 + \mathbf A)^T
+    = 
+    (\mathbf 1 + \mathbf A)^{-1} (\mathbf 1 - \mathbf A)\\
+    \mathbf B^T \mathbf B 
+    &= 
+    (\mathbf 1 + \mathbf A)^{-1} (\mathbf 1 - \mathbf A)
+    (\mathbf 1 + \mathbf A)(\mathbf 1 - \mathbf A)^{-1}
+\end{align*}
+Since $(\mathbf 1 + \mathbf A)(\mathbf 1 - \mathbf A) = (\mathbf 1 - \mathbf A)(\mathbf 1 + \mathbf A)$,
+we have
+\begin{align*}
+    \mathbf B^T \mathbf B &=
+    (\mathbf 1 + \mathbf A)^{-1} 
+    (\mathbf 1 + \mathbf A)
+    (\mathbf 1 - \mathbf A)
+    (\mathbf 1 - \mathbf A)^{-1}
+    = \mathbf 1
+\end{align*}
+which means that $\mathbf{B}$ is an orthogonal matrix.
+\end{solution}
+
+
+
+% \end{multicols*}
+\end{document}
+
