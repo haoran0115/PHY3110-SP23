@@ -293,7 +293,7 @@ Angular momentum $\mathbf{L}$ and torque $\mathbf{N}$ are also related
     = \mathbf{N}
 \end{align}
 
-Work done by external forces
+Work done by external forces (note that $\d\mathbf{s}=\mathbf{v}\d t$)
 \begin{align}
     W_{12} &= \int_1^2\mathbf{F}\d\mathbf{s}
     = \int_1^2 m\frac{\d\mathbf{v}}{\d t}\d\mathbf{s}
@@ -453,11 +453,26 @@ Then
         - m_i\dot{\mathbf{r}}_i\frac{\d}{\d t}\frac{\partial\mathbf{r}_i}{\partial q_j}
     \right]\delta q_j\\
     &= 
-    \sum_i\left[
+    \sum_j\left[
         \frac{\d }{\d t}\left(\frac{\partial T}{\partial\dot{q}_j}\right)
         - \frac{\partial T}{\partial q_j}
     \right]\delta q_j
     = \sum_j Q_j\delta q_j\\
+\end{align}
+where
+\begin{align}
+    \frac{\partial T}{\partial q_j}
+    &= 
+    \sum_{ik}\frac{\partial\dot\mathbf r_k}{\partial q_j}
+    \frac{\partial}{\partial\dot\mathbf r_k} T
+    = 
+    \sum_k 
+    m_k\dot\mathbf r_k
+    \frac{\partial\dot\mathbf r_k}{\partial q_j}
+    = 
+    \sum_k 
+    m_k\dot\mathbf r_k
+    \frac{\d}{\d t}\frac{\partial\mathbf r_k}{\partial q_j}
 \end{align}
 Hence $\forall j$ we have
 \begin{align}
@@ -648,7 +663,7 @@ Define the Lagrangian $L(x, y, \dot{y}) = 2\pi x\sqrt{1+\dot{y}^2}$,
 by Lagrange's equation we can get
 \begin{align}
     \frac{x\dot{y}}{\sqrt{1+\dot{y}^2}} = \text{const}
-    \Rightarrow y = a\cosh\frac{x}{a} + b
+    \Rightarrow y = a\cosh^{-1}\frac{x}{a} + b
 \end{align}
 \end{example}
 
@@ -665,13 +680,18 @@ According to Newton's laws we have $y=gv^2$, then
 \begin{align}
     T &= \int_1^2\frac{\sqrt{1+\dot{y}^2}}{\sqrt{2gy}}\d x
 \end{align}
-Then we have $L(x, y, \dot{y})$ and we get \hl{check drivation}
+Then we have $L(x, y, \dot{y})$ and we get
 \begin{align}
-    \frac{\dot{y}}{2y} + \frac{y\ddot{y}}{1 + \dot{y}^2} &= 0\\
-    \Rightarrow \frac{\d}{\d x}\ln[y(1+\dot{y}^2)] &= 0
+    &2y\ddot y + 1 + \dot y^2 = 0\\
+    \Rightarrow
+    &2y\dot y\ddot y + \dot y + \dot y^3 
+    = \dot y(1 + \dot y^2) + y (2\dot y\ddot y)
+    = \frac{\d}{\d t}\dot y(1 + \dot y^2) = 0\\
+    \Rightarrow
+    &y(1 + \dot y^2) = \text{const}
 \end{align}
 which means that $y(1+\dot{y}^2)=\text{const}$.
-The solution is $x=a(\theta-\sin\theta)$, $y=a(1-\cos\theta)$.
+The solution is $x=A(\theta-\sin\theta)$, $y=A(1-\cos\theta)$.
 \end{example}
 
 \subsection{Constraint}
@@ -823,17 +843,9 @@ we can get $M\ddot{x} = Mr\ddot{\theta} = -\lambda$ and
 $\ddot{x} = (g\sin\phi)/2$.
 Note that $\lambda$ is the constraint force (in this case $\lambda$
 is the frictional force).
-\hl{check derivation}
 \end{example}
 
 \subsection{Lagrangian for Lorentz force}
-\begin{definition}[Cylic coordinate]
-The generalized coordinate $q_i$ is cyclic (ignorable) if 
-\begin{align}
-    \frac{\partial L}{\partial q_i} &= 0
-\end{align}
-It implies the generalized momentum $p_i$ is conserved.
-\end{definition}
 The Lorentz force is given by
 \begin{align}
     \mathbf{F} &= 
@@ -843,7 +855,7 @@ The Lorentz force is given by
 Where
 \begin{align}
     \mathbf{E} &= -\nabla\phi - \frac{\partial A}{\partial t},\enskip
-    \mathbf{B} = \mathbf{v}\times\mathbf{A}
+    \mathbf{B} = \nabla\times\mathbf{A}
 \end{align}
 Hence, by defining the Lagrangian
 \begin{align}
@@ -851,8 +863,21 @@ Hence, by defining the Lagrangian
     \frac{1}{2}m\mathbf{v}^2 - q\phi + q\mathbf{A}\cdot\mathbf{v}
 \end{align}
 Applying the Lagrange's equation we can get the EOM (eq. \ref{eq-EMEOM}).
+Take $x$ as an example
+\begin{align}
+    \frac{\d}{\d t}\frac{\partial L}{\partial \dot x}
+    &= \frac{\d}{\d t}(m\dot x + qA_x)
+    = m\ddot x + q\frac{\partial A_x}{\partial t} + \mathbf{v}\cdot\nabla A_x
+\end{align}
 
 \subsection{Conservation \& symmetry of the system}
+\begin{definition}[Cylic coordinate]
+The generalized coordinate $q_i$ is cyclic (ignorable) if 
+\begin{align}
+    \frac{\partial L}{\partial q_i} &= 0
+\end{align}
+It implies the generalized momentum $p_i$ is conserved.
+\end{definition}
 \textbf{Rotational symmetry.}
 Let $q_j$ be one of the rotational angle of spacial coordinate $\mathbf{r}_i$.
 Hence
