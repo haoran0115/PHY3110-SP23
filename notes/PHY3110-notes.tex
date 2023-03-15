@@ -1600,8 +1600,16 @@ We can always write any rotational matrix $A$ as $A = BCD$
     \end{bmatrix}
 \end{align}
 
-
 \hl{draw Euler angle figure}
+
+The general displacement of a rigid body with one point fixed is a rotation
+around some axis $\mathbf{R}$.
+Then
+\begin{align}
+    \mathbf{R}' &= A\mathbf{R} = \mathbf{R}
+    \Rightarrow
+    (A - I)\mathbf{R} = 0,~\det(A-I) = 0
+\end{align}
 
 % \end{multicols*}
 \end{document}
