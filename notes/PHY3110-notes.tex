@@ -1602,6 +1602,7 @@ We can always write any rotational matrix $A$ as $A = BCD$
 
 \hl{draw Euler angle figure}
 
+\begin{theorem}[Euler's theorem]
 The general displacement of a rigid body with one point fixed is a rotation
 around some axis $\mathbf{R}$.
 Then
@@ -1610,6 +1611,95 @@ Then
     \Rightarrow
     (A - I)\mathbf{R} = 0,~\det(A-I) = 0
 \end{align}
+\end{theorem}
+
+Infinitesimal rotation transformation
+\begin{align}
+    \mathbf{x}' &= A\mathbf{x}
+    = (1 + \epsilon) \mathbf{x}
+    \Rightarrow
+    x'_i = x_i + \epsilon_{ij}x_j
+    = (\delta_{ij} + \epsilon_{ij})x_j
+\end{align}
+Hence
+\begin{align}
+    (\delta_{ki} + \epsilon'_{ki})x'_i &= 
+    (\delta_{ki} + \epsilon'_{ki})
+    (\delta_{ij} + \epsilon_{ij}) x_j
+    = (\delta_{kj} + \epsilon'_{kj} + \epsilon_{kj} 
+    + \epsilon'_{ki}\epsilon_{ij})x_j
+    = x_k
+\end{align}
+Ignoring $\epsilon'_{ki}\epsilon_{ij}$ term,
+we have $\epsilon'_{kj} = \epsilon^T_{jk} = -\epsilon_{kj}$,
+given that $\epsilon$ is an antisymmetric matrix.
+Let
+\begin{align}
+    \epsilon &= \begin{bmatrix}
+        0 & -d\Omega_3 & \d\Omega_2\\
+        \d\Omega_3 & 0 & -\d\Omega_1\\
+        -\d\Omega_2 & \d\Omega_1 & 0
+    \end{bmatrix},~
+    \boldsymbol{\Omega} = \begin{bmatrix}
+        \Omega_1\\ \Omega_2 \\ \Omega_3
+    \end{bmatrix}
+\end{align}
+Then
+\begin{align}
+    \d\mathbf{x} &= \epsilon\mathbf{x} = \d\boldsymbol{\Omega}\times\mathbf{x}
+\end{align}
+
+\subsection{Rate of change of a vector}
+Let $\mathbf{R}$ be one point inside the rigid body, then
+the motion can be decomposed into rotational motion of the
+body coordinate and the translational motion of the body
+\begin{align}
+    \left(\frac{\d\mathbf{R}}{\d t}\right)_\text{space}
+    &= \left(\frac{\d\mathbf{R}}{\d t}\right)_\text{body}
+    + \frac{\d\boldsymbol{\Omega}}{\d t}\times\mathbf{R}\\
+    \Rightarrow
+    \mathbf{V}_\text{space} &= \mathbf{V}_\text{body}
+    + \boldsymbol{\omega}\times\mathbf{R}
+    \label{eq:rigidV}
+\end{align}
+Decompose $\boldsymbol{\omega}$ into unit vectors corresponds
+to Euler angles and the body coordinate
+\begin{align}
+    \boldsymbol{\omega} &= 
+    \dot\phi e_\phi + \dot\theta e_\theta + \dot\psi e_\psi
+    = \omega_{x'}\mathbf{i}' + \omega_{y'}\mathbf{j}'
+    + \omega_{z'}\mathbf{k}'
+\end{align}
+From the figure we can find that
+\begin{align}
+    e_\phi &= \mathbf{k}
+    = \sin\theta\sin\psi\mathbf{i}' + \sin\theta\cos\psi\mathbf{j}'
+    + \cos\theta\mathbf{k}'\\
+    e_\theta &= \cos\psi\mathbf{i}' - \sin\psi\mathbf{j}'\\
+    e_\psi &= \mathbf{k}'
+\end{align}
+Hence
+\begin{align}
+    \omega_{x'} &= \dot\phi\sin\theta\sin\psi + \dot\theta\cos\psi\\
+    \omega_{y'} &= \dot\phi\sin\theta\cos\psi - \dot\theta\sin\psi\\
+    \omega_{z'} &= \dot\psi + \dot\phi\cos\theta
+\end{align}
+
+\hl{draw Euler angles}
+
+\subsection{The Coriolis effect}
+From equation \ref{eq:rigidV} we have
+\begin{align}
+    \mathbf{a}_\text{space} &=
+    \mathbf{a}_\text{body}  + \boldsymbol{\omega}\times\mathbf{V}_\text{\space}\\
+    \Rightarrow
+    m\mathbf{a}_\text{body} &= 
+    \mathbf{F} - 2m\boldsymbol{\omega}\times\mathbf{V}_\text{body}
+    - m\boldsymbol{\omega}\times(\boldsymbol{\omega}\times\mathbf{R})
+\end{align}
+The term $-2m\boldsymbol{\omega}\times\mathbf{V}_\text{body}$
+is the Coriolis force.
+
 
 % \end{multicols*}
 \end{document}
