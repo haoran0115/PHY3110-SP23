@@ -16,6 +16,7 @@
 \usepackage{sectsty}
 \usepackage{mathrsfs} % mathscr
 \usepackage{tikz}
+\usepackage{tikz-3dplot}
 \usepackage{pgfplots}
 \usepackage{multicol}
 \usepackage{listings}
@@ -52,6 +53,8 @@
 }
 \tikzexternalize[prefix=tikzpictures/]
 \tikzexternaldisable
+% input euler.tex, which includes tikz function for changing z-y-z to z-x-z
+\input{euler.tex}
 
 % physics
 % \usepackage{physics}
@@ -1600,7 +1603,50 @@ We can always write any rotational matrix $A$ as $A = BCD$
     \end{bmatrix}
 \end{align}
 
-\hl{draw Euler angle figure}
+\begin{figure}[htb]
+    \tikzexternalenable
+    \centering
+    \tdplotsetmaincoords{60}{125}
+    \tdseteulerzxz
+    \begin{tikzpicture}[scale=3,tdplot_main_coords]
+        \draw[canvas is yx plane at z=0,black!10!white,step=0.2] (0,0) grid (1,1);
+
+        % first rotation
+        \tdplotsetrotatedcoords{20}{0}{0}
+        \draw[tdplot_rotated_coords,thick,-latex,blue] (0, 0, 0) -- (1, 0, 0) node[left]  {$\mathbf{N}$};
+        \tdplotdrawarc{(0,0,0)}{0.35}{0}{20}{}{};
+        \tdplotdrawarc[->]{(0,0,0)}{0.7}{0}{20}{anchor=north}{\tiny 1};
+        \node at (0.5, 0.11, 0) {\footnotesize$\phi$};
+
+        % second rotation
+        \tdplotsetrotatedcoords{20}{20}{0}
+        %\foreach \i in {0,...,17}{
+        %    \tdplotsetrotatedthetaplanecoords{\i*10};
+        %    \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{.35}{0}{360}{}{};
+        %};
+        \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{.2}{0}{20}{below}{\footnotesize$\psi$};
+        \tdplotdrawarc[tdplot_rotated_coords,->]{(0,0,0)}{.6}{0}{20}{below}{\tiny 3};
+        \tdplotsetrotatedthetaplanecoords{90};
+        \tdplotdrawarc[tdplot_rotated_coords]{(0,0,0)}{.35}{0}{20}{above}{\footnotesize$\theta$};
+        \tdplotdrawarc[tdplot_rotated_coords,<-]{(0,0,0)}{0.6}{0}{20}{anchor=south}{\tiny 2};
+
+        % third rotation
+        \tdplotsetrotatedcoords{20}{20}{20}
+        \draw[tdplot_rotated_coords,thick,-latex,red] (0, 0, 0) -- (1, 0, 0) node[below]  {$x'$};
+        \draw[tdplot_rotated_coords,thick,-latex,red] (0, 0, 0) -- (0, 1, 0) node[right] {$y'$};
+        \draw[tdplot_rotated_coords,thick,-latex,red] (0, 0, 0) -- (0, 0, 1) node[right] {$z'$};
+
+        % grid zy and xz
+        \draw[canvas is zy plane at x=0,black!10!white,step=0.2] (0,0) grid (1,1);
+        \draw[canvas is xz plane at y=0,black!10!white,step=0.2] (0,0) grid (1,1);
+
+        % before rotation
+        \draw[thick,-latex] (0, 0, 0) -- (1, 0, 0) node[left]  {$x$};
+        \draw[thick,-latex] (0, 0, 0) -- (0, 1, 0) node[right] {$y$};
+        \draw[thick,-latex] (0, 0, 0) -- (0, 0, 1) node[right] {$z$};
+    \end{tikzpicture}    
+    \tikzexternaldisable
+\end{figure}
 
 \begin{theorem}[Euler's theorem]
 The general displacement of a rigid body with one point fixed is a rotation
@@ -1684,8 +1730,6 @@ Hence
     \omega_{y'} &= \dot\phi\sin\theta\cos\psi - \dot\theta\sin\psi\\
     \omega_{z'} &= \dot\psi + \dot\phi\cos\theta
 \end{align}
-
-\hl{draw Euler angles}
 
 \subsection{The Coriolis effect}
 From equation \ref{eq:rigidV} we have
