@@ -1,0 +1,369 @@
+%! TeX program    = xelatex
+%! TEX-TS program = xelatex
+\documentclass[twoside,11pt]{article}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{sectsty}
+\usepackage{mathrsfs} % mathscr
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{multicol}
+\usepackage{listings}
+% \usepackage{amsart}
+\usepackage{fontspec}
+\usepackage{soul}
+
+
+% allow H option of figure
+\usepackage{float}
+
+% math font (libertine)
+\usepackage{libertinus-otf}
+
+% braket
+\usepackage{braket}
+
+% tikz library
+\usetikzlibrary{decorations,calligraphy,calc,external}
+\tikzexternalize
+\tikzexternaldisable
+
+% physics
+% \usepackage{physics}
+
+% define latin modern font environment
+\newcommand{\lms}{\fontfamily{lmss}\selectfont} % Latin Modern Roman
+% \newcommand{\lmss}{\fontfamily{lmss}\selectfont} % Latin Modern Sans
+% \newcommand{\lmss}{\fontfamily{lmtt}\selectfont} % Latin Modern Mono
+
+% % change mathcal shape
+% \usepackage[mathcal]{eucal}
+
+
+% define math operators
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\XX}{\mathbb{Y}}
+\newcommand{\CL}{\mathcal{L}}
+% \renewcommand{\d}{\mathrm{d}}
+\renewcommand*\d{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\erf}{erf}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+
+% section font style
+\sectionfont{\sffamily\Large}
+\subsectionfont{\sffamily\normalsize}
+\subsubsectionfont{\bf}
+
+% line spreading and break
+\hyphenpenalty=5000
+\tolerance=20
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+\allowdisplaybreaks
+\linespread{0.9}
+
+% enumerate settings
+% no break before enumerate
+\setlist[enumerate]{itemsep=2pt,topsep=2pt}
+
+% theorem
+% latex theorem
+% definition style
+\theoremstyle{definition}
+\newtheorem{theorem}{\lms Theorem}[subsection]
+\newtheorem{axiom}{\lms Axiom}[section]
+\newtheorem{definition}{\lms Definition}[section]
+\newtheorem{example}{\lms Example}[section]
+\newtheorem{question}{\lms Question}[section]
+\newtheorem{exercise}{\lms Exercise}[section]
+\newtheorem*{exercise*}{\lms Exercise}
+\newtheorem{lemma}{\lms Lemma}[section]
+\newtheorem{proposition}{\lms Proposition}[section]
+\newtheorem{corollary}{\lms Corollary}[section]
+\newtheorem*{theorem*}{\lms Theorem}
+\newtheorem{problem}{\lms Problem}
+% remark style
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\newtheorem*{claim}{Claim}
+
+
+% paragraph indent
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+
+\newcommand\Code{PHY3110 SP23}
+\newcommand\Ass{HW05}
+\newcommand\name{Haoran Sun}
+\newcommand\mail{haoransun@link.cuhk.edu.cn}
+
+\title{{\lms \Code \ \Ass}}
+\author{\lms \name \ (\href{mailto:\mail}{\mail})}
+\date{\sffamily \today}
+
+\makeatletter
+% \let\Title\@title
+\let\theauthor\@author
+\let\thedate\@date
+
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    \lhead{\lms \Ass}
+    \rhead{\lms \name}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancypagestyle{title}{%
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    % \lhead{\Title}
+    % \rhead{\theauthor}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancyfootoffset[L]{0.3cm}
+
+% re-define title format
+\makeatletter
+\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
+\begin{flushleft}
+  \textbf{\Large\@title}
+
+  \@author
+\end{flushleft}\egroup
+}
+\makeatother
+
+\pagestyle{plain}
+
+% lstlisting settings
+\lstset{
+    basicstyle=\linespread{0.7}\footnotesize,
+    breaklines=true,
+    basewidth=0.5em
+}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{title}
+% \begin{multicols*}{2}
+
+% \begin{remark}
+%     $V_\epsilon(x)$ is used to denote a $\epsilon$-neighborhood
+%     \begin{align*}
+%         V_\epsilon(x) = B_\epsilon(x)\setminus\{x\}
+%     \end{align*}
+% \end{remark}
+
+\begin{problem}
+Obtain the general rotation matrix in terms of the Euler angles by performing
+an explicit multiplication of the tree successive rotation matrices.
+Verify that the matrix multiplication is associative.
+\end{problem}
+\begin{solution} 
+The three rotation matrices are
+\begin{align*}
+    D &= 
+    \begin{bmatrix}
+        \cos\phi & \sin\phi & 0\\
+        -\sin\phi & \cos\phi & 0\\
+        0 & 0 & 1
+    \end{bmatrix},~
+    C = 
+    \begin{bmatrix}
+        1 & 0 & 0\\
+        0 & \cos\theta & \sin\theta \\
+        0 & -\sin\theta & \cos\theta
+    \end{bmatrix},~
+    B = 
+    \begin{bmatrix}
+        \cos\psi & \sin\psi & 0\\
+        -\sin\psi & \cos\psi & 0\\
+        0 & 0 & 1
+    \end{bmatrix}
+\end{align*}
+Hence we have
+\begin{align*}
+    A &= BCD = 
+    \begin{bmatrix}
+        \cos\phi\cos\psi - \cos\theta\sin\phi\sin\psi & 
+        \cos\psi\sin\phi + \cos\theta\cos\phi\sin\psi &
+        \sin\theta\sin\psi\\
+        -\cos\theta\cos\psi\sin\phi - \cos\phi\sin\psi &
+        \cos\theta\cos\phi\cos\psi - \sin\phi\sin\psi &
+        \cos\psi\sin\theta\\
+        \sin\theta\sin\phi &
+        -\cos\phi\sin\theta &
+        \cos\theta
+    \end{bmatrix}
+\end{align*}
+The matrix multiplication is associative.
+\end{solution}
+
+
+\begin{problem}
+Consider the rotation in the following order: first rotate around the $x$ axis
+by an angle $\theta$, then around $z'$ axis by an angle $\psi$, and finally
+around the old $z$ axis by an angle $\phi$.
+Does this lead to the same transformation matrix as that in Problem 1?
+Do you have an explanation for this?
+\end{problem}
+\begin{solution} 
+Let $x$ denotes the original coordinate system. 
+Let $\xi$, $\eta$, and $\zeta$ denote three coordinate systems after each rotation,
+and let $\symbfit{\xi}$, $\symbfit{\eta}$, and $\symbfit{\zeta}$ denote their basis
+vectors ($\mathbb{R}^{3\times 3}$), respectively.
+Use matrices $B$, $C$, and $D$ from Problem 1.
+We can know immediately that the change of basis matrices
+\begin{align*}
+    \mathcal{C}_{\xi x} &= C,~
+    \mathcal{C}_{\eta\xi} = B,~
+    \mathcal{C}_{\eta x} = BC
+\end{align*}
+However, it seems not straightforward to derive change of basis matirx related
+to $\zeta$.
+To do so, let's first derive $\symbfit{\zeta}$.
+Note that
+\begin{align*}
+    \symbfit{\zeta} &= \mathcal{C}_{x\zeta}
+    = \begin{bmatrix}
+        \cos\phi  & \sin\phi & 0 \\
+        -\sin\phi & \cos\phi & 0 \\
+        0 & 0 & 1
+    \end{bmatrix}\symbfit{\eta}
+    = D^T
+    \mathcal{C}_{x\eta}
+    = D^T
+    \mathcal{C}_{x\xi}
+    \mathcal{C}_{\xi\eta}
+    = D^T C^T B^T
+\end{align*}
+Hence the change of basis matrix $\mathcal{C}_{x\zeta}$ is
+\begin{align*}
+    \mathcal{C}_{\zeta x} &= BCD = A
+\end{align*}
+which is the same matrix as $A$ in the Problem 1.
+\end{solution}
+
+
+\begin{problem}
+A particle is thrown up vertically with initial speed $v_0$, reaches a maximum
+and falls back to the ground. Show that the Coriolis deflection when it again 
+reaches the ground is opposite in direction, and four times greater in magnitude,
+than the Coriolis deflection when it is dropped at rest from the same maximum
+height.
+\end{problem}
+\begin{solution} 
+The Coriolis force is in the form 
+\begin{align*}
+    -2m\symbfit{\omega}\times\mathbf{V}_\text{body}
+\end{align*}
+Only consider the $z$ direction of $\mathbf{V}_\text{body}$, since the 
+acceleration is constant ($g$), we have 
+\begin{align*}
+    [\mathbf{V}_\text{body}]_z &= -gt + C
+\end{align*}
+Ignore the centrifugal term, for two cases we have $\mathbf{a}=-\mathbf{k}t+\mathbf{c}$
+for some constant vector $\mathbf{k}$, hence for two cases
+\begin{enumerate}[label=\roman*.]
+\item Overall time $2T$ ($v_0 = gT$)
+\begin{align*}
+    \mathbf{a} &= \mathbf{k}T - \mathbf{k}t,~
+    \mathbf{v} = \mathbf{k}Tt - \frac{1}{2}\mathbf{k}t^2 + \frac{1}{2}\mathbf k T^2,~
+    \mathbf{x} = \frac{1}{2}kTt^2 - \frac{1}{6}\mathbf{k}T^3 + \frac{1}{2} \mathbf kT^2 t\\
+    \Rightarrow \left. \mathbf{x}\right|_0^{2T} &= 
+    \frac{5}{6}\mathbf k T^2
+\end{align*}
+
+\item Overall time $T$
+\begin{align*}
+    \mathbf{a} &= -\mathbf k t,~
+    \mathbf{v} = \frac{1}{2}\mathbf{k}t^2,~
+    \mathbf{x} = \frac{1}{6}\mathbf{k}t^3\\
+    \Rightarrow \left. \mathbf{x}\right|_0^{T} &= 
+    -\frac{1}{6}\mathbf k T^2
+\end{align*}
+Hence the first case has four times greater in magnitude.
+
+\end{enumerate}
+\end{solution}
+
+
+\begin{problem} 
+Prove that for a general rigid body motion about a fixed point, the kinetic
+energy $T$ satisfies
+\begin{align}
+    \frac{\d T}{\d t} &= \symbfit{\omega}\cdot \mathbf{N}
+\end{align}
+\end{problem}
+\begin{solution} 
+For any point $i$ in the rigid body rotating around one point,
+one should have
+\begin{align*}
+    \d\mathbf r_i &= \symbfit\omega\times\mathbf r_i\d t
+\end{align*}
+Hence
+\begin{align*}
+    \frac{\d}{\d t}\sum\frac{1}{2}m_i\mathbf{v}_i^2
+    &= \sum m_i\mathbf v_i\cdot\mathbf a_i\\
+    &= \sum m_i(\symbf\omega\times\mathbf r_i)\cdot \mathbf a_i\\
+    &= \sum\symbfit\omega\cdot(\mathbf r_i\times m_i\mathbf a_i)\\
+    &= \symbfit\omega\cdot\sum\mathbf r_i\times m_i\mathbf a_i\\
+    &= \symbfit\omega\cdot\mathbf N
+\end{align*}
+\end{solution}
+
+
+\begin{problem}
+A uniform sphere of mass $M$ and radius $R$ rotates around an axis through its
+center of mass.
+How it the kinetic energy of the sphere related to the angular velocity?
+\end{problem}
+\begin{solution}
+Let the $z$ axis align onto $\symbfit{\omega}$, then
+the kinetic energy is
+\begin{align*}
+    T &= \iint R^2\sin\theta \d\theta\d\phi\frac{M}{4\pi R^2}
+    \frac{1}{2}(\omega R\cos\theta)^2\\
+      &= \int_0^{2\pi}\d \phi\int_0^\pi\d\theta
+      \frac{MR^2\omega^2}{8\pi}\sin\theta\cos^2\theta\\
+      &= \frac{MR^2\omega^2}{6}
+\end{align*}
+\end{solution}
+
+
+
+% \end{multicols*}
+\end{document}
+
