@@ -1584,21 +1584,23 @@ Steps:
     \item Rotate around $\xi'$ axis by an angle $\psi$, rotational matrix $B$
 \end{enumerate}
 We can always write any rotational matrix $A$ as $A = BCD$
+Note that all rotations are rotations of \textbf{coordinate system}, which means,
+$A$ is a change-of-basis matrix.
 \begin{align}
     A &= 
     \begin{bmatrix}
-        \cos\psi & \sin\psi & 0\\
-        \sin\psi & -\cos\psi & 0\\
+        \cos\psi &  \sin\psi & 0\\
+        -\sin\psi & \cos\psi & 0\\
         0 & 0 & 1
     \end{bmatrix}
     \begin{bmatrix}
         1 & 0 & 0\\
         0 & \cos\theta & \sin\theta \\
-        0 & \sin\theta & -\cos\theta
+        0 & -\sin\theta & \cos\theta
     \end{bmatrix}
     \begin{bmatrix}
-        \cos\phi &  \sin\phi & 0\\
-        \sin\phi & -\cos\phi & 0\\
+        \cos\phi & \sin\phi & 0\\
+        -\sin\phi & \cos\phi & 0\\
         0 & 0 & 1
     \end{bmatrix}
 \end{align}
