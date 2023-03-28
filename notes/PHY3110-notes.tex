@@ -1746,6 +1746,98 @@ From equation \ref{eq:rigidV} we have
 The term $-2m\boldsymbol{\omega}\times\mathbf{V}_\text{body}$
 is the Coriolis force.
 
+\newpage
+\section{EOM of rigid body}
+\subsection{Angular momentum and kinetic energy}
+It is often convenient to choose the COM of the rigid body as the origin
+of the body system.
+Suppose the motion only involves rotation, the angular momentum is
+\begin{align}
+    \mathbf{L} &= 
+    \sum_i m_i (\mathbf{r}_i\times\mathbf{v}_i)
+    = \sum_i m_i [\mathbf{r}_i\times(\symbfit{\omega}\times\mathbf{r}_i)]
+    = \sum_i m_i[\mathbf{r}_i^2\symbfit{\omega} - \mathbf{r_i}(\mathbf{r}_i
+    \cdot\symbfit{\omega})]
+\end{align}
+Consider the components of the equation
+\begin{align}
+    L_x &= \sum_i m_i[\omega_x(\mathbf{r}_i^2 - x_i^2) - \omega_yx_iy_i-\omega_z x_iz_i]\\
+    L_y &= \sum_i m_i[\omega_y(\mathbf{r}_i^2 - y_i^2) - \omega_xx_iy_i-\omega_z y_iz_i]\\
+    L_z &= \sum_i m_i[\omega_x(\mathbf{r}_i^2 - z_i^2) - \omega_xx_iy_i-\omega_y y_iz_i]\\
+    \Rightarrow
+    \begin{bmatrix}
+        L_x\\L_y\\L_z
+    \end{bmatrix} &=
+    \begin{bmatrix}
+        I_{xx} & I_{xy} & I_{xz}\\
+        I_{yx} & I_{yy} & I_{yz}\\
+        I_{zx} & I_{zy} & I_{zz}
+    \end{bmatrix}
+    \begin{bmatrix}
+        \omega_x\\ \omega_y\\ \omega_z
+    \end{bmatrix}
+\end{align}
+Written the equation in the integral form
+\begin{align}
+    I_{ij} &= 
+    \int_V\rho(\mathbf{r})\d\mathbf{r}\ (\mathbf{r}^2\delta_{ij} - r_ir_j)
+\end{align}
+The total kinetic energy is
+\begin{align}
+    T 
+    &= \sum_i \frac{1}{2}m_i\mathbf{v}_i^2
+    = \sum_i \frac{1}{2}m_i(\symbfit{\omega}\times\mathbf{r}_i)\cdot\mathbf{v}_i
+    = \frac{1}{2}\symbfit{\omega}\cdot\sum_i m_i(\mathbf{r}_i\times\mathbf{v}_i)
+    = \frac{1}{2}\symbfit{\omega}\cdot\mathbf{L}
+    = \frac{1}{2}\symbfit{\omega}^T I\symbfit{\omega}
+    = \frac{1}{2}I_{ij}\omega_i\omega_j
+\end{align}
+If $\symbfit{\omega}=\omega\mathbf{n}$, then
+\begin{align}
+    T &= \frac{1}{2}\omega^2\mathbf{n}^TI\mathbf{n}
+\end{align}
+If there is a translational motion
+\begin{align}
+    \mathbf{v}_i &= \mathbf{v}_0 + \symbfit{\omega}\times\mathbf{r}_i\\
+    \mathbf{r}_i &= \mathbf{r}_0 + \mathbf{r}_i'\\
+    \Rightarrow\mathbf{L}
+    &= \sum_i(\mathbf{r}_0+\mathbf{r}_i')\times(\mathbf{v}_0 + \symbfit{\omega}
+    \times\mathbf{r}_i)
+    = M\mathbf{r}_0\times\mathbf{v}_0 
+    + \sum_i m_i\mathbf{r}_i'\times(\symbfit{\omega}\times\mathbf{r}_i')
+\end{align}
+Hence, the kinetic energy becomes
+(let $\symbfit{\omega}=\omega\mathbf{n}$)
+\begin{align}
+    T &= \sum_i \frac{1}{2}m_i(\mathbf{v}_0 + \symbfit{\omega}\times\mathbf{r}_i)^2
+    = \sum_i \frac{1}{2}m_i\mathbf{v}_0^2 + m_i\mathbf{v}_0\cdot
+    (\symbfit{\omega}\times\mathbf{r}_i)
+    + \frac{1}{2}\omega^2m_i(\mathbf{n}\times\mathbf{r}_i)^2
+    = \frac{1}{2}M\mathbf{v}_0^2 + \frac{1}{2}I\omega^2
+\end{align}
+
+Angular momentum around any point
+\begin{align}
+    I_a &= \sum_i m_i(\mathbf{n}\times\mathbf{r}_i)^2
+    = \sum_i m_i[\mathbf{n}\times(\mathbf{R} + \mathbf{r}_i')]^2
+    = \sum_i m_i(\mathbf{n}\times\mathbf{R})^2 + \sum_i m_i(\mathbf{n}\times
+    \mathbf{r}_i')^2
+    = M(\mathbf{n}\times\mathbf{R})^2 + I_\text{COM}
+\end{align}
+
+\subsection{The eigenvalues of the inertia tensor}
+We can diagonalize the matrix $I$ s.t.
+\begin{align}
+    I &= \begin{bmatrix}
+        I_1 & & \\
+        & I_2 & \\
+        & & I_3
+    \end{bmatrix}
+\end{align}
+The diagonal terms are called the principle moments of inertia,
+and the axes that diagonalize the matrix are called the
+principal axes.
+
 
 % \end{multicols*}
 \end{document}
