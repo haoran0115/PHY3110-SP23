@@ -121,9 +121,9 @@
 \newtheorem{problem}{\lms Problem}
 % remark style
 \theoremstyle{remark}
-\newtheorem*{remark}{\lms Remark}
-\newtheorem*{solution}{\lms Solution}
-\newtheorem*{claim}{\lms Claim}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\newtheorem*{claim}{Claim}
 
 %% coloring theorem
 % define colors
@@ -1745,6 +1745,22 @@ From equation \ref{eq:rigidV} we have
 \end{align}
 The term $-2m\boldsymbol{\omega}\times\mathbf{V}_\text{body}$
 is the Coriolis force.
+\begin{remark}
+Since $\mathbf V_\text{body}$ is also rotating around $\symbfit{\omega}$,
+we have
+\begin{align}
+    \frac{\d}{\d t}\mathbf V_\text{body}
+    &= \mathbf a_\text{body} + \symbfit\omega\times\mathbf V_\text{body}
+\end{align}
+
+\end{remark}
+
+\subsection*{Additional notes on transformation of basis}
+\begin{remark}
+One can check Arnold's CM book for comprehensive mathematical formulation
+for spacial transformation.
+\end{remark}
+
 
 \newpage
 \section{EOM of rigid body}
