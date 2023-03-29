@@ -245,7 +245,7 @@ Let $\xi$, $\eta$, and $\zeta$ denote three coordinate systems after each rotati
 and let $\symbfit{\xi}$, $\symbfit{\eta}$, and $\symbfit{\zeta}$ denote their basis
 vectors ($\mathbb{R}^{3\times 3}$), respectively.
 Use matrices $B$, $C$, and $D$ from Problem 1.
-We can know immediately that the change of basis matrices
+We can immediately know the change of basis matrices are
 \begin{align*}
     \mathcal{C}_{\xi x} &= C,~
     \mathcal{C}_{\eta\xi} = B,~
@@ -271,7 +271,10 @@ Note that
 \end{align*}
 Hence the change of basis matrix $\mathcal{C}_{x\zeta}$ is
 \begin{align*}
-    \mathcal{C}_{\zeta x} &= BCD = A
+    \mathcal{C}_{\zeta x} &=
+    \mathcal{C}_{x\zeta}^T
+    = \symbfit{\zeta}^T
+    = BCD = A
 \end{align*}
 which is the same matrix as $A$ in the Problem 1.
 \end{solution}
@@ -294,8 +297,8 @@ acceleration is constant ($g$), we have
 \begin{align*}
     [\mathbf{V}_\text{body}]_z &= -gt + C
 \end{align*}
-Ignore the centrifugal term, for two cases we have $\mathbf{a}=-\mathbf{k}t+\mathbf{c}$
-for some constant vector $\mathbf{k}$, hence for two cases
+Ignore the centrifugal term, we have $\mathbf{a}=-\mathbf{k}t+\mathbf{c}$
+for some constant vector $\mathbf{k}$ and $\mathbf{c}$, hence for two cases
 \begin{enumerate}[label=\roman*.]
 \item Overall time $2T$ ($v_0 = gT$)
 \begin{align*}
@@ -357,8 +360,8 @@ the kinetic energy is
     T &= \iint R^2\sin\theta \d\theta\d\phi\frac{M}{4\pi R^2}
     \frac{1}{2}(\omega R\cos\theta)^2\\
       &= \int_0^{2\pi}\d \phi\int_0^\pi\d\theta
-      \frac{MR^2\omega^2}{8\pi}\sin\theta\cos^2\theta\\
-      &= \frac{MR^2\omega^2}{6}
+      \frac{MR^2\omega^2}{8\pi}\sin^3\theta\\
+      &= \frac{MR^2\omega^2}{3}
 \end{align*}
 \end{solution}
 
