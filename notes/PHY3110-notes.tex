@@ -1796,7 +1796,7 @@ Consider the components of the equation
 Written the equation in the integral form
 \begin{align}
     I_{ij} &= 
-    \int_V\rho(\mathbf{r})\d\mathbf{r}\ (\mathbf{r}^2\delta_{ij} - r_ir_j)
+    \int_V\rho(\mathbf{r})\d V\ (\mathbf{r}^2\delta_{ij} - r_ir_j)
 \end{align}
 The total kinetic energy is
 \begin{align}
@@ -1853,6 +1853,83 @@ We can diagonalize the matrix $I$ s.t.
 The diagonal terms are called the principle moments of inertia,
 and the axes that diagonalize the matrix are called the
 principal axes.
+
+\begin{example}[Uniform cube]
+For a uniform cube lie in $(0,0,0)$ to $(a,a,a)$, we have
+\begin{align}
+    I_{xx} &= \int_V\rho\d V\ (y^2 + z^2)
+    = \int_0^a\d x\int_0^a\d y\int_0^a\d z~ (y^2 + z^2)\frac{m}{a^3}
+    = \frac{2}{3}ma^2\\
+    I_{xy} &= \int_V\rho\d V\ -xy
+    = -\int_0^a\d x\int_0^a\d y \int_0^a\d z xy\frac{m}{a^3}
+    = -\frac{1}{4}ma^2
+\end{align}
+Hence the inertia tensor is
+\begin{align}
+    I &= \left[\begin{array}{rrr}
+        \frac{2}{3} & -\frac{1}{4} & -\frac{1}{4}\\
+        -\frac{1}{4} & \frac{2}{3} & -\frac{1}{4}\\
+        -\frac{1}{4} & -\frac{1}{4} & \frac{2}{3}
+    \end{array}\right]
+\end{align}
+We can first have a guess of eigenvector
+\begin{align}
+    A_3 &= \frac{1}{\sqrt{3}}\begin{bmatrix}
+        1\\ 1 \\ 1
+    \end{bmatrix}
+\end{align}
+\end{example}
+
+\subsection{Rotational motion of a rigid body}
+Note that ($s$ means relative to space and $b$ means relative to body)
+\begin{align}
+    \left(\frac{\d\mathbf{L}}{\d t}\right)_s &= 
+    \left(\frac{\d\mathbf{L}}{\d t}\right)_b + \symbfit{\omega}\times\mathbf{L}
+    = \mathbf{N}
+\end{align}
+Hence we can obtain Euler equations
+\begin{align}
+    &\dot L_{bi} + \epsilon_{ijk}\omega_i L_{bk} = N_i\\
+    \Rightarrow &\left\{
+    \begin{aligned}
+        I_1\dot\omega_1 - \omega_2\omega_3(I_2 - I_3) &= N_1\\
+        I_2\dot\omega_2 - \omega_3\omega_1(I_3 - I_1) &= N_2\\
+        I_1\dot\omega_3 - \omega_1\omega_2(I_1 - I_2) &= N_3
+    \end{aligned}
+    \right.
+\end{align}
+
+\begin{example}[Precession with $I_1=I_2\neq I_3$]
+Consider force-free motion of a rigid body with $I_1=I_2\neq I_3$, then
+\begin{align}
+    I_1\dot\omega_1 - \omega_2\omega_3(I_2 - I_3) &= 0\\
+    I_2\dot\omega_2 - \omega_3\omega_1(I_3 - I_1) &= 0\\
+    I_3\dot\omega_3 &= 0
+\end{align}
+Hence we get
+\begin{align}
+    \dot\omega_1 &= \frac{I_1 - I_3}{I_1\omega_3}\omega_2 = -\Omega\omega_2\\
+    \dot\omega_2 &= \frac{I_3 - I_1}{I_1\omega_3}\omega_1 = \Omega\omega_1\\
+    \omega_3 &= \text{const}
+\end{align}
+Hence we can solve the differential equation that
+\begin{align}
+    \omega_1 &= A\cos\Omega t,~
+    \omega_2  = A\sin\Omega t
+\end{align}
+\end{example}
+
+
+\newpage
+\section{Oscillation}
+\subsection{Formulation}
+Consider a system with generalize coordinates $q_1,\dots,q_n$
+with $3N-k$ DOFs.
+Let an equilibrium point be
+\begin{align}
+    \left(\frac{\partial V}{\partial q_i}\right)_{q_i={q_i}_0} &= 0
+\end{align}
+
 
 
 % \end{multicols*}
