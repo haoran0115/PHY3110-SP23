@@ -1929,6 +1929,122 @@ Let an equilibrium point be
 \begin{align}
     \left(\frac{\partial V}{\partial q_i}\right)_{q_i={q_i}_0} &= 0
 \end{align}
+Expand the potential in the 2\textsuperscript{nd} order
+\begin{align}
+    V(q_i) &= V(q_{0i}) + \left.\frac{\partial V}{\partial q_i}\right|_{q_i=q_{0i}}
+    + \left.\frac{1}{2!}\frac{\partial^2 V}{\partial q_iq_j}\right|_{q_i=q_{0i}}
+    (q_i-q_{0i})(q_j-q_{0j}) + \cdots
+\end{align}
+Define $\eta_i=(q_i-q_{0i})$, then at the equilibrium point we have
+\begin{align}
+    V(q_i) &= \frac{1}{2}
+    \left(\frac{\partial^2 V}{\partial q_i \partial q_j}\right)_0
+    \eta_i\eta_j
+    = \frac{1}{2} V_{ij}\eta_i\eta_j
+\end{align}
+We can also express the kinetic energy wrt $\eta_i$
+\begin{align}
+    T &= \sum_i\frac{1}{2}m_i\dot\mathbf{r}_i^2
+    = \sum_i\frac{1}{2}\left(
+        \frac{\partial\mathbf{r}_i}{\partial t}
+        + \sum_j\frac{\partial\mathbf{r}_i}{\partial \dot q_j}
+    \right)^2
+    = \sum_{ijk}\frac{1}{2}m_i\frac{\partial\mathbf{r}_i}{\partial q_j}
+    \frac{\partial\mathbf{r}_i}{\partial q_j}\dot q_j\dot q_k
+    = \sum_{jk}
+    \frac{1}{2}\left(
+        \sum_i m_i\frac{\partial\mathbf{r}_i}{\partial q_j}
+        \frac{\partial\mathbf{r}_i}{\partial q_k}\dot q_j\dot q_k
+    \right)
+    = \sum_{jk}\frac{1}{2}M_{jk}\dot\eta_j\dot\eta_k
+\end{align}
+Suppose $M_{ij}$ has small variation
+\begin{align}
+    M_{ij}(q_1,\dots,q_n) 
+    &= 
+    M_{ij}(q_{01},\dots,q_{0n}) + \left(\frac{\partial M_{ij}}{\partial q_k}\right)\eta_k
+    = M_{ij}(q_{01},\dots,q_{0n}) = T_{ij}
+\end{align}
+Hence
+\begin{align}
+    T &= \frac{1}{2}T_{ij}\dot\eta_i\dot\eta_j
+\end{align}
+Therefore we have a Lagrangian
+\begin{align}
+    L &= T - V = \frac{1}{2}(T_ij\eta_i\eta_j - V_{ij}\eta_i\eta_j)
+\end{align}
+The EOM becomes
+\begin{align}
+    T_{ij}\ddot\eta_j + V_{ij}\eta_j &= 0
+\end{align}
+
+\subsection{The eigenvalue equation}
+Let $\eta_i = C_ie^{-i\omega t}$, we have the EOM
+\begin{align}
+    V_{ij}C_j - \omega^2 T_{ij} C_j &= 0
+\end{align}
+Write it into the matrix form
+\begin{align}
+    \begin{bmatrix}
+        V_{11} - \omega^2T_{11} & \cdots & V_{1n} - \omega^2 T_{1n}\\
+        \vdots & \ddots & \vdots \\
+        V_{n1} - \omega^2T_{n1} & \cdots & V_{nn} - \omega^2T_{nn}
+    \end{bmatrix}
+    \begin{bmatrix}
+        C_1\\ \vdots\\ C_n
+    \end{bmatrix} = 0,~ \det(\mathbb V - \omega^2 \mathbb T) = 0
+\end{align}
+Then we get an eigenvalue equation
+\begin{align}
+    \mathbb V\mathbf{C} &= \omega^2\mathbb T\mathbf{C}
+\end{align}
+Let $\omega_\alpha$ be $\alpha$\textsuperscript{th} eigenvalue
+and $\mathbf{C}_\alpha$ be the corresponding eigenvector, then we have
+\begin{align}
+    \sum_{j=1}^n(V_{ij} - \omega_\alpha^2 T_{ij})C_{j\alpha} &= 0\\
+    \sum_{j=1}^{n-1}(V_{ij} - \omega_\alpha^2 T_{ij})C_{j\alpha} &=
+    -(V_{in}-\omega_\alpha^2 T_{in})C_{n\alpha}\\
+    \Rightarrow
+    C_{j\alpha} &= \frac{\Delta_{jn}}{\Delta_{nn}}C_{n\alpha}
+\end{align}
+where $\delta_{ij}$ is defined as the determinant of a sub-matrix of
+$\mathbb A = \mathbb V - \omega_\alpha^2\mathbb T$ removing
+$i$\textsuperscript{th} row and $j$\textsuperscript{th} column.
+
+A general solution is a superposition of all the solutions corresponding to
+a given eigenfrequency
+\begin{align}
+    \eta_i(t) &= \sum_\alpha\eta_{i\alpha}(t)
+    = \sum_\alpha  C'_{i\alpha}
+    \underbrace{A_\alpha e^{-i\omega_\alpha t}}_{\xi_\alpha(t)}
+\end{align}
+Hence
+\begin{align}
+    T &= \frac{1}{2}T_{ij}\dot\eta_i\dot\eta_j 
+    = \frac{1}{2}T_{ij}C_{i\alpha}'C_{j\beta}'\dot\xi_\alpha\dot\xi_\beta\\
+    V &= \frac{1}{2}V_{ij}\eta_i\eta_j = \frac{1}{2}V_{ij}C_{i\alpha}'C_{j\beta}'
+    \xi_\alpha\xi_\beta
+\end{align}
+Note that 
+\begin{align}
+    \mathbb V\mathbf{C}_\alpha &= \omega_\alpha^2\mathbb T\mathbf{C}_\alpha\\
+    \mathbb V\mathbf{C}_\beta &= \omega_\alpha^2\mathbb T\mathbf{C}_\beta\\
+    \Rightarrow
+    \mathbf C_\beta^T\mathbb V\mathbf C_\alpha &= 
+    \omega_\alpha^2\mathbf C_\beta^T \mathbb{T}\mathbf C_\alpha\\
+    \mathbf C_\alpha^T\mathbb V\mathbf C_\beta &= 
+    \omega_\beta^2\mathbf C_\alpha^T \mathbb{T}\mathbf C_\beta\\
+    \Rightarrow
+    (\omega_\alpha^2 - \omega_\beta^2)\mathbf C_\beta^T\mathbb T\mathbf C_\alpha &= 0
+\end{align}
+Hence
+\begin{align}
+    T_{ij}C_{i\alpha}C_{j\beta} &= \delta_{ij}\\
+    T &= \frac{1}{2}\dot\xi_\alpha\dot\xi_\beta\delta_{\alpha\beta}
+    = \frac{1}{2}\dot\xi^2\\
+    V &= \frac{1}{2}\omega_\alpha^2\delta_{\alpha\beta}\xi_\alpha\xi_\beta
+    = \frac{1}{2}\omega_\alpha^2\xi_\alpha^2
+\end{align}
 
 
 
