@@ -1,0 +1,552 @@
+%! TeX program    = xelatex
+%! TEX-TS program = xelatex
+\documentclass[twoside,11pt]{article}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{sectsty}
+\usepackage{mathrsfs} % mathscr
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage{pgfplots}
+\usepackage{multicol}
+\usepackage{listings}
+% \usepackage{amsart}
+\usepackage{fontspec}
+\usepackage{soul}
+
+
+% allow H option of figure
+\usepackage{float}
+
+% math font (libertine)
+\usepackage{libertinus-otf}
+
+% braket
+\usepackage{braket}
+
+% tikz library
+\usetikzlibrary{decorations,calligraphy,calc,external}
+\tikzexternalize
+\tikzexternaldisable
+
+% physics
+% \usepackage{physics}
+
+% define latin modern font environment
+\newcommand{\lms}{\fontfamily{lmss}\selectfont} % Latin Modern Roman
+% \newcommand{\lmss}{\fontfamily{lmss}\selectfont} % Latin Modern Sans
+% \newcommand{\lmss}{\fontfamily{lmtt}\selectfont} % Latin Modern Mono
+
+% % change mathcal shape
+% \usepackage[mathcal]{eucal}
+
+
+% define math operators
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\XX}{\mathbb{Y}}
+\newcommand{\CL}{\mathcal{L}}
+% \renewcommand{\d}{\mathrm{d}}
+\renewcommand*\d{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\erf}{erf}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+
+% section font style
+\sectionfont{\sffamily\Large}
+\subsectionfont{\sffamily\normalsize}
+\subsubsectionfont{\bf}
+
+% line spreading and break
+\hyphenpenalty=5000
+\tolerance=20
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+\allowdisplaybreaks
+\linespread{0.9}
+
+% enumerate settings
+% no break before enumerate
+\setlist[enumerate]{itemsep=2pt,topsep=2pt}
+
+% theorem
+% latex theorem
+% definition style
+\theoremstyle{definition}
+\newtheorem{theorem}{\lms Theorem}[subsection]
+\newtheorem{axiom}{\lms Axiom}[section]
+\newtheorem{definition}{\lms Definition}[section]
+\newtheorem{example}{\lms Example}[section]
+\newtheorem{question}{\lms Question}[section]
+\newtheorem{exercise}{\lms Exercise}[section]
+\newtheorem*{exercise*}{\lms Exercise}
+\newtheorem{lemma}{\lms Lemma}[section]
+\newtheorem{proposition}{\lms Proposition}[section]
+\newtheorem{corollary}{\lms Corollary}[section]
+\newtheorem*{theorem*}{\lms Theorem}
+\newtheorem{problem}{\lms Problem}
+% remark style
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\newtheorem*{claim}{Claim}
+
+
+% paragraph indent
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+
+\newcommand\Code{PHY3110 SP23}
+\newcommand\Ass{HW07}
+\newcommand\name{Haoran Sun}
+\newcommand\mail{haoransun@link.cuhk.edu.cn}
+
+\title{{\lms \Code \ \Ass}}
+\author{\lms \name \ (\href{mailto:\mail}{\mail})}
+\date{\sffamily \today}
+
+\makeatletter
+% \let\Title\@title
+\let\theauthor\@author
+\let\thedate\@date
+
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    \lhead{\lms \Ass}
+    \rhead{\lms \name}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancypagestyle{title}{%
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    % \lhead{\Title}
+    % \rhead{\theauthor}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancyfootoffset[L]{0.3cm}
+
+% re-define title format
+\makeatletter
+\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
+\begin{flushleft}
+  \textbf{\Large\@title}
+
+  \@author
+\end{flushleft}\egroup
+}
+\makeatother
+
+\pagestyle{plain}
+
+% lstlisting settings
+\lstset{
+    basicstyle=\linespread{0.7}\footnotesize,
+    breaklines=true,
+    basewidth=0.5em
+}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{title}
+% \begin{multicols*}{2}
+
+\begin{problem}
+Derive Euler's equaiton from the Lagrange equations of motion.
+\end{problem}
+\begin{solution}
+Set up the coordinate system on the rigid body which could diagonalize the
+inertia tensor.
+Then the kinetic energy is
+\begin{align*}
+    T &= \frac{1}{2}\sum_i I_i\omega_i^2
+\end{align*}
+where the angular velocity vector $\symbfit{\omega}$ expressed under the rotated 
+coordinates is
+\begin{align*}
+    [\symbfit{\omega}]_{x'y'z'} &= \begin{bmatrix}
+        \dot\phi\sin\theta\sin\psi + \dot\theta\cos\psi \\
+        \dot\phi\sin\theta\cos\psi - \dot\theta\sin\psi \\
+        \dot\psi + \dot\phi\cos\theta
+    \end{bmatrix}
+\end{align*}
+
+The Lagrange equation tells that
+\begin{align*}
+    \frac{\d}{\d t}\frac{\partial L}{\partial\dot\psi}
+    -\frac{\partial L}{\partial\psi} &= Q_\psi\\
+    \frac{\d}{\d t}\sum_i\frac{\partial T}{\partial\omega_i}\frac{\partial\omega_i}{\partial\dot\psi}
+    -\sum_i\frac{\partial T}{\partial\omega_i}\frac{\partial\omega_i}{\partial\psi} &= Q_\psi\\
+    I_{z'}\dot \omega_{z'} - (I_{x'} - I_{y'})\omega_{x'}\omega_{y'} &= Q_\psi
+\end{align*}
+
+\begin{claim}
+The generalized force $Q_\psi$ equals to the torque projected on the rotated
+coordinate $z'$, namely
+\begin{align*}
+    Q_\psi &= N_{z'}
+\end{align*}
+\end{claim}
+\begin{proof}
+Since
+\begin{align*}
+    Q_\psi &= -\frac{\partial V}{\partial\psi}
+    = -\nabla V\cdot\frac{\partial \mathbf{r}}{\partial\psi}
+    = \mathbf F\cdot\frac{\partial \mathbf{r}}{\partial\psi}
+\end{align*}
+and
+\begin{align*}
+    \left[\frac{\partial\mathbf{r}}{\partial \psi}\right]_{x'y'z'} 
+    &= A\left[\frac{\partial\mathbf{r}}{\partial \psi}\right]_{xyz}
+    = A\frac{\partial}{\partial\psi} A^T[\mathbf{r}]_{x'y'z'}
+    = BCD\frac{\partial}{\partial\psi} D^TC^TB^T[\mathbf{r}]_{x'y'z'}\\
+    &= B\frac{\partial}{\partial\psi}B^T[r]_{x'y'z'}
+    = \begin{bmatrix}
+        \cos\psi & \sin\psi & \\
+        -\sin\psi & \cos\psi & \\
+                  &  & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        -\sin\psi & -\cos\psi & \\
+        \cos\psi & -\sin\psi & \\
+                 & & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+        r_{x'} \\ r_{y'} \\ r_{z'}
+    \end{bmatrix}
+    = \begin{bmatrix}
+        -r_{y'}\\ r_{x'}\\ 0
+    \end{bmatrix}
+\end{align*}
+Note that the inner product is invariant under orthonormal transformation
+\begin{align*}
+    [\mathbf{F}]_{xyz}\cdot\left[\frac{\partial\mathbf{r}}{\partial\psi}\right]_{xyz}
+    = 
+    [\mathbf{F}]_{x'y'z'}\cdot\left[\frac{\partial\mathbf{r}}{\partial\psi}\right]_{x'y'z'}
+\end{align*}
+Hence 
+\begin{align*}
+    Q_\psi &= [\mathbf{F}]_{x'y'z'}\cdot
+    \begin{bmatrix}
+        -r_{y'}\\ r_{x'}\\ 0
+    \end{bmatrix}
+    = N_{z'}\qedhere
+\end{align*}
+\end{proof}
+
+Therefore we get one equation
+\begin{align*}
+    I_{z'}\dot \omega_{z'} - (I_{x'} - I_{y'})\omega_{x'}\omega_{y'} &= N_{z'}
+\end{align*}
+Perform an cyclic permutation we can get other two equations
+\begin{align*}
+    I_{x'}\dot \omega_{x'} - (I_{y'} - I_{z'})\omega_{y'}\omega_{z'} &= N_{x'}\\
+    I_{y'}\dot \omega_{y'} - (I_{z'} - I_{x'})\omega_{z'}\omega_{x'} &= N_{y'}
+\end{align*}
+
+\end{solution}
+
+
+
+\begin{problem}
+A uniform rectangular block has mass $M$ and sides $2a$, $2b$ and $2c$.
+Find the principal moments of inertia of the block
+\begin{enumerate}[label=\roman*)]
+\item at its center of mass,
+\item at the center of a face of area $4ab$.
+\end{enumerate}
+Find the moment of inertia of the block
+\begin{enumerate}[label=\roman*)]
+\item About a space diagonal,
+\item about a diagonal of a face of area $4ab$.
+\end{enumerate}
+\end{problem}
+\begin{solution}
+For the principal moments of inertia
+\begin{enumerate}[label=\roman*)]
+\item
+Set up the coordinate system similar to the following figure where the origin of the axis
+is coincide with the center of the rectangular block, and $x$, $y$, and $z$ axis is parallelly aligned
+onto the sides with length $a$, $b$, and $c$, respectively.
+\begin{figure}[H]
+    \tikzexternalenable
+    \centering
+    \tdplotsetmaincoords{60}{125}
+    \def\a{1.5}
+    \def\b{2}
+    \def\c{0.8}
+    \begin{tikzpicture}[scale=1, tdplot_main_coords]
+        \draw (\a, \b, \c) -- (-\a, \b, \c) -- (-\a, -\b, \c) -- (\a, -\b, \c) -- (\a, \b, \c);
+        \draw (\a, \b, -\c) -- (-\a, \b, -\c) -- (-\a, -\b, -\c) -- (\a, -\b, -\c) -- (\a, \b, -\c);
+        \draw (\a, \b, \c) -- (\a, \b, -\c);
+        \draw (-\a, \b, \c) -- (-\a, \b, -\c);
+        \draw (\a, -\b, \c) -- (\a, -\b, -\c);
+        \draw (-\a, -\b, \c) -- (-\a, -\b, -\c);
+        \draw[thick,-latex] (0, 0, 0) -- (3, 0, 0) node [left] {$x$};
+        \draw[thick,-latex] (0, 0, 0) -- (0, 3, 0) node [below] {$y$};
+        \draw[thick,-latex] (0, 0, 0) -- (0, 0, 3) node [right] {$z$};
+    \end{tikzpicture}
+    \tikzexternaldisable
+\end{figure}
+Then $I_{xx}$ equals to
+\begin{align*}
+    I_{xx} &= \int_{-a}^a\d x \int_{-b}^b\d y \int_{-c}^c\d z~ y^2 + z^2 = \frac{1}{3}M(b^2+c^2)
+\end{align*}
+and $I_{xy}$ equals to
+\begin{align*}
+    I_{xy} &= \int_{-a}^a\d x \int_{-b}^b\d y \int_{-c}^c\d z (-xy) = 0
+\end{align*}
+Hence we can find the inertia tensor $I$ equals to
+\begin{align*}
+    I &= M\begin{pmatrix}
+        (b^2+c^2)/3 & & \\
+        & (a^2+c^2)/3 & \\
+        & & (a^2+b^2)/3
+    \end{pmatrix}
+\end{align*}
+where the diagonal terms are the principal moments of inertia.
+
+\item Set up a similar coordinate system as in the previous case, then $I_{zz}$
+doesn't change since the angular velocity axis doesn't change.
+Note that
+\begin{align*}
+    I_{xx} &= \int_{-a}^a\d x \int_{-b}^b\d y \int_0^{2c}\d z~ y^2 + z^2
+    = \frac{1}{3}M(b^2 + 4c^2)\\
+    I_{xy} &= \int_{-a}^a\d x \int_{-b}^b\d y \int_0^{2c}\d z~ -xy
+    = 0
+\end{align*}
+Hence the tensor is
+\begin{align*}
+    I &= M\begin{pmatrix}
+        (b^2+4c^2)/3 & & \\
+                     & (a^2+4c^2)/3 & \\
+                     & & (a^2+b^2)/3
+    \end{pmatrix}
+\end{align*}
+where the diagonal terms are the principal moments of inertia.
+    
+\end{enumerate}
+
+For the moment inertia
+\begin{enumerate}[label=\roman*)]
+\item To get the moment inertia along the space diagonal, we can set angular
+momentum vector $\symbfit{\omega}$ to
+\begin{align*}
+    \symbfit{\omega} &= \frac{1}{\sqrt{a^2+b^2+c^2}}\begin{bmatrix}
+        a\\ b\\ c
+    \end{bmatrix}
+\end{align*}
+Then the moment of inertia about this axis is
+\begin{align*}
+    \omega_i I_{ij}\omega_j &=
+    \frac{2M}{3}\frac{a^2b^2+b^2c^2+a^2c^2}{a^2+b^2+c^2}
+\end{align*}
+
+\item Let the angular momentum vector be
+\begin{align*}
+    \symbfit\omega &= \frac{1}{\sqrt{a^2+b^2}}\begin{bmatrix}
+        a \\ b \\ 0
+    \end{bmatrix}
+\end{align*}
+Then the moment of inertia about this axis is
+\begin{align*}
+    \omega_i I_{ij}\omega_j &=
+    \frac{2M}{3}\frac{a^2b^2 + 2b^2c^2 + 2a^2c^2}{a^2+b^2}
+\end{align*}
+
+\end{enumerate}
+
+\end{solution}
+
+
+
+\begin{problem}
+Consider the torque-free motion of an asymmetric rigid body with one point fixed,
+show from Euler equations that $L^2$ and $T$ ($K$ and $T$ are the angular momentum and
+kinetic energy) are conserved.
+\end{problem}
+\begin{solution}
+Note that $\mathbf{L}^2$ and its time derivative equals to
+\begin{align*}
+    \mathbf{L}^2 &= 2L_iL_i\\
+    \frac{\d}{\d t}\mathbf{L}^2 &= 2L_i\dot L_i
+\end{align*}
+The Euler's equation for torque-free motion is
+\begin{align*}
+    \dot L_i + \epsilon_{ijk}\omega_jL_k &= 0
+\end{align*}
+Hence
+\begin{align*}
+    L_i\dot L_i + \epsilon_{ijk}L_i\omega_j L_k &= 0\\
+    \Rightarrow
+    L_i\dot L_i &= -\epsilon_{ijk}L_iL_k\omega_j
+    = \epsilon_{ikj}L_iL_k\omega_j = 0
+\end{align*}
+which means that $\mathbf{L}^2$ is conserved.
+
+The kinetic energy and its time derivative writes 
+\begin{align*}
+    T &= \frac{1}{2}\omega_i I_{ij}\omega_j \\
+    \frac{\d}{\d t}T &= \frac{1}{2}\dot\omega_i I_{ij}\omega_j
+    + \frac{1}{2}\omega_i I_{ij}\dot\omega_j
+    = \omega_i I_{ij}\dot\omega_j 
+    = \omega_i\dot L_i
+\end{align*}
+Then from Euler's equation we know that
+\begin{align*}
+    \omega_i\dot L_i + \epsilon_{ijk}\omega_i\omega_j L_k &= 0\\
+    \Rightarrow \omega_i\dot L_i &= -\epsilon_{ijk}\omega_i\omega_j L_k 
+    = 0
+\end{align*}
+which means that $T$ is conserved.
+\end{solution}
+
+
+
+\begin{problem}
+For the axially symmetric rigid body precessing uniformly in the absence of 
+torques, find analytical solutions for the Euler angles as a function of time.
+\end{problem}
+\begin{solution}
+Let $I_x=I_y\neq I_z$.
+Then the torque-free Euler's equation is
+\begin{align*}
+    I_x\dot\omega_x - (I_y-I_z)\omega_y\omega_z &= 0\\
+    I_y\dot\omega_y - (I_z-I_x)\omega_z\omega_x &= 0\\
+    I_z\dot\omega_z &= 0
+\end{align*}
+Hence we can solve that $\omega_z=\text{const}$.
+Define $a=(I_x-I_z)\omega_z/I_x$, then
+\begin{align*}
+    \begin{aligned}
+        \dot\omega_x &= a\omega_y\\
+        \dot\omega_y &= -a\omega_x
+    \end{aligned}
+    \Rightarrow
+    \begin{aligned}
+        \ddot\omega_x &= -a^2\omega_x\\
+        \ddot\omega_y &= -a^2\omega_y
+    \end{aligned}
+    \Rightarrow
+    \begin{aligned}
+        \omega_x &= A\sin(at+b)\\
+        \omega_y &= A\cos(at+b)
+    \end{aligned}
+\end{align*}
+Hence the angular momentum $\mathbf{L}$ under the body coordinates is
+\begin{align*}
+    [\mathbf{L}]_b &= I[\symbfit{\omega}]_b
+    = \begin{bmatrix}
+        I_x A\sin(at+b)\\
+        I_x A\cos(at+b)\\
+        I_z\omega_z
+    \end{bmatrix}
+\end{align*}
+Since this is a torque-free precession, $\mathbf{L}$ conserved under
+the space coordinate.
+Let $\mathbf{L}$ align onto the $z$ axis, i.e.
+\begin{align*}
+    [\mathbf{L}]_s &= 
+    \begin{bmatrix}
+        0\\ 0\\ L
+    \end{bmatrix}
+\end{align*}
+Hence 
+\begin{align*}
+    [\mathbf{L}]_b &= A[\mathbf{L}]_s
+    = L\begin{bmatrix}
+        \sin\theta\sin\psi \\
+        \cos\psi\sin\theta\\
+        \cos\theta
+    \end{bmatrix}
+\end{align*}
+Therefore we can establish an equality
+\begin{align}
+    A[\mathbf{L}]_s
+    &= L\begin{bmatrix}
+        \sin\theta\sin\psi \\
+        \cos\psi\sin\theta\\
+        \cos\theta
+    \end{bmatrix}
+    = \begin{bmatrix}
+        I_x A\sin(at+b)\\
+        I_x A\cos(at+b)\\
+        I_z\omega_z
+    \end{bmatrix}
+    \label{eq:l}
+\end{align}
+Therefore $\theta=\text{const}$.
+Suppose $L>0$, we can also solve get $\psi=at+b$ (else, $\psi=at+b+\pi$).
+Recall from the lecture that
+\begin{align}
+    [\symbfit\omega]_b &= 
+    \begin{bmatrix}
+        \dot\phi\sin\theta\sin\psi + \dot\theta\cos\psi\\
+        \dot\phi\sin\theta\cos\psi - \dot\theta\cos\psi\\
+        \dot\psi + \dot\phi\cos\theta
+    \end{bmatrix}
+    = \begin{bmatrix}
+        A\sin(at+b)\\
+        A\cos(at+b)\\
+        \omega_z
+    \end{bmatrix}
+    \label{eq:v}
+\end{align}
+Since $\dot\theta = 0$ and $\psi=ax+b$, we can solve $\dot\phi$
+\begin{align*}
+    \dot\phi &= \frac{A}{\sin\theta}
+\end{align*}
+Hence we have the analytical solution for Euler angles
+\begin{align*}
+    \phi   &= \frac{I_xA}{\sin\theta}t + C \\
+    \theta &= \text{const} \\
+    \psi   &= at + b
+\end{align*}
+The solution can be further simplified since we can solve $A$ and $L$ wrt $\theta$
+and $\omega_z$, from Equation \ref{eq:l} and \ref{eq:v}
+\begin{align*}
+    L &= \frac{I_z\omega_z}{\cos\theta},~
+    A = \frac{L\sin\theta}{I_x} = \frac{I_z}{I_x}\tan\theta\omega_z
+\end{align*}
+Thus
+\begin{align*}
+    \phi   &= \frac{I_z\omega_z}{I_x \cos\theta} \\
+    \theta &= \text{const} \\
+    \psi   &= \frac{(I_x-I_z)}{I_x}\omega_z t + b
+\end{align*}
+
+\end{solution}
+
+
+% \end{multicols*}
+\end{document}
+
