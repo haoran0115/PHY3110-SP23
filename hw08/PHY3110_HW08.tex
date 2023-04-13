@@ -1,0 +1,435 @@
+%! TeX program    = xelatex
+%! TEX-TS program = xelatex
+\documentclass[twoside,11pt]{article}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{sectsty}
+\usepackage{mathrsfs} % mathscr
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage{pgfplots}
+\usepackage{multicol}
+\usepackage{listings}
+% \usepackage{amsart}
+\usepackage{fontspec}
+\usepackage{soul}
+
+
+% allow H option of figure
+\usepackage{float}
+
+% math font (libertine)
+\usepackage{libertinus-otf}
+
+% braket
+\usepackage{braket}
+
+% tikz library
+\usetikzlibrary{decorations,calligraphy,calc,external,patterns}
+\tikzexternalize
+\tikzexternaldisable
+
+% physics
+% \usepackage{physics}
+
+% define latin modern font environment
+\newcommand{\lms}{\fontfamily{lmss}\selectfont} % Latin Modern Roman
+% \newcommand{\lmss}{\fontfamily{lmss}\selectfont} % Latin Modern Sans
+% \newcommand{\lmss}{\fontfamily{lmtt}\selectfont} % Latin Modern Mono
+
+% % change mathcal shape
+% \usepackage[mathcal]{eucal}
+
+
+% define math operators
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\XX}{\mathbb{Y}}
+\newcommand{\CL}{\mathcal{L}}
+% \renewcommand{\d}{\mathrm{d}}
+\renewcommand*\d{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\erf}{erf}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+
+% section font style
+\sectionfont{\sffamily\Large}
+\subsectionfont{\sffamily\normalsize}
+\subsubsectionfont{\bf}
+
+% line spreading and break
+\hyphenpenalty=5000
+\tolerance=20
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+\allowdisplaybreaks
+\linespread{0.9}
+
+% enumerate settings
+% no break before enumerate
+\setlist[enumerate]{itemsep=2pt,topsep=2pt}
+
+% theorem
+% latex theorem
+% definition style
+\theoremstyle{definition}
+\newtheorem{theorem}{\lms Theorem}[subsection]
+\newtheorem{axiom}{\lms Axiom}[section]
+\newtheorem{definition}{\lms Definition}[section]
+\newtheorem{example}{\lms Example}[section]
+\newtheorem{question}{\lms Question}[section]
+\newtheorem{exercise}{\lms Exercise}[section]
+\newtheorem*{exercise*}{\lms Exercise}
+\newtheorem{lemma}{\lms Lemma}[section]
+\newtheorem{proposition}{\lms Proposition}[section]
+\newtheorem{corollary}{\lms Corollary}[section]
+\newtheorem*{theorem*}{\lms Theorem}
+\newtheorem{problem}{\lms Problem}
+% remark style
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\newtheorem*{claim}{Claim}
+
+
+% paragraph indent
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+
+\newcommand\Code{PHY3110 SP23}
+\newcommand\Ass{HW08}
+\newcommand\name{Haoran Sun}
+\newcommand\mail{haoransun@link.cuhk.edu.cn}
+
+\title{{\lms \Code \ \Ass}}
+\author{\lms \name \ (\href{mailto:\mail}{\mail})}
+\date{\sffamily \today}
+
+\makeatletter
+% \let\Title\@title
+\let\theauthor\@author
+\let\thedate\@date
+
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    \lhead{\lms \Ass}
+    \rhead{\lms \name}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancypagestyle{title}{%
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    % \lhead{\Title}
+    % \rhead{\theauthor}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancyfootoffset[L]{0.3cm}
+
+% re-define title format
+\makeatletter
+\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
+\begin{flushleft}
+  \textbf{\Large\@title}
+
+  \@author
+\end{flushleft}\egroup
+}
+\makeatother
+
+\pagestyle{plain}
+
+% lstlisting settings
+\lstset{
+    basicstyle=\linespread{0.7}\footnotesize,
+    breaklines=true,
+    basewidth=0.5em
+}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{title}
+% \begin{multicols*}{2}
+
+\begin{problem}
+Find the principal moments of inertia about the center of mass of a flat rigid
+body in the shape of an isosceles triangle with a uniform mass density.
+What are the principal axes?
+\end{problem}
+\begin{solution}
+Easy to prove that the EOM of a uniform isosceles triangle is located at the
+$2/3$ location of its height,
+hence we can set up coordinate system as the following figure
+\begin{figure}[H]
+    \tikzexternalenable
+    \centering
+    \tdplotsetmaincoords{60}{125}
+    \def\a{1.2}
+    \def\b{1}
+    \def\c{0.8}
+    \begin{tikzpicture}[scale=1.6, tdplot_main_coords]
+        \draw[thick,-latex] (-2, 0, 0) -- (3, 0, 0) node [left] {$x$};
+        \draw[thick,-latex] (0, -2, 0) -- (0, 3, 0) node [below] {$y$};
+        \draw[<->] (2*\a, 0, 0) -- node[midway,fill=white] {$n$} (2*\a, \b, 0);
+        \draw[<->] (2*\a, \b, 0) -- node[midway,fill=white] {$2m$} (0, \b, 0);
+        \draw[<->] (0, \b, 0) -- node[midway,fill=white] {$m$} (-\a, \b, 0);
+        \draw[pattern=north west lines,pattern color=gray] (-\a, -\b, 0) -- (-\a, \b, 0) -- (2*\a, 0, 0) -- (-\a, -\b, 0);
+        \draw[thick,-latex] (0, 0,  0) -- (0, 0, 1.5) node [right] {$z$};
+        %\path[pattern=crosshatch] (-\a, -\b, 0) -- (-\a, \b, 0) -- (2*\a, 0, 0) -- (-\a, -\b, 0);
+    \end{tikzpicture}
+    \tikzexternaldisable
+\end{figure}
+Let then density be $\rho$, then the total mass $M = 3mn\rho$.
+Then we can compute the inertia tensor
+\begin{align*}
+    I_{xx} &= \int_{-m}^{2m}\d x \int_{-n}^n \d y~ y^2\rho
+    = \frac{2}{3}Mn^2\\
+    I_{yy} &= \int_{-m}^{2m}\d x \int_{-n}^n \d y~ x^2\rho
+    = 2Mm^2\\
+    I_{xy} &= -\int_{-m}^{2m}\d x \int_{-n}^n \d y~ xy\rho
+    = 0\\
+    I_{zz} &= \int_{-m}^{2m}\d x \int_{-n}^n \d y~ x^2+y^2\rho
+    = \frac{2}{3}M(3m^2 + n^2)\\
+    I_{xz} &= I_{yz} = 0
+\end{align*}
+Hence $x$, $y$ and $z$ axes in the figure are principal axes.
+\end{solution}
+
+
+
+\begin{problem}
+Consider the torque-free motion of an asymmetric rigid body with one point fixed,
+show from Euler equations that $L^2$ and $T$ ($K$ and $T$ are the angular momentum and
+kinetic energy) are conserved.
+\end{problem}
+\begin{solution}
+Note that $\mathbf{L}^2$ and its time derivative equals to
+\begin{align*}
+    \mathbf{L}^2 &= 2L_iL_i\\
+    \frac{\d}{\d t}\mathbf{L}^2 &= 2L_i\dot L_i
+\end{align*}
+The Euler's equation for torque-free motion is
+\begin{align*}
+    \dot L_i + \epsilon_{ijk}\omega_jL_k &= 0
+\end{align*}
+Hence
+\begin{align*}
+    L_i\dot L_i + \epsilon_{ijk}L_i\omega_j L_k &= 0\\
+    \Rightarrow
+    L_i\dot L_i &= -\epsilon_{ijk}L_iL_k\omega_j
+    = \epsilon_{ikj}L_iL_k\omega_j = 0
+\end{align*}
+which means that $\mathbf{L}^2$ is conserved.
+
+The kinetic energy and its time derivative writes 
+\begin{align*}
+    T &= \frac{1}{2}\omega_i I_{ij}\omega_j \\
+    \frac{\d}{\d t}T &= \frac{1}{2}\dot\omega_i I_{ij}\omega_j
+    + \frac{1}{2}\omega_i I_{ij}\dot\omega_j
+    = \omega_i I_{ij}\dot\omega_j 
+    = \omega_i\dot L_i
+\end{align*}
+Then from Euler's equation we know that
+\begin{align*}
+    \omega_i\dot L_i + \epsilon_{ijk}\omega_i\omega_j L_k &= 0\\
+    \Rightarrow \omega_i\dot L_i &= -\epsilon_{ijk}\omega_i\omega_j L_k 
+    = 0
+\end{align*}
+which means that $T$ is conserved.
+\end{solution}
+
+
+
+\begin{problem}~
+\begin{enumerate}[label=\arabic*)]
+\item Express in terms of Euler's angles the constraint equations for a uniform
+sphere rolling without slipping on a flat horizontal surface.
+Show that they are nonholonomic.
+
+\item Set up the Lagrangian equations for this problem by the method of Lagrange
+multipliers.
+Show that the translational and rotational parts of the kinetic energy are separately
+conserved.
+Are there any other constatns of motion?
+\end{enumerate}
+\end{problem}
+\begin{solution}~
+\begin{enumerate}[label=\arabic*)]
+\item The constraint should be
+\begin{align*}
+    \symbfit{\omega}\times\mathbf{R} + \mathbf{V} &= 0
+\end{align*}
+where $\symbfit{\omega}$ is the angular momentum vector,
+$\mathbf R = -R e_z$ is the vector pointing vertically to the plane,
+the end point is the contact point of the sphere and the plane,
+and $\mathbf{V}=\begin{bmatrix} \dot x & \dot y & 0\end{bmatrix}^T$
+is the velocity of the COM of the sphere.
+
+Express all terms wrt. spacial coordinate, then
+\begin{gather*}
+    [\symbfit{\omega}]_s = \begin{bmatrix}
+        \dot\psi\sin\theta\sin\psi + \dot\theta\cos\psi\\
+        \dot\phi\sin\theta\cos\psi - \dot\theta\sin\psi\\
+        \dot\psi + \dot\phi\cos\theta
+    \end{bmatrix}\\
+    [\symbfit\omega\times\mathbf R]_s + [\mathbf V]_s =
+    \begin{bmatrix}
+        R(\dot\psi\sin\theta\cos\psi - \dot\theta\sin\phi) + \dot x\\
+        R(\dot\psi\sin\theta\sin\psi + \dot\theta\cos\phi) + \dot y\\
+        0 
+    \end{bmatrix}
+    = 0
+\end{gather*}
+The constraint is non-holonomic since we can verify it using the universal test.
+Consider the first equaiton
+\begin{align*}
+    R\sin\theta\cos\psi\d\psi - R\sin\phi\d\theta + \d x &= 0
+\end{align*}
+Let $\psi$, $\phi$, and $x$ be three variables in the test, we have
+\begin{align*}
+    1(R\cos\theta\cos\psi) + R\sin\theta\cos\psi (0) - R\sin\phi (0) \neq 0
+\end{align*}
+which means the constraint is non-holonomic.
+
+\item The Lagrangian is
+\begin{align*}
+    L &= \frac{1}{2}m(\dot x^2 + \dot y^2) + \frac{1}{2} I \symbfit{\omega}^2
+    = \frac{1}{2}m(\dot x^2 + \dot y^2) + \frac{1}{2}I
+    (\dot\phi^2 + \dot\theta^2 + \dot\psi^2 + 2\dot\psi\dot\phi\cos\theta)
+\end{align*}
+Consider the Lagrange's equation for $\phi$
+\begin{align*}
+    \frac{\d}{\d t}\frac{\partial L}{\partial\dot\phi} 
+    -\frac{\partial L}{\partial\phi}
+    -\mu_1\frac{\partial f_1}{\partial\dot\phi}
+    -\mu_2\frac{\partial f_2}{\partial\dot\phi} &= 0\\
+    \Rightarrow \frac{\d}{\d t} I(\dot\phi + \dot\psi\cos\theta) &= 
+    \dot\omega_z = 0
+\end{align*}
+which means $\omega_z$ is constant.
+Note that $\dot x = \omega_y R$, $\dot y = -\omega_x R$,
+then
+\begin{align*}
+    T &= \frac{1}{2}mR^2 (\omega_x^2 + \omega_y^2) + \frac{1}{2}I(\omega_x^2 + \omega_y^2 + \omega_z^2)
+    = \frac{1}{2}(mR^2 + I)(\omega_x^2 + \omega_y^2) + \frac{1}{2}I\omega_z^2
+\end{align*}
+Since $T$ constant and $\omega_z$ is also constant, we have
+$\omega_x^2+\omega_y^2$ a constant.
+Which means that the translational kinetic energy $m(\dot x^2 + \dot y^2)/2$
+and rotational kinetic energy $I\symbfit{\omega}^2/2$ are constant,
+respectively.
+
+
+\end{enumerate}
+\end{solution}
+
+
+
+\begin{problem}
+A bead of mass $m$ is constrained to move on a hoop of radius $R$.
+The hoop rotates with constant angular velocity $\omega$ around a diameter of
+the hoop, which is a vertical axis (line along which gravity acts).
+\begin{enumerate}[label=\arabic*)]
+\item Set up the Lagrangian and obtain the equations of motion of the bead.
+
+\item Find the critical angular velocity $\Omega$ below which the bottom of the
+hoop provides a stable equilibrium for the bead.
+
+\item Find the stable equilibrium position for $\omega > \Omega$.
+\end{enumerate}
+\end{problem}
+\begin{solution}~
+\begin{enumerate}[label=\arabic*)]
+\item Set up the generalized coordinate as the following figure
+\begin{figure}[H]
+    \centering
+    \def\r{1}
+    \begin{tikzpicture}[scale=1.2]
+        \coordinate (O) at (0, 0);
+        \coordinate (B) at (0, -\r);
+        \coordinate (M) at ($ (0, 0) + (135:\r) $);
+        \draw[thick] (O) circle (\r);
+        \draw[fill] (O) circle (1pt);
+        \draw[fill] (M) node[above left] {$m$} circle (1pt);
+        \draw (M) -- (O);
+        \draw[dashed] (0, \r) -- (0, -\r);
+        \draw[->] (O) + (-90:0.2) arc (-90:-225:0.2) node[midway,left] {$\theta$};
+    \end{tikzpicture} 
+\end{figure}
+Then the Lagrangian and EOM are
+\begin{align*}
+    L &= \frac{1}{2} mR^2(\dot\theta^2 + \omega^2\sin^2\theta) + mgR\cos\theta\\
+    mR^2\ddot\theta &= mR^2\omega^2 - mgR\sin\theta
+\end{align*}
+
+\item The effective potential is
+\begin{align*}
+    V_\text{eff} &= -\frac{1}{2}mR^2\omega^2\sin^2\theta - mgR\cos\theta
+\end{align*}
+Its first and second-order derivative (Hessian) is
+\begin{align*}
+    V'_\text{eff}  &= -mR^2\omega^2\sin\theta\cos\theta + mgR\sin\theta\\
+    V''_\text{eff} &= -mR^2\omega^2\cos2\theta + mgR\cos\theta
+\end{align*}
+Note that $V''_\text{eff}(0) = mgR - mR^2\omega^2$.
+If $\theta=0$ is a equilibrium point, the sufficient condition is
+$V''_\text{eff}(0) > 0$, so the critical angular velocity $\Omega$
+can be solved by $V''\text{eff}(0) = 0$.
+Hence
+\begin{align*}
+    \Omega &= \sqrt{\frac{g}{r}}
+\end{align*}
+
+\item Suppose $\omega>\Omega$, and let $\sin\theta\geq 0$, then
+we can solve the equilibrium point by solving $V'_\text{eff}=0$
+\begin{align*}
+    V'_\text{eff} &= 
+    -mR^2\omega^2\sin\theta\cos\theta + mgR\sin\theta = 0\\
+    \Rightarrow 
+    \cos\theta &= \frac{gR}{R^2\omega^2}
+\end{align*}
+Hence we have to solutions of $\theta$
+\begin{align*}
+    \theta &= \begin{cases}
+        \arccos\frac{gR}{R^2\omega^2} \\
+        2\pi - \arccos\frac{gR}{R^2\omega^2}
+    \end{cases}
+\end{align*}
+
+
+\end{enumerate}
+\end{solution}
+
+
+% \end{multicols*}
+\end{document}
+

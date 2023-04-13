@@ -848,6 +848,23 @@ Note that $\lambda$ is the constraint force (in this case $\lambda$
 is the frictional force).
 \end{example}
 
+\begin{theorem}[Universal test for holonomic constraints]
+Let the constraint equation be
+\begin{align}
+    \sum_j A_j\d u_j &= 0
+\end{align}
+Then we can test the equation where
+\begin{align}
+    A_\gamma\left(\frac{\partial A_\beta}{\partial u_\alpha}
+        - \frac{\partial A_\alpha}{\partial u_\beta}\right) +
+    A_\beta\left(\frac{\partial A_\alpha}{\partial u_\gamma}
+        - \frac{\partial A_\gamma}{\partial u_\alpha}\right) +
+    A_\alpha\left(\frac{\partial A_\gamma}{\partial u_\beta}
+        - \frac{\partial A_\beta}{\partial u_\gamma}\right)
+        &= 0
+\end{align}
+\end{theorem}
+
 \subsection{Lagrangian for Lorentz force}
 The Lorentz force is given by
 \begin{align}
@@ -1602,6 +1619,18 @@ $A$ is a change-of-basis matrix.
         \cos\phi & \sin\phi & 0\\
         -\sin\phi & \cos\phi & 0\\
         0 & 0 & 1
+    \end{bmatrix}\\
+      &= 
+    \begin{bmatrix}
+        \cos\phi\cos\psi - \cos\theta\sin\phi\sin\psi & 
+        \cos\psi\sin\phi + \cos\theta\cos\phi\sin\psi &
+        \sin\theta\sin\psi\\
+        -\cos\theta\cos\psi\sin\phi - \cos\phi\sin\psi &
+        \cos\theta\cos\phi\cos\psi - \sin\phi\sin\psi &
+        \cos\psi\sin\theta\\
+        \sin\theta\sin\phi &
+        -\cos\phi\sin\theta &
+        \cos\theta
     \end{bmatrix}
 \end{align}
 
