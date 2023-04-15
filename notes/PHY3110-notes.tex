@@ -1964,7 +1964,7 @@ Expand the potential in the 2\textsuperscript{nd} order
     + \left.\frac{1}{2!}\frac{\partial^2 V}{\partial q_iq_j}\right|_{q_i=q_{0i}}
     (q_i-q_{0i})(q_j-q_{0j}) + \cdots
 \end{align}
-Define $\eta_i=(q_i-q_{0i})$, then at the equilibrium point we have
+Define $\eta_i=(q_i-q_{0i})$, then near the equilibrium point we have
 \begin{align}
     V(q_i) &= \frac{1}{2}
     \left(\frac{\partial^2 V}{\partial q_i \partial q_j}\right)_0
@@ -1979,12 +1979,13 @@ We can also express the kinetic energy wrt $\eta_i$
         + \sum_j\frac{\partial\mathbf{r}_i}{\partial \dot q_j}
     \right)^2
     = \sum_{ijk}\frac{1}{2}m_i\frac{\partial\mathbf{r}_i}{\partial q_j}
-    \frac{\partial\mathbf{r}_i}{\partial q_j}\dot q_j\dot q_k
+    \frac{\partial\mathbf{r}_i}{\partial q_k}\dot q_j\dot q_k
     = \sum_{jk}
     \frac{1}{2}\left(
         \sum_i m_i\frac{\partial\mathbf{r}_i}{\partial q_j}
-        \frac{\partial\mathbf{r}_i}{\partial q_k}\dot q_j\dot q_k
+        \frac{\partial\mathbf{r}_i}{\partial q_k}
     \right)
+        \dot q_j\dot q_k
     = \sum_{jk}\frac{1}{2}M_{jk}\dot\eta_j\dot\eta_k
 \end{align}
 Suppose $M_{ij}$ has small variation
@@ -2023,7 +2024,7 @@ Write it into the matrix form
         C_1\\ \vdots\\ C_n
     \end{bmatrix} = 0,~ \det(\mathbb V - \omega^2 \mathbb T) = 0
 \end{align}
-Then we get an eigenvalue equation
+Then we get an eigenvalue equation (note that $\mathbf{C}\in\mathbb R^{n\times 1}$)
 \begin{align}
     \mathbb V\mathbf{C} &= \omega^2\mathbb T\mathbf{C}
 \end{align}
@@ -2036,7 +2037,7 @@ and $\mathbf{C}_\alpha$ be the corresponding eigenvector, then we have
     \Rightarrow
     C_{j\alpha} &= \frac{\Delta_{jn}}{\Delta_{nn}}C_{n\alpha}
 \end{align}
-where $\delta_{ij}$ is defined as the determinant of a sub-matrix of
+where $\Delta_{ij}$ is defined as the determinant of a sub-matrix of
 $\mathbb A = \mathbb V - \omega_\alpha^2\mathbb T$ removing
 $i$\textsuperscript{th} row and $j$\textsuperscript{th} column.
 
@@ -2070,10 +2071,106 @@ Hence
 \begin{align}
     T_{ij}C_{i\alpha}C_{j\beta} &= \delta_{ij}\\
     T &= \frac{1}{2}\dot\xi_\alpha\dot\xi_\beta\delta_{\alpha\beta}
-    = \frac{1}{2}\dot\xi^2\\
+    = \frac{1}{2}\dot{\symbfit{\xi}}^2\\
     V &= \frac{1}{2}\omega_\alpha^2\delta_{\alpha\beta}\xi_\alpha\xi_\beta
     = \frac{1}{2}\omega_\alpha^2\xi_\alpha^2
 \end{align}
+The EOMs are now
+\begin{align}
+    \ddot\xi_\alpha + \omega^2_\alpha\xi_\alpha &= 0
+\end{align}
+There is no coupling between different $\xi_\alpha$ modes,
+and $\xi_\alpha$ are called normal coordinates.
+
+\begin{example}
+Oscillation of a particle with 
+\begin{align*}
+    V &= \frac{1}{2}(k_1x_1^2 + k_2x_2^2 + k_3x_3^2)\\
+    T &= \frac{1}{2}m(x_1^2 + x_2^2 + x_3^2)
+\end{align*}
+We need to solve the eigenvalue equation $\mathbb V\mathbf C = \omega^2\mathbb T\mathbf C$.
+\begin{align*}
+    \begin{bmatrix}
+        k_1 & & \\
+            & k_2 & \\
+            & & k_3
+    \end{bmatrix}
+    \mathbf C &= 
+    \omega^2m
+    \begin{bmatrix}
+        1 & & \\
+            & 1 & \\
+            & & 1
+    \end{bmatrix}\mathbf C
+    \Rightarrow
+    \omega_i = \sqrt{\frac{k_i}{m}},~i=1,2,3
+\end{align*}
+\end{example}
+
+\begin{example}[Linear triatomic molecule]~
+\begin{figure}[H]
+    \centering
+    \hl{draw figure}
+\end{figure}
+We consider vibration along the line of the molecule only.
+Interactions exist only between atoms neighboring.
+The equilibrium distance is $b$.
+Let $\eta_i=x_i-x_{0i}$ the deviation from the equilibrium point,
+hence
+\begin{align*}
+    V &= 
+    \frac{k}{2}(\eta_2 - \eta_1)^2 + 
+    \frac{k}{2}(\eta_3 - \eta_2)^2 \\
+    T &= \frac{m}{2}(\dot\eta_1^2 + \dot\eta_3^2) + \frac{M}{2}\dot\eta_2^2
+\end{align*}
+Let COM is at rest, then we can drive that
+\begin{align*}
+    \eta_2 &= -\frac{m}{M}(\eta_1 + \eta_3)
+\end{align*}
+Then there are only two DOFs left.
+Define $\xi_1 = \eta_1 + \eta_3$, $\xi_3 = \eta_1 - \eta_3$,
+then
+\begin{align*}
+    V &= \frac{k}{4}\left[
+        \frac{(M+2m)^2}{M^2}\xi_1^2 + \xi_3^2
+    \right]\\
+    T &= \frac{m}{4}(\dot\xi_1^2 + \dot\xi_3^2) + \frac{m^2}{2M}\dot\xi_1^2
+\end{align*}
+We have two methods to solve the EOM. 
+First, we can consider the Lagrangian.
+Note that $\xi_1$ and $\xi_3$ are independent,
+which means that we can solve two frequencies independently
+\begin{align*}
+    \omega_1 &= \sqrt{\frac{k}{m}\frac{M+2m}{M}},~ 
+    \omega_2  = \sqrt{\frac{k}{m}}
+\end{align*}
+Or, we can solve it by the eigenvalue equation (wrt $eta_i$, $i=1,2,3$)
+\begin{align*}
+    \begin{bmatrix}
+        k & -k & 0 \\
+        -k & 2k & -k \\
+        0 & -k & k
+    \end{bmatrix}
+    \mathbf C &= 
+    \omega^2
+    \begin{bmatrix}
+        m & & \\
+          & M & \\
+          & & m
+    \end{bmatrix}
+    \mathbf C
+\end{align*}
+we can solve three frequencies
+\begin{align*}
+    \omega_1 &= 0,~
+    \omega_2  = \sqrt{\frac{k}{m}\frac{M+2m}{M}},~ 
+    \omega_3  = \sqrt{\frac{k}{m}}
+\end{align*}
+The zero frequency suggests that $\dot\xi_1 = 0$,
+which corresponds to the translational motion. 
+
+
+\end{example}
 
 
 
