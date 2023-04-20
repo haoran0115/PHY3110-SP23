@@ -2108,10 +2108,25 @@ We need to solve the eigenvalue equation $\mathbb V\mathbf C = \omega^2\mathbb T
 \end{example}
 
 \begin{example}[Linear triatomic molecule]~
+\tikzexternalenable
 \begin{figure}[H]
     \centering
-    \hl{draw figure}
+    \def\b{1}
+    \def\h{0.14}
+    \begin{tikzpicture}[scale=1.8]
+        \coordinate (A) at (-\b, 0);
+        \coordinate (B) at (  0, 0);
+        \coordinate (C) at ( \b, 0);
+        \draw[fill] (A) circle (1pt) node[below] {$m$};
+        \draw[fill] (B) circle (1pt) node[below] {$M$};
+        \draw[fill] (C) circle (1pt) node[below] {$m$};
+        \draw[thick] (A) -- (B) -- (C);
+        \begin{scope}[shift={(0, \h)}]
+            \draw[Bar-Bar] (-\b, 0) -- node[midway,inner sep=0pt,fill=white] {$b$} (0, 0);
+        \end{scope}
+    \end{tikzpicture}
 \end{figure}
+\tikzexternaldisable
 We consider vibration along the line of the molecule only.
 Interactions exist only between atoms neighboring.
 The equilibrium distance is $b$.
@@ -2168,10 +2183,255 @@ we can solve three frequencies
 \end{align*}
 The zero frequency suggests that $\dot\xi_1 = 0$,
 which corresponds to the translational motion. 
-
-
 \end{example}
 
+In the previous example, we have considered the motion along
+the molecular axis, i.e., 1D.
+In more general case, we consider the motion in 3D,
+then the rigid body $\text{DOFs} = 6$ ($3$ rotational and $1$ translational).
+
+For a general system of $n$ DOFs, there will be $n-6$ true vibration
+frequencies/DOFs, and $6$ vanishing frequencies corresponding to the
+rigid body motion or DOFs.
+
+\begin{example}[Vertical vibrations]
+\begin{figure}[H]
+    \centering
+    \hl{draw figure}
+\end{figure}
+We assume that there are no COM motions and no COM rotation
+\begin{align*}
+    my_1 + my_2 + my_3 &= 0,~m\dot y_1l - m\dot y_3l = 0
+    \Rightarrow y_3 = y_1,~ y_2 = -\frac{2m}{M}y_1
+\end{align*}
+There is only one DOF $y_1$ left, the Lagrangian is
+\begin{align*}
+    L = T - V = \frac{m}{M}(M+2m)\dot y_1^2 - \frac{1}{2}k_1y_1^2
+\end{align*}
+Then we can solve the frequency
+\begin{align*}
+    \omega &= \sqrt{
+        \frac{k_1M}{m}(M+2m)
+    }
+\end{align*}
+\end{example}
+
+
+\newpage
+\section{Hamiltonian Equations of Motion}
+\subsection{Legendre transformation}
+\begin{definition}[Legendre transformation]
+Let $\d f = u\d x$, the Legendre transformation of $f$ is
+\begin{align}
+    g &= f - ux,~ \d g = \d f - u\d x - x\d u = -x\d u
+\end{align}
+\end{definition}
+\begin{example}[Thermodynamics]
+Internal energy $U$
+\begin{align*}
+    \d U &= \d Q - P\d V
+    = T\d S - P\d V
+\end{align*}
+Enthalpy $H= U + PV$
+\begin{align*}
+    \d H &= \d U + P\d V + V\d P
+    = T\d S + V\d P
+\end{align*}
+Helmholtz free energy $F = U-TS$
+\begin{align*}
+    F &= -S\d T - P\d V
+\end{align*}
+Gibbs free energy $G = U - TS + PV$
+\begin{align*}
+    \d G &= V \d P - S\d T
+\end{align*}
+\end{example}
+
+The canonical momentum is
+\begin{align}
+    p_i &= \frac{\partial L}{\partial\dot q_i}
+\end{align}
+Define Hamiltonian $H$
+\begin{align}
+    H(q_i,p_i,t) &= 
+    p_i\dot q_i - L(q_i,\dot q_i, t)
+\end{align}
+Hence
+\begin{align}
+    \d H &= p_i\d\dot q_i + \dot q_i\d p_i - \d L\\
+    &= p_i\d \dot q_i + \dot q_i \d p_i 
+    - \frac{\partial L}{\partial q_i}\d q_i
+    - \frac{\partial L}{\partial \dot q_i}\d\dot q_i
+    - \frac{\partial L}{\partial t}\d t\\
+    &= p_i\d \dot q_i + \dot q_i \d p_i 
+    - \frac{\d}{\d t}\frac{\partial L}{\partial\dot q_i}\d q_i
+    - p_i \d\dot q_i
+    - \frac{\partial L}{\partial t}\d t\\
+    &= \dot q_i\d p_i - \dot p_i\d q_i - \frac{\partial L}{\partial t}\d t
+\end{align}
+We can get $2n$ 1\textsuperscript{st} order ODEs,
+which are called Hamilton's equations
+\begin{align}
+    \dot q_i &= \frac{\partial H}{\partial p_i}\\
+    \dot p_i &= -\frac{\partial H}{\partial q_i}\\
+    -\frac{\partial L}{\partial t} &= \frac{\partial H}{\partial t}
+\end{align}
+
+Standard steps to go from Lagrangian formalism to Hamiltonian formalism
+\begin{enumerate}[label=\arabic*)]
+    \item Construct $L=L(q_i,\dot q_i, t)$ as a function of well-suited
+    generalized coordinates and velocities
+    \item Derive the generalized/canonical momentum $p_i=\partial L/\partial\dot q_i$
+    \item Do the Legendre transform $H=p_i\dot q_i - L$
+    \item Use $p_i$ to obtain $\dot q_i$ as function of $H(q_i, p_i, t)$
+\end{enumerate}
+
+\begin{example}[Particle in a central force field]
+Choose the generalized coordinates $(r,\theta,\phi)$.
+\begin{align*}
+    L &= T - V
+    = \frac{1}{2}m(\dot r^2 + r^2\dot\theta^2 + r^2\sin^2\theta\dot\phi^2)
+    - V(r)\\
+    p_r &= m\dot r,~
+    p_\theta = mr^2\dot\theta,~
+    p_\phi = mr^2\sin^2\theta\dot\phi
+\end{align*}
+Then the Hamiltonian is
+\begin{align*}
+    H &= p_i\dot q_i - L
+    = \frac{1}{2m}\left(p_r^2 + \frac{p_\theta^2}{r^2} 
+    + \frac{p_\phi^2}{r^2\sin^2\theta}\right) + V
+\end{align*}
+\end{example}
+
+\begin{example}[Particle in a EM field]
+\begin{align*}
+    L &= T - U = \frac{1}{2}m\mathbf v^2 - q\phi + q\mathbf{A}\cdot \dot\mathbf v
+    = \frac{1}{2}m\dot x_i^2 - q\phi + q A_i\dot x_i
+\end{align*}
+Then
+\begin{align*}
+    p_i &= m\dot x_i + qA_i\\
+    H &= p_i\dot x_i - L
+    = (m\dot x_i + qA_i)\dot x_i - L
+    = \frac{1}{2}m\dot x_i^2 + q\phi
+    = \frac{1}{2m}(p_i - qA_i)^2 + q\phi
+\end{align*}
+\end{example}
+
+\begin{example}[1D harmonic oscillator]
+\begin{align*}
+    L &= T - V = \frac{1}{2}m\dot x^2 - \frac{1}{2}kx^2,~
+    p = m\dot x
+\end{align*}
+Hence
+\begin{align*}
+    H &= \frac{p^2}{2m} + \frac{1}{2}kx^2
+\end{align*}
+Hamilton's equations are
+\begin{align*}
+    \dot p &= -kx,~
+    \dot x = \frac{p}{m}
+\end{align*}
+\end{example}
+
+Recall the Hamilton's principle of L
+\begin{align}
+    \delta I &= \delta \int_1^2 L\d t = 0\\
+    \Rightarrow
+    \delta I &=
+    \delta\int_1^2
+    \underbrace{
+        (p_i\dot q_i - H)
+    }_{f(q_i,\dot q_i, p_i, \dot p_i, t)} \d t
+    = 0
+\end{align}
+which is called modified Hamilton's principle.
+Hence, there are two sets of Euler-Lagrange equations
+\begin{align}
+    \frac{\d}{\d t}\frac{\partial f}{\partial\dot q_i}
+    - \frac{\partial f}{\partial q_i} &= 0\\
+    \frac{\d}{\d t}\frac{\partial f}{\partial\dot p_i}
+    - \frac{\partial f}{\partial p_i} &= 0
+\end{align}
+Then imply that
+\begin{align}
+    \dot p_i &= -\frac{\partial H}{\partial q_i}\\
+    \dot q_i &=  \frac{\partial H}{\partial p_i}
+\end{align}
+
+In Lagrangian formalism, the change of variable
+$q_i\rightarrow Q_i(q_j, t)$ does not change the EOM, i.e.,
+they are equivalent.
+However, in Hamiltonian formalism, the change of coordinate
+$q_i,p_i\rightarrow Q_i, P_i(q_j, p_j, t)$, the transformation
+cannot be arbitrary, the new variables need to satisfy
+\begin{align}
+    \dot P_i &= -\frac{\partial H'}{\partial Q_i}\\
+    \dot Q_i &=  \frac{\partial H'}{\partial P_i}
+\end{align}
+\begin{definition}[Canonical transformation]
+The transformation $(q_i,p_i,t)\rightarrow (Q_i,P_i,t)$ which preserves 
+Hamilton's equations is called a canonical transformation.
+\end{definition}
+For the old coordinates
+\begin{align}
+    \delta\int_1^2 p_i\dot q_i - H(q,p,t)\d t = 0
+\end{align}
+The new coordinates (should) implies
+\begin{align}
+    \delta\int_1^2 P_i\dot Q_i - H'(Q,P,t)\d t = 0
+\end{align}
+There is a relationship
+\begin{align}
+    (P_i\dot Q_i - H') &= \lambda (p_i\dot q_i - H) + \frac{\d F}{\d t}
+    \label{eq:transform}
+\end{align}
+where $\delta F_1 = \delta F_2 = 0$,
+$F$ is called the generating function of canonical transformations.
+As long as Equation \ref{eq:transform} holds, the Hamilton's equations hold.
+Note that
+\begin{align}
+    \d F &= p_i\d q_i - P_i\d Q_i + (H' - H)\d t,~
+    F = F(q_i, Q_i, t)\\
+    p_i &= \frac{\partial F}{\partial q_i},~
+    P_i = -\frac{F}{\partial Q_i},~
+    H   = H' - \frac{\partial F}{\partial t}
+\end{align}
+Perform Legendre transformation of $P_i$ and $Q_i$ for $F$
+\begin{align}
+    F'(q_i, P_i, t) &= F(q_i, Q_i, t) + Q_iP_i\\
+    \Rightarrow
+    \d F' &= p_i\d q_i + Q_i\d P_i + (H' - H)\d t
+\end{align}
+\begin{table}[H]
+\centering
+\begin{tabular}{ll}
+    \toprule
+    Generating function & Derivative relations\\
+    \midrule
+    $F_1=F_1(q, Q, t)$ & $p_i=\partial F_1/\partial q_i$, $P_i=-\partial F_1/\partial Q_i$\\
+    $F_2=F_1(q, Q, t)+Q_iP_i$ & $p_i=\partial F_1/\partial q_i$, $Q_i=\partial F_2/\partial P_i$\\
+    $F_3=F_1(q, Q, t)-q_ip_i$ & $q_i=-\partial F_3/\partial p_i$, $P_i=-\partial F_3/\partial Q_i$\\
+    $F_4=F_1(q, Q, t)+Q_iP_i-q_ip_i$ & $q_i=-\partial F_4/\partial p_i$, $Q_i=\partial F_1/\partial P_i$\\
+    \bottomrule
+\end{tabular}
+\end{table}
+\begin{example}[Identity canonical transformation]
+Introduce $F_2 = q_iP_i$, then
+\begin{align}
+    p_i &= \frac{\partial F_2}{q_i} = P_i,~
+    Q_i  = \frac{\partial F_2}{P_i} = q_i
+\end{align}    
+\end{example}
+\begin{example}[Switch the coordinate and momentum]
+Let $F_1 = q_iQ_i$, then
+\begin{align}
+    p_i &= \frac{\partial F_1}{\partial q_i} = Q_i,~
+    P_i  = -\frac{\partial F_1}{\partial Q_i} = q_i
+\end{align}
+where we have $(p_, q_i)\rightarrow (Q_i=p_i, p_i=-q_i)$.
+\end{example}
 
 
 % \end{multicols*}

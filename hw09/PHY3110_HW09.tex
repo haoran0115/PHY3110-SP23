@@ -1,0 +1,350 @@
+%! TeX program    = xelatex
+%! TEX-TS program = xelatex
+\documentclass[twoside,11pt]{article}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{sectsty}
+\usepackage{mathrsfs} % mathscr
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage{pgfplots}
+\usepackage{multicol}
+\usepackage{listings}
+% \usepackage{amsart}
+\usepackage{fontspec}
+\usepackage{soul}
+
+
+% allow H option of figure
+\usepackage{float}
+
+% math font (libertine)
+\usepackage{libertinus-otf}
+
+% braket
+\usepackage{braket}
+
+% tikz library
+\usetikzlibrary{decorations,calligraphy,calc,external,patterns}
+\tikzexternalize
+\tikzexternaldisable
+
+% physics
+% \usepackage{physics}
+
+% define latin modern font environment
+\newcommand{\lms}{\fontfamily{lmss}\selectfont} % Latin Modern Roman
+% \newcommand{\lmss}{\fontfamily{lmss}\selectfont} % Latin Modern Sans
+% \newcommand{\lmss}{\fontfamily{lmtt}\selectfont} % Latin Modern Mono
+
+% % change mathcal shape
+% \usepackage[mathcal]{eucal}
+
+
+% define math operators
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\XX}{\mathbb{Y}}
+\newcommand{\CL}{\mathcal{L}}
+% \renewcommand{\d}{\mathrm{d}}
+\renewcommand*\d{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\erf}{erf}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+
+% section font style
+\sectionfont{\sffamily\Large}
+\subsectionfont{\sffamily\normalsize}
+\subsubsectionfont{\bf}
+
+% line spreading and break
+\hyphenpenalty=5000
+\tolerance=20
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+\allowdisplaybreaks
+\linespread{0.9}
+
+% enumerate settings
+% no break before enumerate
+\setlist[enumerate]{itemsep=2pt,topsep=2pt}
+
+% theorem
+% latex theorem
+% definition style
+\theoremstyle{definition}
+\newtheorem{theorem}{\lms Theorem}[subsection]
+\newtheorem{axiom}{\lms Axiom}[section]
+\newtheorem{definition}{\lms Definition}[section]
+\newtheorem{example}{\lms Example}[section]
+\newtheorem{question}{\lms Question}[section]
+\newtheorem{exercise}{\lms Exercise}[section]
+\newtheorem*{exercise*}{\lms Exercise}
+\newtheorem{lemma}{\lms Lemma}[section]
+\newtheorem{proposition}{\lms Proposition}[section]
+\newtheorem{corollary}{\lms Corollary}[section]
+\newtheorem*{theorem*}{\lms Theorem}
+\newtheorem{problem}{\lms Problem}
+% remark style
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\newtheorem*{claim}{Claim}
+
+
+% paragraph indent
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+
+\newcommand\Code{PHY3110 SP23}
+\newcommand\Ass{HW09}
+\newcommand\name{Haoran Sun}
+\newcommand\mail{haoransun@link.cuhk.edu.cn}
+
+\title{{\lms \Code \ \Ass}}
+\author{\lms \name \ (\href{mailto:\mail}{\mail})}
+\date{\sffamily \today}
+
+\makeatletter
+% \let\Title\@title
+\let\theauthor\@author
+\let\thedate\@date
+
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    \lhead{\lms \Ass}
+    \rhead{\lms \name}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancypagestyle{title}{%
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    % \lhead{\Title}
+    % \rhead{\theauthor}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancyfootoffset[L]{0.3cm}
+
+% re-define title format
+\makeatletter
+\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
+\begin{flushleft}
+  \textbf{\Large\@title}
+
+  \@author
+\end{flushleft}\egroup
+}
+\makeatother
+
+\pagestyle{plain}
+
+% lstlisting settings
+\lstset{
+    basicstyle=\linespread{0.7}\footnotesize,
+    breaklines=true,
+    basewidth=0.5em
+}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{title}
+% \begin{multicols*}{2}
+
+\begin{problem}
+A mass particle moves in a constant vertical gravitational field along the curve
+defined by $y=ax^4$, where $y$ is the vertical direction.
+Find the equation of motion for small oscillations around the equilibrium position.
+\end{problem}
+\begin{solution}
+Let $L=L(x,\dot x, t)$.
+The kinetic energy $T$ is
+\begin{align*}
+    T &= \frac{1}{2}(\dot x^2 + \dot y^2) = \frac{1}{2}(\dot x^2 + 16a^2x^6\dot x^2)
+    = \frac{1}{2}m(1 + 16a^2x^6) \dot x^2
+\end{align*}
+And the potential energy is
+\begin{align*}
+    V &= mgy = mgax^4
+\end{align*}
+Then $V$ has only one equilibrium point at $x_0=0$.
+Let $\eta = x-x_0$, around $0$ we have
+\begin{align*}
+    T &= \frac{1}{2}m \dot \eta^2, ~V= mga\eta^4\\
+    L &= T - V = \frac{1}{2}m\dot\eta^2 - mga\eta^4
+\end{align*}
+Hence the EOM is 
+\begin{align*}
+    m\ddot \eta + mga \eta &= 0
+\end{align*}
+\end{solution}
+
+
+
+
+\begin{problem}
+Find the normal modes of vibration for a system described by the following kinetic
+and potential energy:
+\begin{align*}
+    T &= \frac{1}{2}mR^2 (\dot\theta_1^2 + \dot\theta_2^2 + \dot\theta_3^2),~
+    V  = \frac{1}{2}kR^2[
+    (\theta_1 - \theta_2)^2 + 
+    (\theta_2 - \theta_3)^2 +
+    (\theta_3 - \theta_1)^2
+    ]
+\end{align*}
+\end{problem}
+\begin{solution}
+Note that
+\begin{align*}
+    \mathbb{T} &= mR^2\mathbb{I},~
+    \mathbb{V}  = kR^2
+    \begin{bmatrix}
+        2 & -1 & -1\\
+        -1 & 2 & -1\\
+        -1 & -1 & 2
+    \end{bmatrix}
+\end{align*}
+Then we have the eigenvalue equation
+\begin{align*}
+    \omega^2\mathbb{T}\mathbf{C} &=
+    \mathbb{V}\mathbf{C}
+\end{align*}
+Easy to solve that there are three modes
+\begin{align*}
+    \omega_1 &=0,~\mathbf{C}_1 = \frac{1}{\sqrt{3mR^2}}
+    \begin{bmatrix}
+        1 \\ 1 \\ 1
+    \end{bmatrix}\\
+    \omega_2 &=\sqrt{3k/m},~\mathbf{C}_2 = \frac{1}{\sqrt{2mR^2}}
+    \begin{bmatrix}
+        1 \\ -1 \\ 0
+    \end{bmatrix}\\
+    \omega_3 &=\sqrt{3k/m},~\mathbf{C}_3 = \frac{1}{\sqrt{2mR^2}}
+    \begin{bmatrix}
+        1 \\ 0 \\ -1
+    \end{bmatrix}
+\end{align*}
+where $\mathbf{C}_1$ corresponds to the translation,
+$\mathbf{C}_2$ and $\mathbf{C}_3$ corresponds to the vibration.
+\end{solution}
+
+
+
+
+\begin{problem}
+Consider a system under small oscillations.
+Express its kinetic and potential energy in terms of normal coordiantes.
+Try to show that the time average of the kinetic energy is equal to that of the 
+potential energy.
+\end{problem}
+\begin{solution}
+For a small oscillation problem
+\begin{align*}
+    T &= \frac{1}{2}\dot\xi_\alpha^2,~
+    V  = \frac{1}{2}\omega_\alpha^2\xi_\alpha^2\\
+    L &= \frac{1}{2}\dot\xi_\alpha^2 - \frac{1}{2}\omega_\alpha^2\xi_\alpha^2
+\end{align*}
+where sum is taken on $\alpha$
+Thus we have EOMs
+\begin{align*}
+    \ddot\xi_\alpha &= -\omega_\alpha^2\xi,~
+    \xi = A_\alpha\cos(\omega_\alpha + \varphi_\alpha)
+\end{align*}
+Hence
+\begin{align*}
+    T &= \frac{1}{2}A_\alpha^2\omega_\alpha^2\sin^2(\omega_\alpha^2 t + \varphi_\alpha)\\
+    V &= \frac{1}{2}A_\alpha^2\omega_\alpha^2\cos^2(\omega_\alpha^2 t + \varphi_\alpha)
+\end{align*}
+Easy to prove that
+\begin{align*}
+    \frac{\omega_\alpha}{2\pi}\int_0^{2\pi/\omega_\alpha}
+    T_\alpha\d t &= 
+    \frac{\omega_\alpha}{2\pi}\int_0^{2\pi/\omega_\alpha}
+    V_\alpha\d t
+\end{align*}
+Hence for enough long time period $\tau$, we have $\overline{T}=\overline{V}$.
+\end{solution}
+
+
+
+
+\begin{problem}
+A simple pendulum of length $l$ and mass $m$ is attached to a block of mass $2m$,
+which can slide on a frictionless surface.
+Assume the motion is in the vertical plane, solve the small oscillation problem 
+for this system.
+\end{problem}
+\begin{solution}
+Let $x$ denotes the position of the block and $\theta$ be the angle
+form by pendulum and the vertical line (counterclockwise).
+Then
+\begin{align*}
+    T &= m\dot x^2 + \frac{1}{2}m
+    (l^2\dot\theta^2 + \dot x^2 - 2l\dot x\dot\theta\cos\theta),~
+    V  = -\cos\theta mg
+\end{align*}
+Around the equilibrium point $\theta=0$, we have
+\begin{align*}
+    T &= m\dot x^2 + \frac{1}{2}m(l\dot\theta - \dot x)^2,~
+    V  = \frac{1}{6}mg\dot\theta^2
+\end{align*}
+Hence
+\begin{align*}
+    \mathbb{T} &= \begin{bmatrix}
+        3m & -lm \\ -lm & ml^2
+    \end{bmatrix},~
+    \mathbb{V}  = \begin{bmatrix}
+        0 & 0 \\ 0 & mg/3
+    \end{bmatrix}
+\end{align*}
+Then we can write an eigenvalue equation
+\begin{align*}
+    \omega^2\mathbf{C} &= \mathbb{T}^{-1}\mathbb{V}\mathbf{C}
+\end{align*}
+The solutions are
+\begin{align*}
+    \omega_1 &= 0,~ \mathbf{C}_1 = \frac{1}{\sqrt{3m}}\begin{bmatrix}
+        1\\ 0
+    \end{bmatrix}\\
+    \omega_2 &= \sqrt{g/2l},~ \mathbf{C}_2 = \frac{1}{\sqrt{ml^2}}\begin{bmatrix}
+        l\\ 3
+    \end{bmatrix}
+\end{align*}
+where the first frequency corresponds to the translational motion,
+the second frequency corresponds to the oscillation.
+
+\end{solution}
+
+% \end{multicols*}
+\end{document}
+
