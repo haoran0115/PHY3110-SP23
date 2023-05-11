@@ -1,0 +1,364 @@
+%! TeX program    = xelatex
+%! TEX-TS program = xelatex
+\documentclass[twoside,11pt]{article}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+\usepackage{sectsty}
+\usepackage{mathrsfs} % mathscr
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usepackage{pgfplots}
+\usepackage{multicol}
+\usepackage{listings}
+% \usepackage{amsart}
+\usepackage{fontspec}
+\usepackage{soul}
+
+
+% allow H option of figure
+\usepackage{float}
+
+% math font (libertine)
+\usepackage{libertinus-otf}
+
+% braket
+\usepackage{braket}
+
+% tikz library
+\usetikzlibrary{decorations,calligraphy,calc,external,patterns}
+\tikzexternalize
+\tikzexternaldisable
+
+% physics
+% \usepackage{physics}
+
+% define latin modern font environment
+\newcommand{\lms}{\fontfamily{lmss}\selectfont} % Latin Modern Roman
+% \newcommand{\lmss}{\fontfamily{lmss}\selectfont} % Latin Modern Sans
+% \newcommand{\lmss}{\fontfamily{lmtt}\selectfont} % Latin Modern Mono
+
+% % change mathcal shape
+% \usepackage[mathcal]{eucal}
+
+
+% define math operators
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\XX}{\mathbb{Y}}
+\newcommand{\CL}{\mathcal{L}}
+% \renewcommand{\d}{\mathrm{d}}
+\renewcommand*\d{\mathop{}\!\mathrm{d}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\erf}{erf}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+
+% section font style
+\sectionfont{\sffamily\Large}
+\subsectionfont{\sffamily\normalsize}
+\subsubsectionfont{\bf}
+
+% line spreading and break
+\hyphenpenalty=5000
+\tolerance=20
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+\allowdisplaybreaks
+\linespread{0.9}
+
+% enumerate settings
+% no break before enumerate
+\setlist[enumerate]{itemsep=2pt,topsep=2pt}
+
+% theorem
+% latex theorem
+% definition style
+\theoremstyle{definition}
+\newtheorem{theorem}{\lms Theorem}[subsection]
+\newtheorem{axiom}{\lms Axiom}[section]
+\newtheorem{definition}{\lms Definition}[section]
+\newtheorem{example}{\lms Example}[section]
+\newtheorem{question}{\lms Question}[section]
+\newtheorem{exercise}{\lms Exercise}[section]
+\newtheorem*{exercise*}{\lms Exercise}
+\newtheorem{lemma}{\lms Lemma}[section]
+\newtheorem{proposition}{\lms Proposition}[section]
+\newtheorem{corollary}{\lms Corollary}[section]
+\newtheorem*{theorem*}{\lms Theorem}
+\newtheorem{problem}{\lms Problem}
+% remark style
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\newtheorem*{claim}{Claim}
+
+
+% paragraph indent
+\setlength{\parindent}{0em}
+\setlength\parskip{0.5em}
+
+\newcommand\Code{PHY3110 SP23}
+\newcommand\Ass{HW11}
+\newcommand\name{Haoran Sun}
+\newcommand\mail{haoransun@link.cuhk.edu.cn}
+
+\title{{\lms \Code \ \Ass}}
+\author{\lms \name \ (\href{mailto:\mail}{\mail})}
+\date{\sffamily \today}
+
+\makeatletter
+% \let\Title\@title
+\let\theauthor\@author
+\let\thedate\@date
+
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    \lhead{\lms \Ass}
+    \rhead{\lms \name}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancypagestyle{title}{%
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0pt}
+    % \lhead{\Title}
+    % \rhead{\theauthor}
+    \rfoot{\lms\thepage}
+
+    % # 页脚自定义
+    \fancyfoot[L]{
+        \begin{minipage}[c]{0.06\textwidth}
+            \includegraphics[height=7.5mm]{logo2.png}
+        \end{minipage}
+    }
+}
+\fancyfootoffset[L]{0.3cm}
+
+% re-define title format
+\makeatletter
+\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
+\begin{flushleft}
+  \textbf{\Large\@title}
+
+  \@author
+\end{flushleft}\egroup
+}
+\makeatother
+
+\pagestyle{plain}
+
+% lstlisting settings
+\lstset{
+    basicstyle=\linespread{0.7}\footnotesize,
+    breaklines=true,
+    basewidth=0.5em
+}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{title}
+% \begin{multicols*}{2}
+
+\begin{problem}
+Verify the Jacobi identity for the Poisson brackets.
+\end{problem}
+
+\begin{solution} 
+Let $A_q = \partial_q A$, then
+\begin{align*}
+    \{A, \{B, C\}\} 
+    &= \{A, B_{q_i}C_{p_i} - B_{p_i}C_{q_i}\}\\
+    &= 
+    A_{q_j}(B_{q_ip_j}C_{p_i} + B_{q_i}C_{p_ip_j} - B_{p_ip_j}C_{q_i}
+    - B_{p_i}C_{q_ip_j})
+    -A_{p_j}(B_{q_iq_j}C_{p_i} + B_{q_i}C_{p_iq_j} - B_{p_iq_j}C_{q_i}
+    - B_{p_i}C_{q_iq_j})
+\end{align*}
+Hence $J=\{A, \{B, C\}\} + \{B, \{C, A\}\} + \{C, \{A, B\}\}$ is
+\begin{align*}
+    J &= 
+    A_{q_j}(B_{q_ip_j}C_{p_i} + B_{q_i}C_{p_ip_j} - B_{p_ip_j}C_{q_i}
+    - B_{p_i}C_{q_ip_j})
+    -A_{p_j}(B_{q_iq_j}C_{p_i} + B_{q_i}C_{p_iq_j} - B_{p_iq_j}C_{q_i}
+    - B_{p_i}C_{q_iq_j})\\
+      &+
+    B_{q_j}(C_{q_ip_j}A_{p_i} + C_{q_i}A_{p_ip_j} - C_{p_ip_j}A_{q_i}
+    - C_{p_i}A_{q_ip_j})
+    -B_{p_j}(C_{q_iq_j}A_{p_i} + C_{q_i}A_{p_iq_j} - C_{p_iq_j}A_{q_i}
+    - C_{p_i}A_{q_iq_j})\\
+      &+
+    C_{q_j}(A_{q_ip_j}B_{p_i} + A_{q_i}B_{p_ip_j} - A_{p_ip_j}B_{q_i}
+    - A_{p_i}B_{q_ip_j})
+    -C_{p_j}(A_{q_iq_j}B_{p_i} + A_{q_i}B_{p_iq_j} - A_{p_iq_j}B_{q_i}
+    - A_{p_i}B_{q_iq_j})\\
+      &= 0
+\end{align*}
+\end{solution}
+
+
+
+
+\begin{problem}
+Show by the use of Poisson brackets that for a one-dimensional harmonic oscillator
+there is a constant of motion $u$ defined as
+\begin{align}
+    u(q,p,t) &= \ln(p + im\omega q) - i\omega t,\quad
+    \omega = \sqrt{\frac{k}{m}}
+\end{align}
+\end{problem}
+
+\begin{solution} 
+The Hamiltonian of a one-dimensional harmonic oscillator is 
+\begin{align*}
+    H(q, p, t) &= \frac{1}{2m}(p^2 + m^2\omega^2 q^2)
+\end{align*}
+Hence
+\begin{align*}
+    \frac{\d u}{\d t}
+    &= \{u, H\} + \frac{\partial u}{\partial t}\\
+    &= \frac{im\omega}{p + im\omega q}\frac{p}{q} - 
+    \frac{m\omega^2 q}{p + im\omega q} - i\omega\\
+    &= \frac{1}{p + im\omega q}(i\omega p - m\omega^2 q + m\omega^2 q - i\omega p)\\
+    &= 0
+\end{align*}
+\end{solution}
+
+
+
+
+\begin{problem}
+Show that the following transformation is canonical ($\alpha$ is a fixed parameter):
+\begin{align}
+    x &= \frac{1}{\alpha}(\sqrt{2P_1}\sin Q_1 + P_2), \quad 
+    p_x = \frac{\alpha}{2}(\sqrt{2P_1}\cos Q_1 - Q_2) \nonumber \\
+    y &= \frac{1}{\alpha}(\sqrt{2P_1}\cos Q_1 + Q_2), \quad 
+    p_y = -\frac{\alpha}{2}(\sqrt{2P_1}\sin Q_1 - P_2)
+\end{align}
+Apply this transformation to the problem of a particle of charge $q$ moving
+in a plane that is perpendicular to a constant magnetic field $\mathbf{B}$.
+Express the Hamiltonian fot this problem in the $(Q_i,P_i)$ coordinates
+letting the parameter $\alpha$ take the form
+\begin{align}
+    \alpha^2 &= \frac{qB}{c}
+\end{align}
+From this Hamiltonian, obtain the motion of the particle as a function of time.
+\end{problem}
+
+\begin{solution} 
+To show the transformation is a canonical transformation, consider the Jacobain $\mathbf{J}$
+\begin{align*}
+    \mathbf{J} &= \frac{\partial [\mathbf{Q} ~~ \mathbf{P}]^T}
+    {\partial [\mathbf{q} ~~ \mathbf{p}]^T}\\
+               &= \begin{bmatrix}
+        (2P_1)^{0.5}\cos Q_1/\alpha & 0 & (2P_1)^{-0.5}\sin Q_1 /\alpha & 1/\alpha\\
+        -(2P_1)^{0.5}\sin Q_1/\alpha & 1/\alpha & (2P_1)^{-0.5}\cos Q_1 /\alpha & 0 \\
+        -\alpha(2P_1)^{0.5}\sin Q_1 & -\alpha/2 & \alpha (2P_1)^{-0.5}\cos Q_1/2 & 0\\
+        -\alpha(2P_1)^{0.5}\cos Q_1 & 0 & \alpha (2P_1)^{-0.5}\cos Q_1/2 & \alpha/2
+    \end{bmatrix}
+\end{align*}
+We can show that
+\begin{align*}
+    \mathbf{J}
+    \begin{bmatrix}
+        & -\mathbb{1} \\ \mathbb{1} & 
+    \end{bmatrix}
+    \mathbf{J}^T &= 
+    \begin{bmatrix}
+        & -\mathbb{1} \\ \mathbb{1} & 
+    \end{bmatrix}
+\end{align*}
+Hence, it is a cannonical transformation.
+
+To simplify calculation, let $c=1$, then $\alpha^2 = qB$.
+Hence
+\begin{align*}
+    L &= \frac{1}{2}m\mathbf{v}^2 - q\phi + q\mathbf{A}\cdot\mathbf{v},\quad
+    H  = \mathbf{v}\cdot \mathbf{p} - L = \frac{1}{2}m\mathbf{v}^2 = \frac{1}{2m}(\mathbf{p} - q\mathbf{A})^2
+\end{align*}
+Since $\mathbf{B} = \begin{bmatrix}0 & 0 & B\end{bmatrix}^T$, there are multiple choices of $\mathbf{A}$,
+for example 
+\begin{align*}
+    \begin{bmatrix}
+        0 \\ Bx \\ 0
+    \end{bmatrix},~~
+    \begin{bmatrix}
+        -By \\ 0 \\ 0
+    \end{bmatrix},~~
+    \begin{bmatrix}
+        -By/2 \\ Bx/2 \\ 0
+    \end{bmatrix}
+\end{align*}
+I will adopt the last one to simply the calculation.
+Suppose we have $A_x = -By/2$, $A_y = Bx/2$, $A_z=0$, then
+\begin{align*}
+    H &= \frac{1}{2m}[(p_x - qA_x)^2 + (p_y - qA_y)^2] \\
+      &= \frac{1}{2m}(\alpha^2 2P_1\sin^2 Q_1 + \alpha^2 2P_1\cos^2 P_1)\\
+      &= \frac{qB}{m}P_1
+\end{align*}
+In this case, the solution of EOM is
+\begin{align*}
+    Q_1 &= \frac{qB}{m} t + C_1\\
+    Q_2 &= C_2\\
+    P_1 &= C_3\\
+    P_2 &= C_4
+\end{align*}
+
+
+\end{solution}
+
+
+
+
+\begin{problem}
+Use the method of infinitesimal canonical transformation to solve the motion of
+a one-dimensional harmonic oscillator as a function of time.
+\end{problem}
+
+\begin{solution} 
+Let $G=H$, $U=q$, then
+\begin{align*}
+    U' &= [q, H] = \frac{p}{m}\\
+    U'' &= [p/m, H] = -\omega^2 q\\
+    U''' &= -\omega^2 \frac{p}{m}\\
+    U^{(4)} &= \omega^4 q
+\end{align*}
+Therefore
+\begin{align*}
+    q(t) &= q_0 + \frac{p_0}{m}t - \frac{1}{2!}\omega^2q_0 t^2 - \frac{1}{3!}
+    \omega^3 \frac{p_0}{m} t^3 
+    + \frac{1}{4!}\omega^4 q_0 t^4 + \cdots\\
+         &= q_0\cos\omega t + \frac{p_0}{m\omega}\sin\omega t
+\end{align*}
+Follow the same way, we can also get $p(t)$
+\begin{align*}
+    p(t) &= -m\omega q_0\sin\omega t + p_0\cos\omega t
+\end{align*}
+where $q_0=q(0)$ and $p_0=p(0)$.
+
+\end{solution}
+
+
+% \end{multicols*}
+\end{document}
+
